@@ -1,9 +1,12 @@
+using GadevangGruppe3Razor.Interfaces;
 using GadevangGruppe3Razor.Models;
+using GadevangGruppe3Razor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IBaneService,BaneService>();
 
 var app = builder.Build();
 
