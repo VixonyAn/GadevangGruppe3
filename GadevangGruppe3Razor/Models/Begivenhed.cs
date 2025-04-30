@@ -7,6 +7,9 @@ namespace GadevangGruppe3Razor.Models
 {
     public class Begivenhed : IBegivenhed
     {
+        #region Properties
+        public int EventId { get; set; }
+
         [Required(ErrorMessage = "Titel er påkrævet")]
         [StringLength(50, ErrorMessage = "Overskredet max karakter længde af 50")]
         public string Titel { get; set; }
@@ -15,14 +18,35 @@ namespace GadevangGruppe3Razor.Models
         [StringLength(60, ErrorMessage = "Overskredet max karakter længde af 60")]
         public string Sted { get; set; }
 
-        public decimal Pris { get; set; }
+        [Required(ErrorMessage = "Dato er påkrævet")]
+        public DateTime Dato { get; set; }
 
+        [Required(ErrorMessage = "Beskrivelse er påkrævet")]
         [StringLength(255, ErrorMessage = "Overskredet max karakter længde af 255")]
         public string Beskrivelse { get; set; }
 
-        public Date Dato { get; set; }
-
+        [Required(ErrorMessage = "MedlemMax er påkrævet")]
         public int MedlemMax { get; set; }
+
+        public decimal? Pris { get; set; }
+        #endregion
+
+        #region Constructors
+        //Empty
+        public Begivenhed() { }
+
+        //Full
+        public Begivenhed(int eventId, string titel, string sted, DateTime dato, string beskrivelse, int medlemMax, decimal? pris)
+        {
+            EventId = eventId;
+            Titel = titel;
+            Sted = sted;
+            Dato = dato;
+            Beskrivelse = beskrivelse;
+            MedlemMax = medlemMax;
+            Pris = pris;
+        }
+        #endregion
 
         public override string ToString()
         {

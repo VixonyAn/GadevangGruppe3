@@ -8,10 +8,10 @@ namespace GadevangGruppe3Razor.Interfaces
     {
         string Titel { get; set; }
         string Sted { get; set; }
-        decimal Pris { get; set; }
+        DateTime Dato { get; set; }
         string Beskrivelse { get; set; }
-        Date Dato { get; set; }
         int MedlemMax { get; set; }
+        decimal? Pris { get; set; }
         string ToString();
     }
 }
