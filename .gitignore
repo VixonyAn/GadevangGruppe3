@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /GadevangGruppe3/Secret.cs
+/GadevangGruppe3Razor/Secret.cs
