@@ -2,6 +2,7 @@
 {
     public enum BaneType
     {
-        Tennis,Paddel
+        Tennis, //0
+        Paddel  //1
     }
 }

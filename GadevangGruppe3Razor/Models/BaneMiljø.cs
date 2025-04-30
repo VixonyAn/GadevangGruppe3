@@ -2,6 +2,7 @@
 {
     public enum BaneMiljø
     {
-        Udendørs, Indendørs
+        Udendørs   //0
+       , Indendørs //1
     }
 }
