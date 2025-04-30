@@ -30,11 +30,11 @@ namespace GadevangGruppe3Razor.Services
                         int eventId = reader.GetInt32("EventId");
                         string titel = reader.GetString("Titel");
                         string sted = reader.GetString("Sted");
-                        double? pris = reader.GetDouble("Pris");
-                        string? beskrivelse = reader.GetString("Beskrivelse");
-                        DateTime? dato = reader.GetDateTime("Dato");
-                        int? medlemMax = reader.GetInt32("MedlemMax");
-                        Begivenhed begivenhed = new Begivenhed(eventId, titel, sted, pris, beskrivelse, dato, medlemMax);
+                        DateTime dato = reader.GetDateTime("Dato");
+                        string beskrivelse = reader.GetString("Beskrivelse");
+                        int medlemMax = reader.GetInt32("MedlemMax");
+                        decimal? pris = reader.GetDecimal("Pris");
+                        Begivenhed begivenhed = new Begivenhed(eventId, titel, sted, dato, beskrivelse, medlemMax, pris);
                         begivenheder.Add(begivenhed);
                     }
                     reader.Close();
