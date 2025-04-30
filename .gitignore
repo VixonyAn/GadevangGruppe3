@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /GadevangGruppe3/Secret.cs
 /GadevangGruppe3Razor/Secret.cs
+/GadevangGruppe3Razor/Services/Secret.cs
