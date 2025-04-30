@@ -28,7 +28,7 @@ namespace GadevangGruppe3Razor.Services
             {
                 try 
                 {
-                    SqlCommand command = new SqlCommand(_SelectSQL,connection);
+                     SqlCommand command = new SqlCommand(_SelectSQL,connection);
                     await command.Connection.OpenAsync();
                     SqlDataReader reader = await command.ExecuteReaderAsync();
                     Thread.Sleep(1000);
