@@ -10,7 +10,7 @@ namespace GadevangGruppe3Razor.Services
     {
         private String connectionString = Secret.ConnectionString;
         private string selectSql = "Select BrugerId, Brugernavn, Adgangskode, Email, Telefon, Verificeret, Medlemskab, Position from Bruger";
-        private string insertSql = "Insert into Bruger (Brugernavn, Adgangskode, Email, Telefon, Verificeret, Medlemskab, Position) values (@Brugernavn, @Adgangskode, @Email, @Telefon, @Verificeret, @Medlemskab, @Position)";
+        private string insertSql = "Insert into Bruger (BrugerID, Brugernavn, Adgangskode, Email, Telefon, Verificeret, Medlemskab, Position) values (@BrugerID, @Brugernavn, @Adgangskode, @Email, @Telefon, @Verificeret, @Medlemskab, @Position)";
         private string deleteSql = "Delete from Bruger where BrugerId = @BrugerId";
         private string updateSql = "Update Bruger set Username = @Username, Adgangskode = @Adgangskode, Email = @Email, Telefon = @Telefon, Verificeret = @Verificeret, Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
         public async Task<bool> CreateBrugerAsync(Bruger bruger)
@@ -22,6 +22,7 @@ namespace GadevangGruppe3Razor.Services
                 {
                     SqlCommand command = new SqlCommand(insertSql, connection);
                     await command.Connection.OpenAsync();
+                    command.Parameters.AddWithValue("@BrugerId", bruger.BrugerId);
                     command.Parameters.AddWithValue("@Brugernavn", bruger.Brugernavn);
                     command.Parameters.AddWithValue("@Adgangskode", bruger.Adgangskode);
                     command.Parameters.AddWithValue("@Email", bruger.Email);
@@ -99,6 +100,7 @@ namespace GadevangGruppe3Razor.Services
                     SqlDataReader reader = await command.ExecuteReaderAsync();
                     while (await reader.ReadAsync())
                     {
+                        int brugerId = reader.GetInt32("BrugerId");
                         string brugernavn = reader.GetString("Brugernavn");
                         string adgangskode = reader.GetString("adgangskode");
                         string email = reader.GetString("Email");
@@ -106,7 +108,7 @@ namespace GadevangGruppe3Razor.Services
                         MedlemskabsType medlemskab = (MedlemskabsType)reader.GetInt32(reader.GetOrdinal("Medlemskab"));
                         Position position = (Position)reader.GetInt32(reader.GetOrdinal("Position"));
                         bool verificeret = reader.GetBoolean("Verificeret");
-                        Bruger bruger = new Bruger(brugernavn, adgangskode, email, telefon, medlemskab, position, verificeret);
+                        Bruger bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, medlemskab, position, verificeret);
                         brugere.Add(bruger);
                     }
                     reader.Close();
@@ -147,7 +149,7 @@ namespace GadevangGruppe3Razor.Services
                         MedlemskabsType medlemskab = (MedlemskabsType)reader.GetInt32(reader.GetOrdinal("Medlemskab"));
                         Position position = (Position)reader.GetInt32(reader.GetOrdinal("Position"));
                         bool verificeret = reader.GetBoolean("Verificeret");
-                        bruger = new Bruger(brugernavn, adgangskode, email, telefon, medlemskab, position, verificeret);
+                        bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, medlemskab, position, verificeret);
                     }
                     reader.Close();
                     return bruger;
