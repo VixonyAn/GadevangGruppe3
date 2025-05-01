@@ -1,7 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
-using GadevangGruppe3Razor.Models;
+﻿using GadevangGruppe3Razor.Models;
 using GadevangGruppe3Razor.Services;
 using System.Security.AccessControl;
+Console.WriteLine("Hello World");
 
 #region Johanne
 //// Test Create Bane - virker 30/4 
