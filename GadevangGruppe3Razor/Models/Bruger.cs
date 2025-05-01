@@ -8,32 +8,32 @@ namespace GadevangGruppe3Razor.Models
         private static int _count = 0;
 
         [Required(ErrorMessage = "Bruger Id kan ikke være null")]
-        public int BrugerId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int BrugerId { get; set; }
 
         [Required(ErrorMessage = "Brugernavn kan ikke være null")]
         [StringLength(30, ErrorMessage = "Brugernavn kan ikke være længere end 30 karakterer")]
-        public string Brugernavn { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Brugernavn { get; set; }
 
         [Required(ErrorMessage = "Adgangskode kan ikke være null")]
         [StringLength(30, ErrorMessage = "Adgangskode kan ikke være længere end 50 karakterer")]
-        public string Adgangskode { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Adgangskode { get; set; }
 
         [Required(ErrorMessage = "Email kan ikke være null")]
         [StringLength(30, ErrorMessage = "Email kan ikke være længere end 50 karakterer")]
-        public string Email { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Telefonnummer kan ikke være null")]
         [StringLength(30, ErrorMessage = "Telefonnummer kan ikke være længere end 8 karakterer")]
-        public string Telefon { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Telefon { get; set; }
 
         [Required(ErrorMessage = "MedlemskabsTypen kan ikke være null")]
-        public MedlemskabsType Medlemskab { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public MedlemskabsType Medlemskab { get; set; }
 
         [Required(ErrorMessage = "Positionen kan ikke være null")]
-        public Position Positionen { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Position Positionen { get; set; }
 
         [Required(ErrorMessage = "Verificeringen kan ikke være null")]
-        public bool Verificeret { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool Verificeret { get; set; }
 
         public Bruger(string brugernavn, string adgangskode, string email, string telefon, MedlemskabsType medlemskab, Position position, bool verificeret)
         {

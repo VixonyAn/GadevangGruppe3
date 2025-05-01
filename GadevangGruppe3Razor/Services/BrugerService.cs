@@ -10,7 +10,7 @@ namespace GadevangGruppe3Razor.Services
     {
         private String connectionString = Secret.ConnectionString;
         private string selectSql = "Select BrugerId, Brugernavn, Adgangskode, Email, Telefon, Verificeret, Medlemskab, Position from Bruger";
-        private string insertSql = "Insert into Bruger values(@Brugernavn, @Adgangskode, @Email, @Telefon, @Verificeret, @Medlemskab, @Position)";
+        private string insertSql = "Insert into Bruger (Brugernavn, Adgangskode, Email, Telefon, Verificeret, Medlemskab, Position) values (@Brugernavn, @Adgangskode, @Email, @Telefon, @Verificeret, @Medlemskab, @Position)";
         private string deleteSql = "Delete from Bruger where BrugerId = @BrugerId";
         private string updateSql = "Update Bruger set Username = @Username, Adgangskode = @Adgangskode, Email = @Email, Telefon = @Telefon, Verificeret = @Verificeret, Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
         public async Task<bool> CreateBrugerAsync(Bruger bruger)
