@@ -7,7 +7,7 @@ namespace GadevangGruppe3Razor.Interfaces
     {
         Task<List<Bane>> GetAllBaneAsync();
         Bane GetBaneByIdAsync(int baneId);
-        void AddBaneAsync(Bane bane);
+        void CreateBaneAsync(Bane bane);
 
         void UpdateBaneAsync(int baneId, Bane bane);
 

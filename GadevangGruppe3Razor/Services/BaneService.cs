@@ -9,9 +9,10 @@ namespace GadevangGruppe3Razor.Services
     {
         private string _connectionString = Secret.ConnectionString;
         private string _SelectSQL = "Select BaneId,BaneType,BaneMiljø,Beskrivelse from Bane";
+        private string _InsertionString = "Insert INTO Bane (BaneType,BaneMiljø,Beskrivelse)  Values(,@BaneType,@BaneMiljø,@Beskrivelse)";
 
 
-        public void AddBaneAsync(Bane bane)
+        public void CreateBaneAsync(Bane bane)
         {
             throw new NotImplementedException();
         }
