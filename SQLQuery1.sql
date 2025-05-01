@@ -1,8 +1,8 @@
-﻿  
+﻿  drop table Bane
 
 Create Table Bruger ( 
 
-	BrugerId int Identity(1,1) primary key, 
+	BrugerId int primary key, 
 
 	Brugernavn varchar(30) not null, 
 
@@ -26,7 +26,7 @@ Create Table Bane
 
 ( 
 
-	BaneId int Identity(1,1) primary key, 
+	BaneId int primary key,
 
 	BaneType int not null, 
 
@@ -39,7 +39,7 @@ Create Table Bane
 
 Create Table Begivenhed ( 
 
-    EventId int Identity(1,1) primary key, 
+    EventId int  primary key, 
 
     Titel varchar(50) not null, 
 

@@ -1,0 +1,42 @@
+﻿@page
+@using GadevangGruppe3Razor.Models
+@model GadevangGruppe3Razor.Pages.BegivenhedFolder.ShowAllBegivenhedModel
+@{
+    ViewData["Title"] = "ShowAllBegivenhed";
+}
+
+<h4>Der er @Model.Begivenheder.Count kommende begivenheder</h4>
+<br />
+<a asp-page="Create" class="btn btn primary" style="color: white; background-color: green; border-color: green;">Opret Begivenhed</a>
+<br />
+<br />
+<table>
+    <thead style="background-color: gray; border: solid 1px; border-color: white;">
+        <tr>
+            <th>EventId</th>
+            <th>Titel</th>
+            <th>Sted</th>
+            <th>Dato</th>
+            <th>Beskrivelse</th>
+            <th>MedlemMax</th>
+            <th>Pris</th>
+        </tr>
+    </thead>
+    <tbody style="background-color: lightgray; text-align: center;">
+        @if (Model.Begivenheder.Count() != 0)
+        {
+            @foreach (Begivenhed item in Model.Begivenheder)
+            {
+                <tr style="border: solid 1px; border-color: white;">
+                    <td style="border: solid 1px; border-color: white;">@item.EventId</td>
+                    <td style="border: solid 1px; border-color: white;">@item.Titel</td>
+                    <td style="border: solid 1px; border-color: white;">@item.Sted</td>
+                    <td style="border: solid 1px; border-color: white;">@item.Dato</td>
+                    <td style="border: solid 1px; border-color: white;">@item.Beskrivelse</td>
+                    <td style="border: solid 1px; border-color: white;">@item.MedlemMax</td>
+                    <td style="border: solid 1px; border-color: white;">@item.Pris</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

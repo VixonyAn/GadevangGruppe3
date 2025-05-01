@@ -14,7 +14,7 @@ namespace GadevangGruppe3Razor.Services
         private string insertSql = "Insert into Begivenhed (EventId, Titel, Sted, Dato, Beskrivelse, MedlemMax, Pris) Values(@EventId, @Titel, @Sted, @Dato, @Beskrivelse, @MedlemMax, @Pris)";
         private string updateSql = "Update Begivenhed set Titel = @Titel, Sted = @Sted, Dato = @Dato, Beskrivelse = @Beskrivelse, MedlemMax = @MedlemMax, Pris = @Pris where EventId = @EventId";
         private string deleteSql = "Delete from Begivenhed where EventId = @EventId";
-
+        
         public async Task<List<Begivenhed>> GetAllBegivenhedAsync()
         {
             List<Begivenhed> begivenheder = new List<Begivenhed>();

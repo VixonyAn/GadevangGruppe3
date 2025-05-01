@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="~/GadevangGruppe3Razor.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @if (ViewData["ErrorMessage"] != null)
+    {
+        <script type="text/javascript">
+            window.onload = function ()
+            { alert("@ViewData["ErrorMessage"]"); };
+        </script>
+        ViewData["ErrorMessage"] = null;
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -27,6 +35,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/BaneFolder1/ShowAllBane1">Baner</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/BegivenhedFolder/ShowAllBegivenhed">Begivenheder</a>
                         </li>
                     </ul>
                 </div>
