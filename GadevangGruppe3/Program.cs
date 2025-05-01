@@ -8,6 +8,7 @@ Console.WriteLine("Hello World");
 //Bane b1 = new Bane(1, BaneType.Tennis, BaneMiljø.Udendørs, "Grusbane");
 //Console.WriteLine(b1.ToString());
 
+
 /* // Test GetAllBaneAsync - virker 4/10 
 Console.Clear();
 BaneService bs = new BaneService();
@@ -18,6 +19,14 @@ foreach (Bane b in baner)
 }
 Console.ReadKey();
  */
+
+//// Test GetAllBaneAsync -  
+//Console.Clear();
+
+//BaneService bs = new BaneService();
+
+
+
 #endregion
 
 #region Magnus

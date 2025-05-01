@@ -9,13 +9,44 @@ namespace GadevangGruppe3Razor.Services
     {
         private string _connectionString = Secret.ConnectionString;
         private string _SelectSQL = "Select BaneId,BaneType,BaneMiljø,Beskrivelse from Bane";
-        private string _InsertionString = "Insert INTO Bane (BaneType,BaneMiljø,Beskrivelse)  Values(,@BaneType,@BaneMiljø,@Beskrivelse)";
+        private string _InsertionString = "Insert INTO Bane (@BaneId,BaneType,BaneMiljø,Beskrivelse)  Values(@BaneType,@BaneMiljø,@Beskrivelse)";
 
 
-        public void CreateBaneAsync(Bane bane)
+        public async void CreateBaneAsync(Bane bane)
         {
-            throw new NotImplementedException();
+            List<Bane> baner = new List<Bane>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_SelectSQL, connection);
+                    await command.Connection.OpenAsync();
+                    command.Parameters.AddWithValue("@BaneId", bane.BaneId);
+                    command.Parameters.AddWithValue("@BaneType",bane.Type);
+                    command.Parameters.AddWithValue("@BaneMiljø", bane.Miljø);
+                    command.Parameters.AddWithValue("@Beskrivelse", bane.Beskrivelse);
+                    //await command.ExecuteNonQueryAsync();
+                    await command.ExecuteReaderAsync();
+                    Thread.Sleep(1000);
+                    
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error: " + sqlExp.Message);
+                    throw sqlExp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("General error: " + ex.Message);
+                    throw ex;
+                }
+
+            }
         }
+
+
+
+
 
         public void DeleteBaneAsync(int baneId)
         {
