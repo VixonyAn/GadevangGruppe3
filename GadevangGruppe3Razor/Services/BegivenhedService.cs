@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using GadevangGruppe3Razor.Interfaces;
 using GadevangGruppe3Razor.Models;
-using GadevangGruppe3;
 using System.Data;
 using Microsoft.AspNetCore.Http;
 

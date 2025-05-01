@@ -51,9 +51,11 @@ namespace GadevangGruppe3Razor.Models
         public override string ToString()
         {
             return $"Titel: {Titel}\n" +
-                   $"Sted: {Sted} - Dato: {Dato}\n" +
+                   $"Sted: {Sted}\n" +
+                   $"Dato: {Dato}\n" +
                    $"Beskrivelse: {Beskrivelse}\n" +
-                   $"Max antal medlemmer: {MedlemMax} - Pris pr. person {Pris}";
+                   $"Max antal medlemmer: {MedlemMax}\n" +
+                   $"Pris pr. person {Pris} kr";
         }
     }
 }
