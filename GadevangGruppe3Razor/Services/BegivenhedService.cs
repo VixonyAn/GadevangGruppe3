@@ -11,7 +11,7 @@ namespace GadevangGruppe3Razor.Services
     {
         private string connectionString = Secret.ConnectionString;
         private string selectString = "Select EventId, Titel, Sted, Dato, Beskrivelse, MedlemMax, Pris from Begivenhed";
-        private string insertSql = "Insert into Begivenhed (Titel, Sted, Dato, Beskrivelse, MedlemMax, Pris) Values(@Titel, @Sted, @Dato, @Beskrivelse, @MedlemMax, @Pris)";
+        private string insertSql = "Insert into Begivenhed (EventId, Titel, Sted, Dato, Beskrivelse, MedlemMax, Pris) Values(@EventId, @Titel, @Sted, @Dato, @Beskrivelse, @MedlemMax, @Pris)";
         private string updateSql = "Update Begivenhed set Titel = @Titel, Sted = @Sted, Dato = @Dato, Beskrivelse = @Beskrivelse, MedlemMax = @MedlemMax, Pris = @Pris where EventId = @EventId";
         private string deleteSql = "Delete from Begivenhed where EventId = @EventId";
 
@@ -99,7 +99,7 @@ namespace GadevangGruppe3Razor.Services
                 try
                 {
                     SqlCommand command = new SqlCommand(insertSql, connection);
-                    //command.Parameters.AddWithValue("@EventId", begivenhed.EventId);
+                    command.Parameters.AddWithValue("@EventId", begivenhed.EventId);
                     command.Parameters.AddWithValue("@Titel", begivenhed.Titel);
                     command.Parameters.AddWithValue("@Sted", begivenhed.Sted);
                     command.Parameters.AddWithValue("@Dato", begivenhed.Dato);
