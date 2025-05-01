@@ -30,6 +30,10 @@ Console.ReadKey();
 #endregion
 
 #region Magnus
+/* // Test Create Bruger
+Bruger b1 = new Bruger("Vibeke Sandau", "JKL82", "VISA@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
+Console.WriteLine(b1);
+*/
 
 #endregion
 

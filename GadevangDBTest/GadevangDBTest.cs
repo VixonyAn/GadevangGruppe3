@@ -7,6 +7,14 @@ namespace GadevangDBTest
     [TestClass]
     public class GadevangServiceTest
     {
+        #region Bruger Test
+        #endregion
+
+        #region Bane Test
+
+        #endregion
+
+        #region Event Test
         [TestMethod]
         public void TestCreateBegivenhed()
         {
@@ -16,7 +24,7 @@ namespace GadevangDBTest
 
             //Act
             int numOfBegivenhedBefore = begivenheder.Count;
-            Begivenhed newBegivenhed = new Begivenhed("General Forsamling", "Klubhuset", new DateTime(2025, 02, 16, 18, 30, 00), "Vi mødes for at diskutere budgettet og begivenheder til den kommende sæson", 40, 0);
+            Begivenhed newBegivenhed = new Begivenhed(3, "General Forsamling", "Klubhuset", new DateTime(2025, 02, 16, 18, 30, 00), "Vi mødes for at diskutere budgettet og begivenheder til den kommende sæson", 40, 0);
             bool ok = begivenhedService.CreateBegivenhedAsync(newBegivenhed).Result;
             begivenheder = begivenhedService.GetAllBegivenhedAsync().Result;
             int numOfBegivenhedAfter = begivenheder.Count;
@@ -25,5 +33,6 @@ namespace GadevangDBTest
             Assert.AreEqual(numOfBegivenhedBefore + 1, numOfBegivenhedAfter);
             Assert.IsTrue(ok);
         }
+        #endregion
     }
 }
