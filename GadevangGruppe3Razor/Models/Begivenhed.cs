@@ -35,6 +35,17 @@ namespace GadevangGruppe3Razor.Models
         //Empty
         public Begivenhed() { }
 
+        public Begivenhed(string titel, string sted, DateTime dato, string beskrivelse, int medlemMax, decimal? pris)
+        {
+            //EventId = EventId+1; ret op på senere
+            Titel = titel;
+            Sted = sted;
+            Dato = dato;
+            Beskrivelse = beskrivelse;
+            MedlemMax = medlemMax;
+            Pris = pris;
+        }
+
         //Full
         public Begivenhed(int eventId, string titel, string sted, DateTime dato, string beskrivelse, int medlemMax, decimal? pris)
         {
