@@ -7,6 +7,14 @@ namespace GadevangDBTest
     [TestClass]
     public class GadevangServiceTest
     {
+        #region Bruger Test
+        #endregion
+
+        #region Bane Test
+
+        #endregion
+
+        #region Event Test
         [TestMethod]
         public void TestCreateBegivenhed()
         {
@@ -25,5 +33,6 @@ namespace GadevangDBTest
             Assert.AreEqual(numOfBegivenhedBefore + 1, numOfBegivenhedAfter);
             Assert.IsTrue(ok);
         }
+        #endregion
     }
 }
