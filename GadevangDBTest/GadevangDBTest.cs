@@ -78,6 +78,7 @@ namespace GadevangDBTest
             //Assert 
             Assert.AreEqual(numOfBegivenhedBefore + 1, numOfBegivenhedAfter);
             Assert.IsTrue(ok);
+
         }
         #endregion
     }

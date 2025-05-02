@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\BaneFolder\" />
-    <Folder Include="Pages\BrugerFolder\" />
     <Folder Include="Pages\OpslagFolder\" />
   </ItemGroup>
 
