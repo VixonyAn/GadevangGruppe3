@@ -2,7 +2,7 @@
 @using GadevangGruppe3Razor.Models
 @model GadevangGruppe3Razor.Pages.BegivenhedFolder.ShowAllBegivenhedModel
 @{
-    ViewData["Title"] = "ShowAllBegivenhed";
+    ViewData["Title"] = "Se Alle Begivenheder";
 }
 
 <h4>Der er @Model.Begivenheder.Count kommende begivenheder</h4>
@@ -20,6 +20,7 @@
             <th>Beskrivelse</th>
             <th>MedlemMax</th>
             <th>Pris</th>
+            <th>Handlinger</th>
         </tr>
     </thead>
     <tbody style="background-color: lightgray; text-align: center;">
@@ -35,6 +36,10 @@
                     <td style="border: solid 1px; border-color: white;">@item.Beskrivelse</td>
                     <td style="border: solid 1px; border-color: white;">@item.MedlemMax</td>
                     <td style="border: solid 1px; border-color: white;">@item.Pris</td>
+                    <td style="border: solid 1px; border-color: white;">
+                        <a asp-page="Update" asp-route-EventId="@item.EventId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Opdater</a>
+                        <a asp-page="Delete" asp-route-EventId="@item.EventId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">Slet</a>
+                    </td>
                 </tr>
             }
         }

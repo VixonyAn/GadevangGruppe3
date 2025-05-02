@@ -8,6 +8,7 @@ namespace GadevangGruppe3Razor.Models
     public class Begivenhed : IBegivenhed
     {
         #region Properties
+        [Required(ErrorMessage = "EventId er påkrævet")]
         public int EventId { get; set; }
 
         [Required(ErrorMessage = "Titel er påkrævet")]
