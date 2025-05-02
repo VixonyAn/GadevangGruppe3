@@ -18,11 +18,11 @@ namespace GadevangDBTest
 
             //Act
             int numOfBrugerBefore = brugere.Count;
-            Bruger testBruger = new Bruger(3, "Vibeke Sandau", "JKL82", "VISA@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
+            Bruger testBruger = new Bruger(999, "Vibeke Sandau", "JKL82", "VISA@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
             bool ok = brugerService.CreateBrugerAsync(testBruger).Result;
             brugere = brugerService.GetAllBrugerAsync().Result;
             int numOfBrugerAfter = brugere.Count;
-            Bruger removedBruger = brugerService.DeleteBrugerAsync(testBruger.BrugerId).Result;
+            Bruger? removedBruger = brugerService.DeleteBrugerAsync(testBruger.BrugerId).Result;
 
             //Assert
             Assert.AreEqual(numOfBrugerBefore + 1, numOfBrugerAfter);
@@ -30,7 +30,7 @@ namespace GadevangDBTest
             Assert.AreEqual(removedBruger.BrugerId, testBruger.BrugerId);
 
         }
-
+        
         [TestMethod]
         public void TestUpdateBruger()
         {
@@ -40,9 +40,9 @@ namespace GadevangDBTest
 
             //Act
             int numOfBrugerBefore = brugere.Count;
-            Bruger testBruger = new Bruger(3, "Vibeke Sandau", "JKL82", "VISA@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
+            Bruger testBruger = new Bruger(999, "Vibeke Sandau", "JKL82", "VISA@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
             bool ok = brugerService.CreateBrugerAsync(testBruger).Result;
-            Bruger updateBruger = new Bruger(3, "Jytte Hermsgervørdenbrøtbørda", "JKL82", "JYHE@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
+            Bruger updateBruger = new Bruger(999, "Jytte Hermsgervørdenbrøtbørda", "JKL82", "JYHE@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
             bool updateOk = brugerService.UpdateBrugerAsync(testBruger.BrugerId, updateBruger).Result;
             brugere = brugerService.GetAllBrugerAsync().Result;
             int numOfBrugerAfter = brugere.Count;

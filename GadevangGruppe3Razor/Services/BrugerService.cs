@@ -12,7 +12,7 @@ namespace GadevangGruppe3Razor.Services
         private string selectSql = "Select BrugerId, Brugernavn, Adgangskode, Email, Telefon, Verificeret, Medlemskab, Position from Bruger";
         private string insertSql = "Insert into Bruger (BrugerID, Brugernavn, Adgangskode, Email, Telefon, Verificeret, Medlemskab, Position) values (@BrugerID, @Brugernavn, @Adgangskode, @Email, @Telefon, @Verificeret, @Medlemskab, @Position)";
         private string deleteSql = "Delete from Bruger where BrugerId = @BrugerId";
-        private string updateSql = "Update Bruger set Username = @Username, Adgangskode = @Adgangskode, Email = @Email, Telefon = @Telefon, Verificeret = @Verificeret, Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
+        private string updateSql = "Update Bruger set Brugernavn = @Brugernavn, Adgangskode = @Adgangskode, Email = @Email, Telefon = @Telefon, Verificeret = @Verificeret, Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
         public async Task<bool> CreateBrugerAsync(Bruger bruger)
         {
             bool isCreated = false;
@@ -75,10 +75,12 @@ namespace GadevangGruppe3Razor.Services
                 catch (SqlException sqlex)
                 {
                     Console.WriteLine(sqlex.Message);
+                    throw sqlex;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                    throw ex;
                 }
                 finally
                 {
@@ -138,7 +140,7 @@ namespace GadevangGruppe3Razor.Services
                 {
                     SqlCommand command = new SqlCommand(selectSql + " WHERE BrugerId = @BrugerId", connection);
                     await command.Connection.OpenAsync();
-                    command.Parameters.AddWithValue("@ID", brugerId);
+                    command.Parameters.AddWithValue("@BrugerId", brugerId);
                     SqlDataReader reader = await command.ExecuteReaderAsync();
                     if (await reader.ReadAsync())
                     {
@@ -179,6 +181,7 @@ namespace GadevangGruppe3Razor.Services
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     SqlCommand command = new SqlCommand(updateSql, connection);
+                    command.Parameters.AddWithValue("@BrugerId", bruger.BrugerId);
                     command.Parameters.AddWithValue("@Brugernavn", bruger.Brugernavn);
                     command.Parameters.AddWithValue("@Adgangskode", bruger.Adgangskode);
                     command.Parameters.AddWithValue("@Email", bruger.Email);
