@@ -126,7 +126,34 @@ namespace GadevangGruppe3Razor.Services
 
         public async Task<bool> UpdateBegivenhedAsync(Begivenhed begivenhed, int eventId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(updateSql, connection);
+                    command.Parameters.AddWithValue("@EventId", begivenhed.EventId);
+                    command.Parameters.AddWithValue("@Titel", begivenhed.Titel);
+                    command.Parameters.AddWithValue("@Sted", begivenhed.Sted);
+                    command.Parameters.AddWithValue("@Dato", begivenhed.Dato);
+                    command.Parameters.AddWithValue("@Beskrivelse", begivenhed.Beskrivelse);
+                    command.Parameters.AddWithValue("@MedlemMax", begivenhed.MedlemMax);
+                    command.Parameters.AddWithValue("@Pris", begivenhed.Pris);
+                    await command.Connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error" + sqlExp.Message);
+                    throw sqlExp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+                    throw ex;
+                }
+                finally { }
+                return true;
+            }
         }
 
         public async Task<Begivenhed?> DeleteBegivenhedAsync(int eventId)
