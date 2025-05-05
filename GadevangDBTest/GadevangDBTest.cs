@@ -103,6 +103,22 @@ namespace GadevangDBTest
             Assert.AreEqual(numberOfbanerBefore, numbersOgBanerAfter); // <- dette vil ALTID fejle, hvis oprettelsen lykkes
         }
 
+        [TestMethod]
+        public void TestGetBenaByIdAndUpdate()
+        {
+            //Arrange
+            IBaneService bs = new BaneService();
+            List<Bane> baner = bs.GetAllBaneAsync().Result;
+
+            //Act
+            Bane b1 = new Bane(10, BaneType.Tennis, BaneMiljø.Udendørs, "Grusbane til dobbbelt spil");
+            bs.CreateBaneAsync(b1);
+            Bane b2 = new Bane(10, BaneType.Paddel, BaneMiljø.Indendørs, "Nylavet bane");
+            bs.UpdateBaneAsync(10, b2);
+            
+            //Assert
+            Assert.AreNotEqual(b1, b2);
+        }
         #endregion
 
         #region Event Test
