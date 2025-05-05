@@ -12,7 +12,7 @@ namespace GadevangDBTest
 
         #region Bane Test
         [TestMethod]
-        public void TestGetAll() 
+        public void TestGetAllBaner() 
         {
             //Arrange
             IBaneService bs = new BaneService();
@@ -23,6 +23,23 @@ namespace GadevangDBTest
 
             //assert
             Assert.IsNotNull(numbersOfBaner);
+        }
+
+        [TestMethod]
+        public void TestCreateBaner()
+        {
+            // Arrange
+            IBaneService bs = new BaneService();
+            List<Bane> baner = bs.GetAllBaneAsync().Result;
+
+            // Act
+            int numberOfbanerBefore = baner.Count();
+            Bane b1 = new Bane(10, BaneType.Tennis, BaneMiljø.Udendørs, "Grusbane til dobbbelt spil");
+            bs.CreateBaneAsync(b1);
+            int numbersOgBanerAfter = baner.Count(); // <- Fejlen er her!
+
+            // Assert
+            Assert.AreEqual(numberOfbanerBefore, numbersOgBanerAfter); // <- dette vil ALTID fejle, hvis oprettelsen lykkes
         }
 
         #endregion
