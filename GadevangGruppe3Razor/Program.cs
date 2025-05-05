@@ -6,8 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IBegivenhedService, BegivenhedService>();
+builder.Services.AddScoped<IBrugerService, BrugerService>();
 builder.Services.AddScoped<IBaneService, BaneService>();
+builder.Services.AddScoped<IBegivenhedService, BegivenhedService>();
 
 var app = builder.Build();
 

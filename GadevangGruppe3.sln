@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GadevangGruppe3", "Gadevang
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GadevangGruppe3Razor", "GadevangGruppe3Razor\GadevangGruppe3Razor.csproj", "{10A2293E-CC89-4443-9C92-11DA2D5E3956}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GadevangDBTest", "GadevangDBTest\GadevangDBTest.csproj", "{2AF77D3B-7514-4D5A-9664-E52FC6E8F2EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GadevangDBTest", "GadevangDBTest\GadevangDBTest.csproj", "{2AF77D3B-7514-4D5A-9664-E52FC6E8F2EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

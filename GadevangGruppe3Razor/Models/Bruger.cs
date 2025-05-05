@@ -5,8 +5,6 @@ namespace GadevangGruppe3Razor.Models
 {
     public class Bruger : IBruger
     {
-        private static int _count = 0;
-
         [Required(ErrorMessage = "Bruger Id kan ikke være null")]
         public int BrugerId { get; set; }
 
@@ -35,14 +33,19 @@ namespace GadevangGruppe3Razor.Models
         [Required(ErrorMessage = "Verificeringen kan ikke være null")]
         public bool Verificeret { get; set; }
 
-        public Bruger(string brugernavn, string adgangskode, string email, string telefon, MedlemskabsType medlemskab, Position position, bool verificeret)
+        public Bruger()
         {
-            _count++;
-            BrugerId = _count;
+            
+        }
+
+        public Bruger(int brugerID, string brugernavn, string adgangskode, string email, string telefon, MedlemskabsType medlemskab, Position position, bool verificeret)
+        {
+            BrugerId = brugerID;
             Brugernavn = brugernavn;
             Adgangskode = adgangskode;
             Email = email;
             Telefon = telefon;
+            //BilledUrl = billedUrl
             Medlemskab = medlemskab;
             Positionen = position;
             Verificeret = verificeret;

@@ -1,0 +1,48 @@
+﻿@page
+@using GadevangGruppe3Razor.Models;
+@model GadevangGruppe3Razor.Pages.BrugerFolder.ShowAllBrugerModel
+@{
+	ViewData["Title"] = "ShowAllBruger";
+}
+
+<h5>Antal brugerer: @Model.Brugerer.Count</h5>
+<br />
+<a asp-page="Create" class="btn btn primary" style="color: white; background-color: green;">Opret bruger</a>
+<br/>
+<br/>
+
+<table style="width:85" class="table">
+	<thead style="background-color:lightskyblue;border-radius:60px">
+		<tr>
+			<th>BrugerId</th>
+			<th>Brugernavn</th>
+			<th>Email</th>
+			<th>Telefon</th>
+			<th>Medlemskab</th>
+			<th>Position</th>
+			<th>Verificeret</th>
+			<th>Handlinger</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model.Brugerer.Count() != 0)
+		{
+			@foreach (Bruger items in Model.Brugerer)
+			{
+				<tr>
+					<td>@items.BrugerId</td>
+					<td>@items.Brugernavn</td>
+					<td>@items.Email</td>
+					<td>@items.Telefon</td>
+					<td>@items.Medlemskab</td>
+					<td>@items.Positionen</td>
+					<td>@(items.Verificeret ? "Verificeret" : "") </td>
+					<td>
+						<a asp-page="Update" asp-route-brugerId="@items.BrugerId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Update</a>
+						<a asp-page="Delete" asp-route-brugerId="@items.BrugerId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">Delete</a>
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>
