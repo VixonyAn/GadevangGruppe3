@@ -1,0 +1,49 @@
+﻿@page
+@model GadevangGruppe3Razor.Pages.BrugerFolder.UpdateModel
+@{
+	ViewData["Title"] = "Update";
+}
+
+<h3>Opdater Bruger</h3>
+
+<form method="post">
+	<br />
+	<div class="form-group">
+		<label asp-for="@Model.Bruger.BrugerId" class="control-label"></label>
+		<input asp-for="@Model.Bruger.BrugerId" readonly class="form-control" />
+		<span asp-validation-for="@Model.Bruger.BrugerId" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Bruger.Brugernavn" class="control-label"></label>
+		<input asp-for="@Model.Bruger.Brugernavn" class="form-control" />
+		<span asp-validation-for="@Model.Bruger.Brugernavn" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Bruger.Adgangskode" class="control-label"></label>
+		<input asp-for="@Model.Bruger.Adgangskode" class="form-control" />
+		<span asp-validation-for="@Model.Bruger.Brugernavn" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Bruger.Email" class="control-label"></label>
+		<input asp-for="@Model.Bruger.Email" class="form-control" />
+		<span asp-validation-for="@Model.Bruger.Brugernavn" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Bruger.Telefon" class="control-label"></label>
+		<input asp-for="@Model.Bruger.Telefon" class="form-control" />
+		<span asp-validation-for="@Model.Bruger.Brugernavn" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Bruger.Medlemskab" class="control-label"></label>
+		<input asp-for="@Model.Bruger.Medlemskab" class="form-control" />
+		<span asp-validation-for="@Model.Bruger.Brugernavn" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Bruger.Positionen" class="control-label"></label>
+		<input asp-for="@Model.Bruger.Positionen" class="form-control" />
+		<span asp-validation-for="@Model.Bruger.Brugernavn" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<input type="submit" value="Opdater" class="btn btn-primary" style="background-color: green; border-color: green;" />
+	</div>
+</form>

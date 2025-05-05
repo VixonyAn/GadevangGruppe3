@@ -33,6 +33,11 @@ namespace GadevangGruppe3Razor.Models
         [Required(ErrorMessage = "Verificeringen kan ikke være null")]
         public bool Verificeret { get; set; }
 
+        public Bruger()
+        {
+            
+        }
+
         public Bruger(int brugerID, string brugernavn, string adgangskode, string email, string telefon, MedlemskabsType medlemskab, Position position, bool verificeret)
         {
             BrugerId = brugerID;
@@ -40,6 +45,7 @@ namespace GadevangGruppe3Razor.Models
             Adgangskode = adgangskode;
             Email = email;
             Telefon = telefon;
+            //BilledUrl = billedUrl
             Medlemskab = medlemskab;
             Positionen = position;
             Verificeret = verificeret;
