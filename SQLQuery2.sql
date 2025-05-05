@@ -2,7 +2,6 @@
 Insert into Bane VALUES(1,1,1,'Grusbane'); 
 
 Insert into Bane VALUES(2,1,1,'Grusbane til single spil'); 
-
  
 
 Insert into Begivenhed values (1, 'Fælles Spil', 'Klubben', '2025/06/24', 'Kom og vær en del af fællesskabet fra kl. 16-18. Medbring godt humør og vi ses i klubhuset :)', 10, 0)   

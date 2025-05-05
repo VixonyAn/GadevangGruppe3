@@ -1,0 +1,29 @@
+﻿@page
+@model GadevangGruppe3Razor.Pages.BaneFolder1.UpdateBaneModel
+@{
+}
+
+<form method="post">
+    <div>
+        <label asp-for="@Model.bane.BaneId" class="control-label"></label>
+        <input asp-for="@Model.bane.BaneId" readonly class="form-control" />
+    </div>
+    <div>
+        <label asp-for="@Model.bane.Type" class="control-label"></label>
+        <input asp-for="@Model.bane.Type" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="@Model.bane.Miljø" class="control-label"></label>
+        <input asp-for="@Model.bane.Miljø" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="@Model.bane.Beskrivelse" class="control-label"></label>
+        <input asp-for="@Model.bane.Beskrivelse" class="form-control" />
+    </div>
+    <div class="formgroup">
+        <input type="submit"
+               value="Opdater "
+               class="btn btn-primary"
+               style="background-color:#ffa303;border-color:#ffa303" />
+    </div>
+</form>

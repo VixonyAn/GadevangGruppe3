@@ -6,7 +6,7 @@ namespace GadevangGruppe3Razor.Interfaces
     public interface IBaneService
     {
         Task<List<Bane>> GetAllBaneAsync();
-        Bane GetBaneByIdAsync(int baneId);
+        Task<Bane> GetBaneByIdAsync(int baneId);
         void CreateBaneAsync(Bane bane);
 
         void UpdateBaneAsync(int baneId, Bane bane);
