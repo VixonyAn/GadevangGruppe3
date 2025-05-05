@@ -9,7 +9,8 @@ namespace GadevangGruppe3Razor.Services
     {
         private string _connectionString = Secret.ConnectionString;
         private string _SelectSQL = "Select BaneId,BaneType,BaneMiljø,Beskrivelse from Bane";
-        private string _InsertionString = "Insert INTO Bane (@BaneId,BaneType,BaneMiljø,Beskrivelse)  Values(@BaneType,@BaneMiljø,@Beskrivelse)";
+        private string _InsertionString = "Insert INTO Bane Values(@BaneId,@BaneType,@BaneMiljø,@Beskrivelse)";
+        private string _UpdateString = "";
 
 
         public async void CreateBaneAsync(Bane bane)
@@ -19,16 +20,14 @@ namespace GadevangGruppe3Razor.Services
             {
                 try
                 {
-                    SqlCommand command = new SqlCommand(_SelectSQL, connection);
-                    await command.Connection.OpenAsync();
+                    SqlCommand command = new SqlCommand(_InsertionString, connection);
                     command.Parameters.AddWithValue("@BaneId", bane.BaneId);
                     command.Parameters.AddWithValue("@BaneType",bane.Type);
                     command.Parameters.AddWithValue("@BaneMiljø", bane.Miljø);
                     command.Parameters.AddWithValue("@Beskrivelse", bane.Beskrivelse);
-                    //await command.ExecuteNonQueryAsync();
-                    await command.ExecuteReaderAsync();
-                    Thread.Sleep(1000);
-                    
+                    await command.Connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
+
                 }
                 catch (SqlException sqlExp)
                 {
@@ -43,9 +42,6 @@ namespace GadevangGruppe3Razor.Services
 
             }
         }
-
-
-
 
 
         public void DeleteBaneAsync(int baneId)

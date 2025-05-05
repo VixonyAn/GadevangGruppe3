@@ -7,7 +7,7 @@ namespace GadevangGruppe3Razor.Models
     {
         private string _beskrivelse;
 
-        public int BaneId { get; }
+        public int BaneId { get; set; }
 
         [Required(ErrorMessage = "Banetype er påkrævet")]
         public BaneType Type { get; set; }

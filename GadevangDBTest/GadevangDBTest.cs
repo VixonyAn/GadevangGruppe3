@@ -11,6 +11,19 @@ namespace GadevangDBTest
         #endregion
 
         #region Bane Test
+        [TestMethod]
+        public void TestGetAll() 
+        {
+            //Arrange
+            IBaneService bs = new BaneService();
+            List<Bane> baner = bs.GetAllBaneAsync().Result;
+
+            //Act
+            int numbersOfBaner = baner.Count();
+
+            //assert
+            Assert.IsNotNull(numbersOfBaner);
+        }
 
         #endregion
 
