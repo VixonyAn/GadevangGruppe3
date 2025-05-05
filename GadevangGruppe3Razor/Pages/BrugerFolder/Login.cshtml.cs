@@ -12,7 +12,8 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         #endregion
 
         #region Properties
-        [BindProperty] public Bruger Bruger { get; set; }
+        [BindProperty] 
+        public Bruger Bruger { get; set; }
         public string MessageError { get; set; }
         #endregion
 
@@ -24,7 +25,10 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         #endregion
 
         #region Methods
-        public async Task OnGetAsync() { }
+        public async Task OnGetAsync() 
+        {
+
+        }
 
         public IActionResult OnGetLogout()
         {

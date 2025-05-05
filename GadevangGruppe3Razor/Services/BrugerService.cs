@@ -211,5 +211,43 @@ namespace GadevangGruppe3Razor.Services
             }
             return isUpdated;
         }
-    }
+
+		public async Task<Bruger?> ValidateBrugerAsync(string email, string adgangskode)
+		{
+			using (SqlConnection connection = new SqlConnection(connectionString))
+			{
+				Bruger bruger = null;
+				try
+				{
+					SqlCommand command = new SqlCommand(selectSql + " where Email = @Email and Adgangskode = @Adgangskode", connection);
+					command.Parameters.AddWithValue("@Email", email);
+					command.Parameters.AddWithValue("@Adgangskode", adgangskode);
+					await command.Connection.OpenAsync();
+					SqlDataReader reader = await command.ExecuteReaderAsync(); // breaks here - if secret string is incorrect
+					if (await reader.ReadAsync())
+					{
+						string mail = reader.GetString("Email");
+						string kode = reader.GetString("Adgangskode");
+						bruger = new Bruger(mail, kode);
+					}
+					reader.Close();
+				}
+				catch (SqlException sqlExp)
+				{
+					Console.WriteLine("Database error" + sqlExp.Message);
+					throw sqlExp;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine("Generel fejl: " + ex.Message);
+					throw ex;
+				}
+				finally 
+                {
+
+                }
+				return bruger;
+			}
+		}
+	}
 }
