@@ -10,6 +10,20 @@ namespace GadevangDBTest
     {
         #region Bruger Test
         [TestMethod]
+        public void TestReadBruger()
+        {
+            //Arrange
+            IBrugerService brugerService = new BrugerService();
+            List<Bruger> bruger = brugerService.GetAllBrugerAsync().Result;
+
+            //Act
+            int numOfBruger = bruger.Count;
+
+            //Assert
+            Assert.IsNotNull(numOfBruger);
+        }
+
+        [TestMethod]
         public void TestCreateBruger()
         {
             //Arrange
@@ -63,7 +77,21 @@ namespace GadevangDBTest
 
         #region Event Test
         [TestMethod]
-        public void TestCreateReadDeleteBegivenhed()
+        public void TestReadBegivenhed()
+        {
+            //Arrange
+            IBegivenhedService begivenhedService = new BegivenhedService();
+            List<Begivenhed> begivenheder = begivenhedService.GetAllBegivenhedAsync().Result;
+
+            //Act
+            int numOfBegivenhed = begivenheder.Count;
+
+            //Assert
+            Assert.IsNotNull(numOfBegivenhed);
+        }
+
+        [TestMethod]
+        public void TestCreateDeleteBegivenhed()
         {
             //Arrange
             IBegivenhedService begivenhedService = new BegivenhedService();
@@ -77,7 +105,7 @@ namespace GadevangDBTest
             int numOfBegivenhedAfter = begivenheder.Count;
             Begivenhed? b = begivenhedService.DeleteBegivenhedAsync(newBegivenhed.EventId).Result;
 
-            //Assert 
+            //Assert
             Assert.AreEqual(numOfBegivenhedBefore + 1, numOfBegivenhedAfter);
             Assert.IsTrue(ok);
             Assert.AreEqual(b?.EventId, newBegivenhed.EventId);
