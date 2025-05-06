@@ -30,7 +30,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
             }
             try
             {
-                await _brugerService.UpdateBrugerAsync(brugerId, new Bruger(brugerId, Bruger.Brugernavn, Bruger.Adgangskode, Bruger.Email, Bruger.Telefon, Bruger.Medlemskab, Bruger.Positionen, Bruger.Verificeret));
+                await _brugerService.UpdateBrugerAsync(brugerId, new Bruger(brugerId, Bruger.Brugernavn, Bruger.Adgangskode, Bruger.Email, Bruger.Telefon, Bruger.BilledUrl, Bruger.Medlemskab, Bruger.Positionen, Bruger.Verificeret));
                 return RedirectToPage("ShowAllBruger");
             }
             catch (Exception ex)

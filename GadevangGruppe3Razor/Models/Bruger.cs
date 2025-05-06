@@ -1,4 +1,5 @@
 ﻿using GadevangGruppe3Razor.Interfaces;
+using Microsoft.Identity.Client;
 using System.ComponentModel.DataAnnotations;
 
 namespace GadevangGruppe3Razor.Models
@@ -32,6 +33,10 @@ namespace GadevangGruppe3Razor.Models
 
         [Required(ErrorMessage = "Verificeringen kan ikke være null")]
         public bool Verificeret { get; set; }
+
+        [Required(ErrorMessage = "Billed url kan ikke være null ")]
+        [StringLength(100, ErrorMessage = "Billed url kan ikke være længere end 100 karakterer")]
+        public string BilledUrl { get; set; }
         public Bruger()
         {
             
@@ -43,14 +48,14 @@ namespace GadevangGruppe3Razor.Models
             Adgangskode = adgangskode;
         }
 
-        public Bruger(int brugerID, string brugernavn, string adgangskode, string email, string telefon, MedlemskabsType medlemskab, Position position, bool verificeret)
+        public Bruger(int brugerID, string brugernavn, string adgangskode, string email, string telefon, string billedUrl, MedlemskabsType medlemskab, Position position, bool verificeret)
         {
             BrugerId = brugerID;
             Brugernavn = brugernavn;
             Adgangskode = adgangskode;
             Email = email;
             Telefon = telefon;
-            //BilledUrl = billedUrl
+            BilledUrl = billedUrl;
             Medlemskab = medlemskab;
             Positionen = position;
             Verificeret = verificeret;

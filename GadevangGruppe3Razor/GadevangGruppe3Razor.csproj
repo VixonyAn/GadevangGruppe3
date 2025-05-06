@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Pages\BookingFolder\" />
     <Folder Include="Pages\OpslagFolder\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
