@@ -1,0 +1,39 @@
+﻿@page
+@model GadevangGruppe3Razor.Pages.BaneFolder1.CreateBane1Model
+@{
+    ViewData["Title"] = "CreateBane";
+}
+
+<h4>Opret Bane</h4>
+
+    <br />
+    <form method="post">
+        <br />
+    <div>
+        <label asp-for="@Model.bane.BaneId" class"Control-label"></label>
+        <input asp-for="@Model.bane.BaneId" class="form-control" />
+        <span asp-validation-for="bane.BaneId" class="text-danger"></span>
+    </div>
+        <div>
+            <label asp-for="@Model.bane.Type" class"Control-label"></label>
+            <input  asp-for="@Model.bane.Type" class="form-control"/>
+            <span asp-validation-for="bane.Type" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="@Model.bane.Miljø" class"Control-label"></label>
+            <input asp-for="@Model.bane.Miljø" class="form-control" />
+            <span asp-validation-for="bane.Miljø" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="@Model.bane.Beskrivelse" class"Control-label"></label>
+            <input asp-for="@Model.bane.Beskrivelse" class="form-control" />
+            <span asp-validation-for="bane.Beskrivelse" class="text-danger"></span>
+        </div>
+        <br />
+        <br />
+    <div class="formgroup">
+        <input type="submit" value="Opret bane" class="btn btn-primary" />
+    </div>
+    </form>
+
+    

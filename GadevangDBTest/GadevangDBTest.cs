@@ -97,10 +97,10 @@ namespace GadevangDBTest
             int numberOfbanerBefore = baner.Count();
             Bane b1 = new Bane(10, BaneType.Tennis, BaneMiljø.Udendørs, "Grusbane til dobbbelt spil");
             bs.CreateBaneAsync(b1);
-            int numbersOgBanerAfter = baner.Count(); // <- Fejlen er her!
+            int numbersOgBanerAfter = baner.Count();
 
             // Assert
-            Assert.AreEqual(numberOfbanerBefore, numbersOgBanerAfter); // <- dette vil ALTID fejle, hvis oprettelsen lykkes
+            Assert.AreEqual(numberOfbanerBefore, numbersOgBanerAfter); 
         }
 
         [TestMethod]
@@ -118,6 +118,28 @@ namespace GadevangDBTest
             
             //Assert
             Assert.AreNotEqual(b1, b2);
+        }
+
+        [TestMethod]
+        public void TestDeleteBane()
+        {
+
+            // Arrange
+            IBaneService bs = new BaneService();
+            List<Bane> baner = bs.GetAllBaneAsync().Result;
+
+            // Act
+            int numberOfbanerBefore = baner.Count();
+            Bane bd = new Bane(20, BaneType.Paddel, BaneMiljø.Udendørs, "Nylavet");
+            bs.CreateBaneAsync(bd);
+            int numbersOfBanerAfterCreate = baner.Count();
+
+            bs.DeleteBaneAsync(bd.BaneId);
+            int numberOfBanerAfterDelete = baner.Count();
+            List<Bane> banerAfter = bs.GetAllBaneAsync().Result;
+
+            // Assert
+            Assert.AreEqual(numberOfBanerAfterDelete, numbersOfBanerAfterCreate - 1);
         }
         #endregion
 

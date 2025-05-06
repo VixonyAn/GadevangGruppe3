@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GadevangGruppe3Razor.Pages.BaneFolder1
 {
-    public class UpdateBaneModel : PageModel
+    public class UpdateBane1Model : PageModel
     {
         IBaneService _baneService;
 
         [BindProperty]
         public Bane bane { get; set; }
-        public UpdateBaneModel(IBaneService baneservice)
+        public UpdateBane1Model(IBaneService baneservice)
         {
             _baneService = baneservice;
         }
