@@ -26,6 +26,13 @@
 		<input asp-for="@Model.Bruger.Telefon" style="display: br; width: 20%;" class="form-control" />
 	</div>
 	<div class="form-group">
+		<label asp-for="@Model.Billed" class="control-label">Tilføj Billed</label>
+		<div class="custom-file">
+			<input asp-for="@Model.Billed" class="control-label" />
+			<label class="custom-file-label"></label>
+		</div>
+	</div>
+	<div class="form-group">
 		<label asp-for="@Model.Bruger.Medlemskab" class="control-label"></label>
 		<input asp-for="@Model.Bruger.Medlemskab" style="display: br; width: 20%;" class="form-control" />
 	</div>

@@ -9,10 +9,10 @@ namespace GadevangGruppe3Razor.Services
     public class BrugerService : IBrugerService
     {
         private String connectionString = Secret.ConnectionString;
-        private string selectSql = "Select BrugerId, Brugernavn, Adgangskode, Email, Telefon, Verificeret, Medlemskab, Position from Bruger";
-        private string insertSql = "Insert into Bruger (BrugerID, Brugernavn, Adgangskode, Email, Telefon, Verificeret, Medlemskab, Position) values (@BrugerID, @Brugernavn, @Adgangskode, @Email, @Telefon, @Verificeret, @Medlemskab, @Position)";
+        private string selectSql = "Select BrugerId, Brugernavn, Adgangskode, Email, Telefon, Verificeret, BilledUrl, Medlemskab, Position from Bruger";
+        private string insertSql = "Insert into Bruger (BrugerID, Brugernavn, Adgangskode, Email, Telefon, Verificeret, BilledUrl, Medlemskab, Position) values (@BrugerID, @Brugernavn, @Adgangskode, @Email, @Telefon, @Verificeret, @BilledUrl, @Medlemskab, @Position)";
         private string deleteSql = "Delete from Bruger where BrugerId = @BrugerId";
-        private string updateSql = "Update Bruger set Brugernavn = @Brugernavn, Adgangskode = @Adgangskode, Email = @Email, Telefon = @Telefon, Verificeret = @Verificeret, Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
+        private string updateSql = "Update Bruger set Brugernavn = @Brugernavn, Adgangskode = @Adgangskode, Email = @Email, Telefon = @Telefon, BilledUrl = @BilledUrl, Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
         private string loginSql = "Select Email, Adgangskode from Bruger";
 
         public async Task<bool> CreateBrugerAsync(Bruger bruger)
@@ -29,7 +29,8 @@ namespace GadevangGruppe3Razor.Services
                     command.Parameters.AddWithValue("@Adgangskode", bruger.Adgangskode);
                     command.Parameters.AddWithValue("@Email", bruger.Email);
                     command.Parameters.AddWithValue("@Telefon", bruger.Telefon);
-                    command.Parameters.AddWithValue("@Verificeret", bruger.Verificeret);
+					command.Parameters.AddWithValue("@BilledUrl", bruger.BilledUrl);
+					command.Parameters.AddWithValue("@Verificeret", bruger.Verificeret);
                     command.Parameters.AddWithValue("@Medlemskab", bruger.Medlemskab);
                     command.Parameters.AddWithValue("@Position", bruger.Positionen);
                     int rowsAffected = command.ExecuteNonQuery();
@@ -112,7 +113,8 @@ namespace GadevangGruppe3Razor.Services
                         MedlemskabsType medlemskab = (MedlemskabsType)reader.GetInt32(reader.GetOrdinal("Medlemskab"));
                         Position position = (Position)reader.GetInt32(reader.GetOrdinal("Position"));
                         bool verificeret = reader.GetBoolean("Verificeret");
-                        Bruger bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, medlemskab, position, verificeret);
+                        string billedUrl = reader.GetString("BilledUrl");
+                        Bruger bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, billedUrl, medlemskab, position, verificeret);
                         brugere.Add(bruger);
                     }
                     reader.Close();
@@ -153,7 +155,8 @@ namespace GadevangGruppe3Razor.Services
                         MedlemskabsType medlemskab = (MedlemskabsType)reader.GetInt32(reader.GetOrdinal("Medlemskab"));
                         Position position = (Position)reader.GetInt32(reader.GetOrdinal("Position"));
                         bool verificeret = reader.GetBoolean("Verificeret");
-                        bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, medlemskab, position, verificeret);
+                        string billedUrl = reader.GetString("BilledUrl");
+                        bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, billedUrl, medlemskab, position, verificeret);
                     }
                     reader.Close();
                     return bruger;
@@ -188,6 +191,7 @@ namespace GadevangGruppe3Razor.Services
                     command.Parameters.AddWithValue("@Adgangskode", bruger.Adgangskode);
                     command.Parameters.AddWithValue("@Email", bruger.Email);
                     command.Parameters.AddWithValue("@Telefon", bruger.Telefon);
+                    command.Parameters.AddWithValue("@BilledUrl", bruger.BilledUrl);
                     command.Parameters.AddWithValue("@Verificeret", bruger.Verificeret);
                     command.Parameters.AddWithValue("@Medlemskab", bruger.Medlemskab);
                     command.Parameters.AddWithValue("@Position", bruger.Positionen);

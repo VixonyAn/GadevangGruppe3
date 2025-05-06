@@ -20,6 +20,7 @@
 			<th>Telefon</th>
 			<th>Medlemskab</th>
 			<th>Position</th>
+			<th>Billed</th>
 			<th>Verificeret</th>
 			<th>Handlinger</th>
 		</tr>
@@ -36,6 +37,13 @@
 					<td>@items.Telefon</td>
 					<td>@items.Medlemskab</td>
 					<td>@items.Positionen</td>
+					<td>
+						@if (items.BilledUrl != null)
+						{
+							<img src="~/images/@items.BilledUrl" width="100px"
+								height="100px" /> 
+						}
+					</td>
 					<td>@(items.Verificeret ? "Verificeret" : "") </td>
 					<td>
 						<a asp-page="Update" asp-route-brugerId="@items.BrugerId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Update</a>
