@@ -28,7 +28,7 @@ namespace GadevangGruppe3Razor.Pages.BaneFolder1
             try
             {
                  _baneService.CreateBaneAsync(new Bane(bane.BaneId, bane.Type, bane.Miljø, bane.Beskrivelse));
-                return RedirectToPage("ShowAllBane1");
+                return RedirectToPage("ShowAllBane");
             }
             catch(Exception ex)
             {

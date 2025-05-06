@@ -6,6 +6,7 @@ namespace GadevangGruppe3Razor.Interfaces
 {
     public interface IBegivenhed
     {
+        int EventId { get; set; }
         string Titel { get; set; }
         string Sted { get; set; }
         DateTime Dato { get; set; }

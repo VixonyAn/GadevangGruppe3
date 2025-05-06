@@ -32,7 +32,7 @@ namespace GadevangGruppe3Razor.Pages.BaneFolder1
             {
                 ViewData["ExeptionMessage"] = ex.Message;
             }
-            return RedirectToPage("ShowAllBane1");
+            return RedirectToPage("ShowAllBane");
         }
     }
 }

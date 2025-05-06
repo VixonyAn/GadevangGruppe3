@@ -15,3 +15,4 @@ Insert into Begivenhed values (2, 'Grill Aften', 'Strandvej 7', '2025/10/15', 'G
 Insert into Bruger values (1, 'Bo Windelman', 'Ten312', 'BOWI@gtmail.dk', '11111111', 1, 0, 2); 
 
 Insert into Bruger values (2, 'Poul Henriksen', 'Elv123', 'POHE@gtmail.dk', '22222222', 1, 0, 0);
+

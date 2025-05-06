@@ -1,0 +1,32 @@
+﻿@page
+@model GadevangGruppe3Razor.Pages.BaneFolder.DeleteBaneModel
+@{
+}
+
+<h1>Slet Bane</h1>
+<hr />
+
+<form method="post">
+    <div>
+        <label asp-for="@Model.bane.BaneId" class="control-label"></label>
+        <input asp-for="@Model.bane.BaneId" readonly class="form-control" />
+    </div>
+    <div>
+        <label asp-for="@Model.bane.Type" class="control-label"></label>
+        <input asp-for="@Model.bane.Type" readonly class="form-control" />
+    </div>
+    <div>
+        <label asp-for="@Model.bane.Miljø" class="control-label"></label>
+        <input asp-for="@Model.bane.Miljø" readonly class="form-control" />
+    </div>
+    <div>
+        <label asp-for="@Model.bane.Beskrivelse" class="control-label"></label>
+        <input asp-for="@Model.bane.Beskrivelse" readonly class="form-control" />
+    </div>
+    <div class="formgroup">
+        <input type="submit"
+               value="Opdater "
+               class="btn btn-primary"
+               style="background-color:##ff035f;border-color:#ffa303" />
+    </div>
+</form>

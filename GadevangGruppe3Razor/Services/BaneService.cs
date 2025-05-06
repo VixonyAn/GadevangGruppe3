@@ -12,6 +12,7 @@ namespace GadevangGruppe3Razor.Services
         private string _SelectSQL = "Select BaneId,BaneType,BaneMiljø,Beskrivelse from Bane";
         private string _InsertionString = "Insert INTO Bane Values(@BaneId,@BaneType,@BaneMiljø,@Beskrivelse)";
         private string _UpdateString = "UPDATE Bane SET BaneType=@BaneType,BaneMiljø=@BaneMiljø, Beskrivelse=@Beskrivelse WHERE BaneId=@BaneId";
+        private string _DeleteSql = "DELETE from Bane WHERE BaneId=@BaneId";
 
 
         public async void CreateBaneAsync(Bane bane)
@@ -45,9 +46,32 @@ namespace GadevangGruppe3Razor.Services
         }
 
 
-        public void DeleteBaneAsync(int baneId)
+        public async void DeleteBaneAsync(int baneId)
         {
-            throw new NotImplementedException();
+            Bane? bane = await GetBaneByIdAsync(baneId);
+
+            using (SqlConnection connedction = new SqlConnection(_connectionString)) 
+            {
+                try 
+                {
+                    SqlCommand command = new SqlCommand(_DeleteSql, connedction);
+                    command.Parameters.AddWithValue("@BaneId", baneId);
+                    await connedction.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
+
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error: " + sqlExp.Message);
+                    throw sqlExp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("General error: " + ex.Message);
+                    throw ex;
+                }
+                
+            }
         }
 
         public async Task<List<Bane>> GetAllBaneAsync()
