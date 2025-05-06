@@ -43,11 +43,6 @@ namespace GadevangGruppe3Razor.Models
             Adgangskode = adgangskode;
         }
 
-        public Bruger()
-        {
-            
-        }
-
         public Bruger(int brugerID, string brugernavn, string adgangskode, string email, string telefon, MedlemskabsType medlemskab, Position position, bool verificeret)
         {
             BrugerId = brugerID;
