@@ -10,14 +10,14 @@
 <form method="post">
     <span class="text-danger">@Model.MessageError</span>
     <div class="form-group">
-        <label asp-for="@Model.Bruger.Email" class="control-label"></label>
-        <input asp-for="@Model.Bruger.Email" style="display: br; width: 20%;" class="form-control" />
-        <span asp-validation-for="@Model.Bruger.Email" class="text-danger"></span>
+        <label asp-for="@Model.Email" class="control-label"></label>
+        <input asp-for="@Model.Email" style="display: br; width: 20%;" class="form-control" />
+        <span asp-validation-for="@Model.Email" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Bruger.Adgangskode" class="control-label"></label>
-        <input asp-for="@Model.Bruger.Adgangskode" style="display: br; width: 20%;" class="form-control" />
-        <span asp-validation-for="@Model.Bruger.Adgangskode" class="text-danger"></span>
+        <label asp-for="@Model.Adgangskode" class="control-label"></label>
+        <input asp-for="@Model.Adgangskode" style="display: br; width: 20%;" class="form-control" />
+        <span asp-validation-for="@Model.Adgangskode" class="text-danger"></span>
     </div>
     <div class="formgroup">
         <input type="submit" value="Login" class="btn btn-primary" style="background-color: green; border-color: green;" />

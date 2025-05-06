@@ -12,8 +12,8 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         #endregion
 
         #region Properties
-        [BindProperty] 
-        public Bruger Bruger { get; set; }
+        [BindProperty] public string Email { get; set; }
+        [BindProperty] public string Adgangskode { get; set; }
         public string MessageError { get; set; }
         #endregion
 
@@ -42,11 +42,11 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
             if (!ModelState.IsValid) { return Page(); }
             try
             {
-                Bruger? loginBruger = await _brugerService.ValidateBrugerAsync(Bruger.Email, Bruger.Adgangskode);
+                Bruger? loginBruger = await _brugerService.ValidateBrugerAsync(Email, Adgangskode);
                 if (loginBruger != null)
                 {
                     HttpContext.Session.SetString("Email", loginBruger.Email);
-                    return RedirectToPage("Index");
+                    return RedirectToPage("/Index");
                 }
                 else
                 { // if user cannot be verified

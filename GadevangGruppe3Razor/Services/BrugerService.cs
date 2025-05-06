@@ -13,6 +13,8 @@ namespace GadevangGruppe3Razor.Services
         private string insertSql = "Insert into Bruger (BrugerID, Brugernavn, Adgangskode, Email, Telefon, Verificeret, Medlemskab, Position) values (@BrugerID, @Brugernavn, @Adgangskode, @Email, @Telefon, @Verificeret, @Medlemskab, @Position)";
         private string deleteSql = "Delete from Bruger where BrugerId = @BrugerId";
         private string updateSql = "Update Bruger set Brugernavn = @Brugernavn, Adgangskode = @Adgangskode, Email = @Email, Telefon = @Telefon, Verificeret = @Verificeret, Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
+        private string loginSql = "Select Email, Adgangskode from Bruger";
+
         public async Task<bool> CreateBrugerAsync(Bruger bruger)
         {
             bool isCreated = false;
@@ -219,7 +221,7 @@ namespace GadevangGruppe3Razor.Services
 				Bruger bruger = null;
 				try
 				{
-					SqlCommand command = new SqlCommand(selectSql + " where Email = @Email and Adgangskode = @Adgangskode", connection);
+					SqlCommand command = new SqlCommand(loginSql + " where Email = @Email and Adgangskode = @Adgangskode", connection);
 					command.Parameters.AddWithValue("@Email", email);
 					command.Parameters.AddWithValue("@Adgangskode", adgangskode);
 					await command.Connection.OpenAsync();
