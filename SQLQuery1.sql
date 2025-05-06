@@ -55,3 +55,26 @@ Create Table Begivenhed (
 
 ); 
 
+Create Table Booking( 
+	BookingId int not null,
+	BaneId int not null,
+	StartTid DateTime not null,
+	SlutTid DateTime not null,
+	Bruger1 int not null,
+	Bruger2 int,
+	Beskrivelse varchar(250)
+
+Foreign Key (BaneId) References Bane (BaneId),
+Foreign Key (Bruger1) References Bruger (BrugerId),
+Foreign Key (Bruger2) References Bruger (BrugerId),
+); 
+
+Create Table TilmeldBegivenhed ( 
+    BrugerId int not null, 
+    EventId int not null, 
+    Kommentar varchar(255), 
+    Foreign Key (BrugerId) References Bruger (BrugerId), 
+    Foreign Key (EventId) References Begivenhed (EventId), 
+    Primary Key (BrugerId, EventId) 
+); 
+

@@ -9,6 +9,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IBrugerService, BrugerService>();
 builder.Services.AddScoped<IBegivenhedService, BegivenhedService>();
 builder.Services.AddScoped<IBaneService, BaneService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 

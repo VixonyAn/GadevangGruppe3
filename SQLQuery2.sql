@@ -16,3 +16,8 @@ Insert into Bruger values (1, 'Bo Windelman', 'Ten312', 'BOWI@gtmail.dk', '11111
 
 Insert into Bruger values (2, 'Poul Henriksen', 'Elv123', 'POHE@gtmail.dk', '22222222', 1, 0, 0);
 
+Insert into Booking values(1,1,'2025/06/20 15:45:00','2025/06/20 16:45:00',1,2,'Personlig bookining');
+Insert into Booking values(2,2,'2025/06/21 15:45:00','2025/06/21 16:45:00',2,1,'Personlig bookining');
+
+Insert Into TilmeldBegivenhed Values (2, 2, 'Medbringer koteletter') 
+Insert Into TilmeldBegivenhed Values (1, 1, 'Medbringer ekstra ketsjere') 
