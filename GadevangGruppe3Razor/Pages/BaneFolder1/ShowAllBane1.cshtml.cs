@@ -18,7 +18,16 @@ namespace GadevangGruppe3Razor.Pages.BaneFolder1
 
         public async Task OnGetAsync()
         {
-            Baner=await _baneservice.GetAllBaneAsync();
+            try 
+            { 
+                Baner=await _baneservice.GetAllBaneAsync();
+            } 
+            catch (Exception ex)
+            {
+                List <Bane> baner = new List<Bane>();
+                ViewData["ErrorMessage"] = ex.Message;
+            }
+            
         }
     }
 }

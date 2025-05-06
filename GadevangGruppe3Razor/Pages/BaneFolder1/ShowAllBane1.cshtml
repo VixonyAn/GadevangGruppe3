@@ -8,7 +8,7 @@
 <a asp-page="CreateBane" class="btn btn-primary">Opret bane</a>
 <hr />
 @* <form>
-    Søg efter hotel navn: <input type="text" asp-for="@Model.FilterName" />
+    Søg efter banetyppe: <input type="text" asp-for="@Model.FilterName" />
     <input type="submit" value="Filter" />
 </form> *@
 <br />
@@ -71,5 +71,9 @@
 
                 </tr>
             }
+        }
+        else
+        {
+            <h2><b>Der er ingen baner tilgængelige</b></h2>
         }
 </table>

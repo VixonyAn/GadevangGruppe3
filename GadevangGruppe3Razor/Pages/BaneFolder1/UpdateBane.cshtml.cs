@@ -23,6 +23,7 @@ namespace GadevangGruppe3Razor.Pages.BaneFolder1
 
         public async Task<IActionResult> OnPostAsync(int baneId)
         {
+            if (!ModelState.IsValid) { return Page(); }
             try 
             {
                 _baneService.UpdateBaneAsync(baneId, new Bane(baneId, bane.Type, bane.Miljø, bane.Beskrivelse));
