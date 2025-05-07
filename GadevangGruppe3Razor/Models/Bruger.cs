@@ -34,8 +34,7 @@ namespace GadevangGruppe3Razor.Models
         [Required(ErrorMessage = "Verificeringen kan ikke være null")]
         public bool Verificeret { get; set; }
 
-        [Required(ErrorMessage = "Billed url kan ikke være null ")]
-        [StringLength(100, ErrorMessage = "Billed url kan ikke være længere end 100 karakterer")]
+        [StringLength(255, ErrorMessage = "Billed url kan ikke være længere end 255 karakterer")]
         public string BilledUrl { get; set; }
         public Bruger()
         {
@@ -48,7 +47,7 @@ namespace GadevangGruppe3Razor.Models
             Adgangskode = adgangskode;
         }
 
-        public Bruger(int brugerID, string brugernavn, string adgangskode, string email, string telefon, string billedUrl, MedlemskabsType medlemskab, Position position, bool verificeret)
+		public Bruger(int brugerID, string brugernavn, string adgangskode, string email, string telefon, string billedUrl, MedlemskabsType medlemskab, Position position, bool verificeret)
         {
             BrugerId = brugerID;
             Brugernavn = brugernavn;

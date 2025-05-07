@@ -9,8 +9,8 @@ namespace GadevangGruppe3Razor.Services
     public class BrugerService : IBrugerService
     {
         private String connectionString = Secret.ConnectionString;
-        private string selectSql = "Select BrugerId, Brugernavn, Adgangskode, Email, Telefon, Verificeret, BilledUrl, Medlemskab, Position from Bruger";
-        private string insertSql = "Insert into Bruger (BrugerID, Brugernavn, Adgangskode, Email, Telefon, Verificeret, BilledUrl, Medlemskab, Position) values (@BrugerID, @Brugernavn, @Adgangskode, @Email, @Telefon, @Verificeret, @BilledUrl, @Medlemskab, @Position)";
+        private string selectSql = "Select BrugerId, Brugernavn, Adgangskode, Email, Telefon, BilledUrl, Medlemskab, Position, Verificeret from Bruger";
+        private string insertSql = "Insert into Bruger (BrugerID, Brugernavn, Adgangskode, Email, Telefon, BilledUrl, Medlemskab, Position, Verificeret) values (@BrugerID, @Brugernavn, @Adgangskode, @Email, @Telefon, @BilledUrl, @Medlemskab, @Position, @Verificeret)";
         private string deleteSql = "Delete from Bruger where BrugerId = @BrugerId";
         private string updateSql = "Update Bruger set Brugernavn = @Brugernavn, Adgangskode = @Adgangskode, Email = @Email, Telefon = @Telefon, BilledUrl = @BilledUrl, Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
         private string loginSql = "Select Email, Adgangskode from Bruger";
@@ -30,10 +30,10 @@ namespace GadevangGruppe3Razor.Services
                     command.Parameters.AddWithValue("@Email", bruger.Email);
                     command.Parameters.AddWithValue("@Telefon", bruger.Telefon);
 					command.Parameters.AddWithValue("@BilledUrl", bruger.BilledUrl);
-					command.Parameters.AddWithValue("@Verificeret", bruger.Verificeret);
                     command.Parameters.AddWithValue("@Medlemskab", bruger.Medlemskab);
                     command.Parameters.AddWithValue("@Position", bruger.Positionen);
-                    int rowsAffected = command.ExecuteNonQuery();
+					command.Parameters.AddWithValue("@Verificeret", bruger.Verificeret);
+					int rowsAffected = command.ExecuteNonQuery();
                     if (rowsAffected > 0)
                     {
                         isCreated = true;
@@ -110,10 +110,10 @@ namespace GadevangGruppe3Razor.Services
                         string adgangskode = reader.GetString("adgangskode");
                         string email = reader.GetString("Email");
                         string telefon = reader.GetString("Telefon");
-                        MedlemskabsType medlemskab = (MedlemskabsType)reader.GetInt32(reader.GetOrdinal("Medlemskab"));
+						string billedUrl = reader.GetString("BilledUrl");
+						MedlemskabsType medlemskab = (MedlemskabsType)reader.GetInt32(reader.GetOrdinal("Medlemskab"));
                         Position position = (Position)reader.GetInt32(reader.GetOrdinal("Position"));
                         bool verificeret = reader.GetBoolean("Verificeret");
-                        string billedUrl = reader.GetString("BilledUrl");
                         Bruger bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, billedUrl, medlemskab, position, verificeret);
                         brugere.Add(bruger);
                     }
@@ -135,7 +135,44 @@ namespace GadevangGruppe3Razor.Services
             return brugere;
         }
 
-        public async Task<Bruger> GetBrugerByIdAsync(int brugerId)
+        public async Task<Bruger> GetBrugerByEmailAsync(string email)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                Bruger bruger = new Bruger();
+                try
+                {
+                    SqlCommand command = new SqlCommand(selectSql + " where Email like @Email", connection);
+                    command.Parameters.AddWithValue("@Search", "%" + email + "%");
+                    await command.Connection.OpenAsync();
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    while (await reader.ReadAsync()) // reads from data not from console
+                    {
+                        string brugernavn = reader.GetString("Brugernavn");
+                        string adgangskode = reader.GetString("Adgangskode");
+                        bruger = new Bruger(brugernavn, adgangskode);
+                    }
+                    reader.Close();
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error" + sqlExp.Message);
+                    throw sqlExp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+                return bruger;
+            }
+        }
+
+		public async Task<Bruger> GetBrugerByIdAsync(int brugerId)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -152,10 +189,10 @@ namespace GadevangGruppe3Razor.Services
                         string adgangskode = reader.GetString("Adgangskode");
                         string email = reader.GetString("Email");
                         string telefon = reader.GetString("Telefon");
-                        MedlemskabsType medlemskab = (MedlemskabsType)reader.GetInt32(reader.GetOrdinal("Medlemskab"));
+                        string billedUrl = reader.GetString("BilledUrl");
+						MedlemskabsType medlemskab = (MedlemskabsType)reader.GetInt32(reader.GetOrdinal("Medlemskab"));
                         Position position = (Position)reader.GetInt32(reader.GetOrdinal("Position"));
                         bool verificeret = reader.GetBoolean("Verificeret");
-                        string billedUrl = reader.GetString("BilledUrl");
                         bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, billedUrl, medlemskab, position, verificeret);
                     }
                     reader.Close();
