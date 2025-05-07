@@ -1,11 +1,12 @@
 using GadevangGruppe3Razor.Interfaces;
 using GadevangGruppe3Razor.Models;
+using GadevangGruppe3Razor.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
+/*
 namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
 {
-    public class DeleteModel : PageModel
+    public class UpdateModel : PageModel
     {
         #region Instance Fields
         private IBegivenhedService _begivenhedService;
@@ -13,12 +14,10 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
 
         #region Properties
         [BindProperty] public Begivenhed Begivenhed { get; set; }
-        [BindProperty] public bool Confirm { get; set; }
-        public string MessageError { get; set; }
         #endregion
 
         #region Constructor
-        public DeleteModel(IBegivenhedService begivenhedService)
+        public UpdateModel(IBegivenhedService begivenhedService)
         {
             _begivenhedService = begivenhedService;
         }
@@ -26,9 +25,9 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
 
         #region Methods
         /// <summary>
-        /// Funktion når Delete siden bliver indlæst
+        /// Funktion når Update siden bliver indlæst
         /// </summary>
-        /// <param name="eventId">Id på Begivenheden der skal slettes</param>
+        /// <param name="eventId">Id på Begivenheden der skal opdateres</param>
         /// <returns>Begivenhedens informationer</returns>
         public async Task<IActionResult> OnGetAsync(int eventId)
         {
@@ -37,24 +36,21 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
         }
 
         /// <summary>
-        /// Funktion når "Slet" klikkes på Delete siden
+        /// Funktion når "Opdater" klikkes på Update siden
         /// </summary>
-        /// <param name="eventId">Id på Begivenheden der skal slettes</param>
+        /// <param name="eventId">Id på Begivenhed der skal opdateres</param>
         /// <returns>
-        /// True: Begivenhed bliver slettet og brugeren sendt tilbage til oversigten
+        /// True: Begivenhed bliver opdateret og brugeren sendt tilbage til oversigten
         /// <br></br>
         /// False: ErrorMessage bliver aktiveret og siden genindlæses
         /// </returns>
         public async Task<IActionResult> OnPostAsync(int eventId)
         {
-            if (Confirm == false)
-            {
-                MessageError = $"Husk at klikke Bekræft";
-                return Page();
-            }
+            // if ModelState is NOT valid, reload (triggers error messages)
+            if (!ModelState.IsValid) { return Page(); }
             try
             {
-                await _begivenhedService.DeleteBegivenhedAsync(eventId);
+                await _begivenhedService.UpdateBegivenhedAsync(new Begivenhed(eventId, Begivenhed.Titel, Begivenhed.Sted, Begivenhed.Dato, Begivenhed.Beskrivelse, Begivenhed.MedlemMax, Begivenhed.Pris), eventId);
                 return RedirectToPage("ShowAllBegivenhed");
             }
             catch (Exception ex)
@@ -66,3 +62,4 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
         #endregion
     }
 }
+*/

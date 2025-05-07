@@ -15,7 +15,7 @@ namespace GadevangGruppe3Razor.Interfaces
         /// </summary>
         /// <param name="eventId">EventId man søger efter</param>
         /// <returns>Begivenhed objekt</returns>
-        Task<Begivenhed?> GetBegivenhedFromIdAsync(int eventId);
+        Task<Begivenhed?> GetBegivenhedByIdAsync(int eventId);
 
         /// <summary>
         /// Indsætter et nyt begivenhed i databasen

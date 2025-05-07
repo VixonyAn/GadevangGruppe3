@@ -205,7 +205,7 @@ namespace GadevangDBTest
             Assert.IsTrue(ok);
             Assert.IsTrue(updOk);
             Assert.AreEqual(b.Titel, updateBegivenhed.Titel);
-            #endregion
         }
+        #endregion
     }
 }

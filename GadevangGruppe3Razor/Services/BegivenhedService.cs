@@ -54,7 +54,7 @@ namespace GadevangGruppe3Razor.Services
             return begivenheder;
         }
 
-        public async Task<Begivenhed?> GetBegivenhedFromIdAsync(int eventId)
+        public async Task<Begivenhed?> GetBegivenhedByIdAsync(int eventId)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -158,7 +158,7 @@ namespace GadevangGruppe3Razor.Services
 
         public async Task<Begivenhed?> DeleteBegivenhedAsync(int eventId)
         {
-            Begivenhed? begivenhed = await GetBegivenhedFromIdAsync(eventId);
+            Begivenhed? begivenhed = await GetBegivenhedByIdAsync(eventId);
             if (begivenhed == null) { return null; }
 
             using (SqlConnection connection = new SqlConnection(connectionString))

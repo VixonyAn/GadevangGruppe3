@@ -22,6 +22,7 @@
             <th>Pris</th>
             <th>Handlinger</th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody style="background-color: lightgray; text-align: center; margin: 3px;">
@@ -38,10 +39,13 @@
                     <td style="border: solid 1px; border-color: white;">@item.MedlemMax</td>
                     <td style="border: solid 1px; border-color: white;">@item.Pris</td>
                     <td style="border: solid 1px; border-color: white;">
-                        <a asp-page="Update" asp-route-EventId="@item.EventId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Opdater</a>
+                        <a asp-page="/TilmeldBegivenhedFolder/Create" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: green; border-color: green;">Tilmeld</a>
                     </td>
-                    <td>
-                        <a asp-page="Delete" asp-route-EventId="@item.EventId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">Slet</a>
+                    <td style="border: solid 1px; border-color: white;">
+                        <a asp-page="Update" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Opdater</a>
+                    </td>
+                    <td style="border: solid 1px; border-color: white;">
+                        <a asp-page="Delete" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">Slet</a>
                     </td>
                 </tr>
             }

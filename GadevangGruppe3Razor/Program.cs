@@ -6,10 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IBaneService, BaneService>();
 builder.Services.AddScoped<IBrugerService, BrugerService>();
 builder.Services.AddScoped<IBegivenhedService, BegivenhedService>();
-builder.Services.AddScoped<IBaneService, BaneService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<ITilmeldBegivenhedService, TilmeldBegivenhedService>();
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 

@@ -2,7 +2,7 @@ using GadevangGruppe3Razor.Interfaces;
 using GadevangGruppe3Razor.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
+/*
 namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
 {
     public class DeleteModel : PageModel
@@ -66,3 +66,4 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
         #endregion
     }
 }
+*/

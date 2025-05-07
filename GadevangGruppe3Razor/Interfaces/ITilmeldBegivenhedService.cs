@@ -15,7 +15,7 @@ namespace GadevangGruppe3Razor.Interfaces
         /// </summary>
         /// <param name="eventId">EventId på Begivenheden man søger efter</param>
         /// <returns>Liste af Tilmeldinger til en specifik Begivenhed</returns>
-        Task<List<TilmeldBegivenhed>> GetTilmeldBFromEventIdAsync(int eventId);
+        Task<List<TilmeldBegivenhed>> GetTilmeldBByEventIdAsync(int eventId);
 
         /// <summary>
         /// Henter en specifik Tilmelding fra databasen
@@ -23,7 +23,7 @@ namespace GadevangGruppe3Razor.Interfaces
         /// <param name="brugerId">BrugerId man søger efter</param>
         /// <param name="eventId">EventId man søger efter</param>
         /// <returns>Tilmeld objekt</returns>
-        Task<TilmeldBegivenhed?> GetTilmeldBFromIdAsync(int brugerId, int eventId);
+        Task<TilmeldBegivenhed?> GetTilmeldBByIdAsync(int brugerId, int eventId);
 
         /// <summary>
         /// Indsætter en ny Tilmelding i databasen

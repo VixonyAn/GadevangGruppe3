@@ -48,14 +48,45 @@ namespace GadevangGruppe3Razor.Services
             return tilmeldBList;
         }
 
-        public async Task<List<TilmeldBegivenhed>> GetTilmeldBFromEventIdAsync(int eventId)
+        public async Task<List<TilmeldBegivenhed>> GetTilmeldBByEventIdAsync(int eventId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<TilmeldBegivenhed?> GetTilmeldBFromIdAsync(int brugerId, int eventId)
+        public async Task<TilmeldBegivenhed?> GetTilmeldBByIdAsync(int brugerId, int eventId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                TilmeldBegivenhed tilmeldB = null;
+                try
+                {
+                    SqlCommand command = new SqlCommand(selectString + " where BrugerId = @BrugerId and EventId = @EventId", connection);
+                    command.Parameters.AddWithValue("@BrugerId", brugerId);
+                    command.Parameters.AddWithValue("@EventId", eventId);
+                    await command.Connection.OpenAsync();
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    if (await reader.ReadAsync()) // reads from data not from console
+                    {
+                        int bId = reader.GetInt32("BrugerId");
+                        int eId = reader.GetInt32("EventId");
+                        string kom = reader.GetString("Kommentar");
+                        tilmeldB = new TilmeldBegivenhed(bId, eId, kom);
+                    }
+                    reader.Close();
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error" + sqlExp.Message);
+                    throw sqlExp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+                    throw ex;
+                }
+                finally { }
+                return tilmeldB;
+            }
         }
 
         public async Task<bool> CreateTilmeldBAsync(TilmeldBegivenhed tilmeldB)
@@ -88,12 +119,61 @@ namespace GadevangGruppe3Razor.Services
 
         public async Task<bool> UpdateTilmeldBAsync(int brugerId, int eventId, string kommentar)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(updateSql, connection);
+                    command.Parameters.AddWithValue("@BrugerId", brugerId);
+                    command.Parameters.AddWithValue("@EventId", eventId);
+                    command.Parameters.AddWithValue("@Kommentar", kommentar);
+                    await command.Connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error" + sqlExp.Message);
+                    throw sqlExp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+                    throw ex;
+                }
+                finally { }
+                return true;
+            }
         }
 
         public async Task<TilmeldBegivenhed?> DeleteTilmeldBAsync(int brugerId, int eventId)
         {
-            throw new NotImplementedException();
+            TilmeldBegivenhed? tilmeldB = await GetTilmeldBByIdAsync(brugerId, eventId);
+            if (tilmeldB == null) { return null; }
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(deleteSql, connection);
+                    command.Parameters.AddWithValue("@BrugerId", brugerId);
+                    command.Parameters.AddWithValue("@EventId", eventId);
+                    await command.Connection.OpenAsync();
+                    int noOfRows = await command.ExecuteNonQueryAsync();
+                    if (noOfRows == 0) { return null; }
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error" + sqlExp.Message);
+                    throw sqlExp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+                    throw ex;
+                }
+                finally { }
+                return tilmeldB;
+            }
         }
     }
 }

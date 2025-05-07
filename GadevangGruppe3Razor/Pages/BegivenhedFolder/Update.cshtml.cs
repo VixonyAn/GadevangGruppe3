@@ -27,30 +27,30 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
         /// <summary>
         /// Funktion når Update siden bliver indlæst
         /// </summary>
-        /// <param name="EventId">Id på Begivenheden der skal opdateres</param>
+        /// <param name="eventId">Id på Begivenheden der skal opdateres</param>
         /// <returns>Begivenhedens informationer</returns>
-        public async Task<IActionResult> OnGetAsync(int EventId)
+        public async Task<IActionResult> OnGetAsync(int eventId)
         {
-            Begivenhed = await _begivenhedService.GetBegivenhedFromIdAsync(EventId);
+            Begivenhed = await _begivenhedService.GetBegivenhedByIdAsync(eventId);
             return Page();
         }
 
         /// <summary>
         /// Funktion når "Opdater" klikkes på Update siden
         /// </summary>
-        /// <param name="EventId">Id på Begivenhed der skal opdateres</param>
+        /// <param name="eventId">Id på Begivenhed der skal opdateres</param>
         /// <returns>
         /// True: Begivenhed bliver opdateret og brugeren sendt tilbage til oversigten
         /// <br></br>
         /// False: ErrorMessage bliver aktiveret og siden genindlæses
         /// </returns>
-        public async Task<IActionResult> OnPostAsync(int EventId)
+        public async Task<IActionResult> OnPostAsync(int eventId)
         {
             // if ModelState is NOT valid, reload (triggers error messages)
             if (!ModelState.IsValid) { return Page(); }
             try
             {
-                await _begivenhedService.UpdateBegivenhedAsync(new Begivenhed(EventId, Begivenhed.Titel, Begivenhed.Sted, Begivenhed.Dato, Begivenhed.Beskrivelse, Begivenhed.MedlemMax, Begivenhed.Pris), EventId);
+                await _begivenhedService.UpdateBegivenhedAsync(new Begivenhed(eventId, Begivenhed.Titel, Begivenhed.Sted, Begivenhed.Dato, Begivenhed.Beskrivelse, Begivenhed.MedlemMax, Begivenhed.Pris), eventId);
                 return RedirectToPage("ShowAllBegivenhed");
             }
             catch (Exception ex)
