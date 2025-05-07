@@ -11,13 +11,13 @@
 
 <form method="post">
     <div class="form-group">
-        <label asp-for="@Model.BrugerId" class="control-label"></label>
-        <input asp-for="@Model.BrugerId" style="display: br; width: 30%;" class="form-control" />
-        <span asp-validation-for="@Model.BrugerId" class="text-danger"></span>
+        <label asp-for="@Model.CurrentBruger.BrugerId" class="control-label"></label>
+        <input asp-for="@Model.CurrentBruger.BrugerId" style="display: br; width: 30%;" readonly class="form-control" />
+        <span asp-validation-for="@Model.CurrentBruger.BrugerId" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="@Model.EventId" class="control-label"></label>
-        <input asp-for="@Model.EventId" style="display: br; width: 30%;" class="form-control" />
+        <input asp-for="@Model.EventId" style="display: br; width: 30%;" readonly class="form-control" />
         <span asp-validation-for="@Model.EventId" class="text-danger"></span>
     </div>
     <div class="form-group">
