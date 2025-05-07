@@ -122,10 +122,12 @@ namespace GadevangGruppe3Razor.Services
                 catch (SqlException sqlExp)
                 {
                     Console.WriteLine("Database error" + sqlExp.Message);
+                    throw sqlExp;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Generel fejl: " + ex.Message);
+                    throw ex;
                 }
                 finally
                 {

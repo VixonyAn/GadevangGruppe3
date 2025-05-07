@@ -10,7 +10,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
     {
         private IBrugerService _brugerService;
         
-        public List<Bruger> Brugerer { get; set; }
+        public List<Bruger> Brugere { get; set; }
 
         public ShowAllBrugerModel(IBrugerService brugerService)
         {
@@ -20,11 +20,11 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         {
             try
             {
-                Brugerer = await _brugerService.GetAllBrugerAsync();
+                Brugere = await _brugerService.GetAllBrugerAsync();
             }
             catch (Exception ex)
             {
-                Brugerer = new List<Bruger>();
+                Brugere = new List<Bruger>();
                 ViewData["ErrorMessage"] = ex.Message;
             }
         }
