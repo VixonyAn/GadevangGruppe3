@@ -142,15 +142,25 @@ namespace GadevangGruppe3Razor.Services
                 Bruger bruger = new Bruger();
                 try
                 {
-                    SqlCommand command = new SqlCommand(selectSql + " where Email like @Email", connection);
+                    SqlCommand command = new SqlCommand(selectSql + " where Email like @Search", connection);
                     command.Parameters.AddWithValue("@Search", "%" + email + "%");
                     await command.Connection.OpenAsync();
                     SqlDataReader reader = await command.ExecuteReaderAsync();
                     while (await reader.ReadAsync()) // reads from data not from console
                     {
+                        int brugerId = reader.GetInt32("BrugerId");
                         string brugernavn = reader.GetString("Brugernavn");
-                        string adgangskode = reader.GetString("Adgangskode");
-                        bruger = new Bruger(brugernavn, adgangskode);
+                        string adgangskode = reader.GetString("adgangskode");
+                        string telefon = reader.GetString("Telefon");
+                        string billedUrl = reader.GetString("BilledUrl");
+                        MedlemskabsType medlemskab = (MedlemskabsType)reader.GetInt32(reader.GetOrdinal("Medlemskab"));
+                        Position position = (Position)reader.GetInt32(reader.GetOrdinal("Position"));
+                        bool verificeret = reader.GetBoolean("Verificeret");
+                        bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, billedUrl, medlemskab, position, verificeret);
+
+                        //string brugernavn = reader.GetString("Brugernavn");
+                        //string adgangskode = reader.GetString("Adgangskode");
+                        //bruger = new Bruger(brugernavn, adgangskode);
                     }
                     reader.Close();
                 }

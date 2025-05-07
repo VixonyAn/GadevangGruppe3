@@ -25,9 +25,10 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
         #endregion
 
         #region Constructor
-        public CreateModel(ITilmeldBegivenhedService tilmeldBegivenhedService)
+        public CreateModel(ITilmeldBegivenhedService tilmeldBegivenhedService, IBrugerService brugerService)
         {
             _tilmeldBegivenhedService = tilmeldBegivenhedService;
+            _brugerService = brugerService;
         }
         #endregion
 
@@ -43,7 +44,7 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
                 }
                 else
                 {
-                    //CurrentBruger = await _brugerService.GetBrugerByIdAsync(Email);
+                    CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
                     //TilmeldB = new TilmeldBegivenhed();
                     //TilmeldB.EventId = eventId;
                     EventId = eventId;
