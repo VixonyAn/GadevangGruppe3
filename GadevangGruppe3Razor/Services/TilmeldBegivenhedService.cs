@@ -48,27 +48,50 @@ namespace GadevangGruppe3Razor.Services
             return tilmeldBList;
         }
 
-        public Task<List<TilmeldBegivenhed>> GetTilmeldBFromEventIdAsync(int eventId)
+        public async Task<List<TilmeldBegivenhed>> GetTilmeldBFromEventIdAsync(int eventId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<TilmeldBegivenhed?> GetTilmeldBFromIdAsync(int brugerId, int eventId)
+        public async Task<TilmeldBegivenhed?> GetTilmeldBFromIdAsync(int brugerId, int eventId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> CreateTilmeldBAsync(TilmeldBegivenhed tilmeldB)
+        public async Task<bool> CreateTilmeldBAsync(TilmeldBegivenhed tilmeldB)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(insertSql, connection);
+                    command.Parameters.AddWithValue("@BrugerId", tilmeldB.BrugerId);
+                    command.Parameters.AddWithValue("@EventId", tilmeldB.EventId);
+                    command.Parameters.AddWithValue("@Kommentar", tilmeldB.Kommentar);
+                    await command.Connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error" + sqlExp.Message);
+                    throw sqlExp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+                    throw ex;
+                }
+                finally { }
+                return true;
+            }
+        }
+
+        public async Task<bool> UpdateTilmeldBAsync(int brugerId, int eventId, string kommentar)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateTilmeldBAsync(int brugerId, int eventId, string kommentar)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<TilmeldBegivenhed?> DeleteTilmeldBAsync(int brugerId, int eventId)
+        public async Task<TilmeldBegivenhed?> DeleteTilmeldBAsync(int brugerId, int eventId)
         {
             throw new NotImplementedException();
         }
