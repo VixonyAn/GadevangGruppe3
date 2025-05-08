@@ -8,20 +8,17 @@ using GadevangGruppe3Razor.Services;
 namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
 {
     public class CreateModel : PageModel
-    { // needs to grab logged in users cookie to sign up
+    {
         #region Instance Fields
         private ITilmeldBegivenhedService _tilmeldBegivenhedService;
         private IBrugerService _brugerService;
         #endregion
 
         #region Properties
-        //[BindProperty] public TilmeldBegivenhed TilmeldB { get; set; }
-        //[BindProperty] public Bruger Bruger { get; set; }
-        [BindProperty] public int BrugerId { get; set; }
+        [BindProperty] public Bruger CurrentBruger { get; set; }
         [BindProperty] public int EventId { get; set; }
         [BindProperty] public string Kommentar { get; set; }
         public string Email { get; set; }
-        public Bruger CurrentBruger { get; set; }
         #endregion
 
         #region Constructor
@@ -45,8 +42,6 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
                 else
                 {
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
-                    //TilmeldB = new TilmeldBegivenhed();
-                    //TilmeldB.EventId = eventId;
                     EventId = eventId;
                 }
                 return Page();
@@ -69,11 +64,11 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
         public async Task<IActionResult> OnPostAsync()
         {
             // if ModelState is NOT valid, reload (triggers error messages)
-            if (!ModelState.IsValid) { return Page(); }
+            //if (!ModelState.IsValid) { return Page(); } // Poul said we could drop this
             try
             {
-                await _tilmeldBegivenhedService.CreateTilmeldBAsync(new TilmeldBegivenhed(BrugerId, EventId, Kommentar));
-                return RedirectToPage("ShowAllBegivenhed");
+                await _tilmeldBegivenhedService.CreateTilmeldBAsync(new TilmeldBegivenhed(CurrentBruger.BrugerId, EventId, Kommentar));
+                return RedirectToPage("/BegivenhedFolder/ShowAllBegivenhed");
             }
             catch (Exception ex)
             {
