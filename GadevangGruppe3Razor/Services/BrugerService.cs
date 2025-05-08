@@ -115,13 +115,20 @@ namespace GadevangGruppe3Razor.Services
                         Position position = (Position)reader.GetInt32(reader.GetOrdinal("Position"));
                         bool verificeret = reader.GetBoolean("Verificeret");
                         Bruger bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, billedUrl, medlemskab, position, verificeret);
-                        brugere.Add(bruger);
+                        if (!brugere.Contains(brugere.Find(c => c.Email.Equals(email))) || !brugere.Contains(brugere.Find(c => c.Telefon.Equals(telefon))))
+                        {
+							brugere.Add(bruger);
+						}
+                        else
+                        {
+                            throw new Exception("Den angivede email eller telefonnummer findes allerede i brugerlisten og kan ikke tilføjes");
+                        }
                     }
                     reader.Close();
                 }
                 catch (SqlException sqlExp)
                 {
-                    Console.WriteLine("Database error" + sqlExp.Message);
+                    Console.WriteLine("Database fejl: " + sqlExp.Message);
                     throw sqlExp;
                 }
                 catch (Exception ex)

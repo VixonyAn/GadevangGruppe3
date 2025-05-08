@@ -10,19 +10,19 @@ namespace GadevangGruppe3Razor.Models
         public int BrugerId { get; set; }
 
         [Required(ErrorMessage = "Brugernavn kan ikke være null")]
-        [StringLength(30, ErrorMessage = "Brugernavn kan ikke være længere end 30 karakterer")]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "Brugernavn kan ikke være kortere end 2 karakterer længere end 30 karakterer")]
         public string Brugernavn { get; set; }
 
         [Required(ErrorMessage = "Adgangskode kan ikke være null")]
-        [StringLength(30, ErrorMessage = "Adgangskode kan ikke være længere end 50 karakterer")]
+        [StringLength(30, MinimumLength = 4, ErrorMessage = "Adgangskode kan ikke være korterer end 4 karakterer længere end 50 karakterer")]
         public string Adgangskode { get; set; }
 
         [Required(ErrorMessage = "Email kan ikke være null")]
-        [StringLength(30, ErrorMessage = "Email kan ikke være længere end 50 karakterer")]
+        [StringLength(30, MinimumLength = 4, ErrorMessage = "Email kan ikke være korterer end 4 karakterer længere end 50 karakterer")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Telefonnummer kan ikke være null")]
-        [StringLength(30, ErrorMessage = "Telefonnummer kan ikke være længere end 8 karakterer")]
+        [StringLength(8, MinimumLength = 8, ErrorMessage = "Telefonnummer kan ikke være længere end 8 karakterer")]
         public string Telefon { get; set; }
 
         [Required(ErrorMessage = "MedlemskabsTypen kan ikke være null")]
@@ -34,7 +34,7 @@ namespace GadevangGruppe3Razor.Models
         [Required(ErrorMessage = "Verificeringen kan ikke være null")]
         public bool Verificeret { get; set; }
 
-        [StringLength(255, ErrorMessage = "Billed url kan ikke være længere end 255 karakterer")]
+        [StringLength(255, MinimumLength = 0, ErrorMessage = "Billed url kan ikke være længere end 255 karakterer")]
         public string BilledUrl { get; set; }
         public Bruger()
         {
@@ -49,10 +49,10 @@ namespace GadevangGruppe3Razor.Models
 
 		public Bruger(int brugerID, string brugernavn, string adgangskode, string email, string telefon, string billedUrl, MedlemskabsType medlemskab, Position position, bool verificeret)
         {
-            BrugerId = brugerID;
-            Brugernavn = brugernavn;
-            Adgangskode = adgangskode;
-            Email = email;
+			BrugerId = brugerID;
+			Brugernavn = brugernavn;
+			Adgangskode = adgangskode;
+			Email = email;
             Telefon = telefon;
             BilledUrl = billedUrl;
             Medlemskab = medlemskab;
