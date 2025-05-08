@@ -11,5 +11,8 @@ namespace GadevangGruppe3Razor.Interfaces
         Task<Bruger?> DeleteBrugerAsync(int brugerId);
         Task<Bruger?> ValidateBrugerAsync(string email, string adgangskode);
         Task<Bruger> GetBrugerByEmailAsync(string email);
+        Task<List<Bruger>> FilterBrugerByBrugernavnAsync(string filterBrugernavnCriteria);
+        Task<List<Bruger>> FilterBrugerByMedlemskabsTypeAsync(MedlemskabsType filterMedlemskabsTypeCriteria);
+        Task<List<Bruger>> FilterBrugerByPositionAsync(Position filterPositionCriteria);
 	}
 }
