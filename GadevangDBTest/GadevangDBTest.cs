@@ -158,7 +158,7 @@ namespace GadevangDBTest
 
             //Act
             int BookingerBefore = bookinger.Count();
-            Booking b = new Booking(10,1,new DateTime(2025,06,11),1,2,"Personlig");
+            Booking b = new Booking(10,1,new DateOnly(2025,06,11),10,1,2,"Personlig");
             bool ok = bs.CreateBookingAsync(b).Result;
             //Assert
             Assert.IsNotNull(BookingerBefore);

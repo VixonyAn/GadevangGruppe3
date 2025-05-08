@@ -9,7 +9,7 @@ namespace GadevangGruppe3Razor.Models
         public int BaneId { get; set; }
         public DateOnly Dato { get; set; }
 
-        public int Tid { get; set; }
+        public int StartTid { get; set; }
         public int Bruger1 { get; set; }
         public int Bruger2 { get; set; }
         public string Beskrivelse { get; set; }
@@ -19,12 +19,12 @@ namespace GadevangGruppe3Razor.Models
             
         }
 
-        public Booking(int bookingId,int baneId, DateOnly dato, int tid, int bruger1, int bruger2, string beskrivelse)
+        public Booking(int bookingId,int baneId, DateOnly dato, int startTid, int bruger1, int bruger2, string beskrivelse)
         {
             BookingId = bookingId;
             BaneId = baneId;
             Dato = dato;
-            Tid = tid;
+            StartTid = startTid;
             Bruger1 = bruger1;
             Bruger2 = bruger2;
             Beskrivelse = beskrivelse;
@@ -32,7 +32,7 @@ namespace GadevangGruppe3Razor.Models
 
         public override string ToString()
         {
-            return $"Booking id{BookingId},BaneId{BaneId} DatoTid:{Dato},{Tid},   Bruger 1:{Bruger1},Bruger 2:{Bruger2}  Beskrivelse{Beskrivelse}";
+            return $"Booking id{BookingId},BaneId{BaneId} DatoTid:{Dato},{StartTid},   Bruger 1:{Bruger1},Bruger 2:{Bruger2}  Beskrivelse{Beskrivelse}";
         }
     }
 }

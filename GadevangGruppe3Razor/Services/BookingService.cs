@@ -1,16 +1,18 @@
 ﻿using GadevangGruppe3Razor.Interfaces;
 using GadevangGruppe3Razor.Models;
 using Microsoft.Data.SqlClient;
+using System;
 using System.Data;
+using System.Reflection.PortableExecutable;
 
 namespace GadevangGruppe3Razor.Services
 {
     public class BookingService : IBookingService
     {
         private string _connectionString = Secret.ConnectionString;
-        private string _SelectSQL = "Select BookingId,BaneId,StartTid,Bruger1,Bruger2,Beskrivelse from Booking";
-        private string _InsertionString = "Insert INTO Booking Values(@BookingId,@BaneId,@StartTid,@Bruger1,@Bruger2,@Beskrivelse)";
-        private string _UpdateString = "UPDATE Booking SET BookingId=@BookingId,BaneId=@BaneId,StartTid=@StartTid,Bruger1=@Bruger1,Bruger2=Bruger2,Beskrivelse=@Beskrivelse WHERE BookingId=@BookingId AND Bruger1=@Bruger1";
+        private string _SelectSQL = "Select BookingId,BaneId,Dato,StartTid,Bruger1,Bruger2,Beskrivelse from Booking";
+        private string _InsertionString = "Insert INTO Booking Values(@BookingId,@BaneId,@Dato,@StartTid,@Bruger1,@Bruger2,@Beskrivelse)";
+        private string _UpdateString = "UPDATE Booking SET BookingId=@BookingId,BaneId=@BaneId,Dato=@Dato,StartTid=@StartTid,Bruger1=@Bruger1,Bruger2=Bruger2,Beskrivelse=@Beskrivelse WHERE BookingId=@BookingId AND Bruger1=@Bruger1";
         private string _DeleteSql = "DELETE from Booking WHERE BookingId=@BookingId AND Bruger1=@Bruger1";
 
 
@@ -24,6 +26,7 @@ namespace GadevangGruppe3Razor.Services
                     SqlCommand command = new SqlCommand(_InsertionString, connection);
                     command.Parameters.AddWithValue("@BookingId", booking.BookingId);
                     command.Parameters.AddWithValue("@BaneId", booking.BaneId);
+                    command.Parameters.AddWithValue("@Dato", booking.Dato);
                     command.Parameters.AddWithValue("@StartTid", booking.StartTid);
                     command.Parameters.AddWithValue("@Bruger1", booking.Bruger1);
                     command.Parameters.AddWithValue("@Bruger2", booking.Bruger2);
@@ -67,11 +70,13 @@ namespace GadevangGruppe3Razor.Services
                     {
                         int bookingId = reader.GetInt32("BookingId");
                         int baneId = reader.GetInt32("BaneId");
-                        DateTime startTid = reader.GetDateTime("StartTid");
+                        DateTime dateTime = reader.GetDateTime(reader.GetOrdinal("Dato"));
+                        DateOnly dato = DateOnly.FromDateTime(dateTime);
+                        int startTid = reader.GetInt32("StartTid");
                         int bruger1 = reader.GetInt32("Bruger1");
                         int burger2 = reader.GetInt32("Bruger2");
                         string beskrivelse = reader.GetString("Beskrivelse");
-                        Booking booking = new Booking(bookingId,baneId,startTid,bruger1,burger2,beskrivelse);
+                        Booking booking = new Booking(bookingId,baneId,dato,startTid,bruger1,burger2,beskrivelse);
                         bookinger.Add(booking);
                     }
                     reader.Close();
@@ -89,7 +94,6 @@ namespace GadevangGruppe3Razor.Services
 
                 return bookinger;
             }
-
         }
 
         public async Task<Booking> GetBookingByIdAsync(int bookingId)
