@@ -10,8 +10,8 @@ namespace GadevangGruppe3Razor.Services
     public class BookingService : IBookingService
     {
         private string _connectionString = Secret.ConnectionString;
-        private string _SelectSQL = "Select BookingId,BaneId,Dato,StartTid,Bruger1,Bruger2,Beskrivelse from Booking";
-        private string _InsertionString = "Insert INTO Booking Values(@BookingId,@BaneId,@Dato,@StartTid,@Bruger1,@Bruger2,@Beskrivelse)";
+        private string _SelectSQL = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking";
+        private string _InsertionString = "Insert INTO Booking Values(@BookingId, @BaneId, @Dato, @StartTid, @Bruger1, @Bruger2, @Beskrivelse)";
         private string _UpdateString = "UPDATE Booking SET BookingId=@BookingId,BaneId=@BaneId,Dato=@Dato,StartTid=@StartTid,Bruger1=@Bruger1,Bruger2=Bruger2,Beskrivelse=@Beskrivelse WHERE BookingId=@BookingId AND Bruger1=@Bruger1";
         private string _DeleteSql = "DELETE from Booking WHERE BookingId=@BookingId AND Bruger1=@Bruger1";
 
@@ -43,7 +43,6 @@ namespace GadevangGruppe3Razor.Services
                 {
                     Console.WriteLine("General error: " + ex.Message);
                     throw ex;
-                    return false;
                 }
                 return true;
 
@@ -74,9 +73,9 @@ namespace GadevangGruppe3Razor.Services
                         DateOnly dato = DateOnly.FromDateTime(dateTime);
                         int startTid = reader.GetInt32("StartTid");
                         int bruger1 = reader.GetInt32("Bruger1");
-                        int burger2 = reader.GetInt32("Bruger2");
+                        int bruger2 = reader.GetInt32("Bruger2");
                         string beskrivelse = reader.GetString("Beskrivelse");
-                        Booking booking = new Booking(bookingId,baneId,dato,startTid,bruger1,burger2,beskrivelse);
+                        Booking booking = new Booking(bookingId,baneId,dato,startTid,bruger1,bruger2,beskrivelse);
                         bookinger.Add(booking);
                     }
                     reader.Close();

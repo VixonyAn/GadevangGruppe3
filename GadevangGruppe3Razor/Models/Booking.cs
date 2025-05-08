@@ -32,7 +32,8 @@ namespace GadevangGruppe3Razor.Models
 
         public override string ToString()
         {
-            return $"Booking id{BookingId},BaneId{BaneId} DatoTid:{Dato},{StartTid},   Bruger 1:{Bruger1},Bruger 2:{Bruger2}  Beskrivelse{Beskrivelse}";
+            return $"Booking id: {BookingId}, BaneId: {BaneId} DatoTid: {Dato},{StartTid}\n" +
+                   $"Bruger 1: {Bruger1}, Bruger 2: {Bruger2} Beskrivelse: {Beskrivelse}";
         }
     }
 }

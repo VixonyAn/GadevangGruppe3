@@ -9,25 +9,21 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
 {
     public class CreateBookingModel : PageModel
     {
+        #region Instance Fields
         IBookingService _bookingService;
         IBaneService _baneService;
         IBrugerService _brugerService;
-        [BindProperty]
-        public Booking booking { get; set; }
-        [BindProperty]
-        public int baneId { get; set; }
-        
-        [BindProperty]
-        public Bruger bruger1 { get; set; }
-        [BindProperty]
-        public Bruger bruger2 { get; set; }
-        
-        [BindProperty]
-        public int StartTid { get; set; }
+        #endregion
 
+        #region Properties
+        [BindProperty] public Booking Booking { get; set; }
+        [BindProperty] public Bruger Bruger1 { get; set; }
+        [BindProperty] public Bruger Bruger2 { get; set; }
+        [BindProperty] public int StartTid { get; set; }
         public string Email { get; set; }
         public List<SelectListItem> TidSelectList { get; set; }
         public List<SelectListItem> BrugerSelectList { get; set; }
+        #endregion
 
         public CreateBookingModel(IBookingService bookingService,IBaneService baneService,IBrugerService brugerService)
         {
@@ -38,8 +34,10 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
             CreateTidSelectList();
             CreateBrugerSelectList();
         }
+
         public async Task<IActionResult> OnGetAsync(int baneId)
         {
+            Booking = new Booking();
             try
             {
                 Email = HttpContext.Session.GetString("Email");
@@ -49,8 +47,8 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
                 }
                 else
                 {
-                    bruger1 = await _brugerService.GetBrugerByEmailAsync(Email);
-
+                    Bruger1 = await _brugerService.GetBrugerByEmailAsync(Email);
+                    Booking.BaneId = baneId;
                 }
                 return Page();
             }
@@ -89,11 +87,15 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
                 BrugerSelectList.Add(selectListItem);
             }
         }
+
         public async Task<IActionResult> OnPostAsync() 
         {
             try
             {
-                await _bookingService.CreateBookingAsync(new Booking(booking.BookingId,baneId,booking.Dato,StartTid,bruger1.BrugerId,bruger2.BrugerId,booking.Beskrivelse));
+                Booking.Bruger1 = Bruger1.BrugerId;
+                Booking.Bruger2 = Bruger2.BrugerId;
+
+                await _bookingService.CreateBookingAsync(new Booking(Booking.BookingId, Booking.BaneId, Booking.Dato, StartTid, Bruger1.BrugerId, Bruger2.BrugerId, Booking.Beskrivelse));
                 return RedirectToPage("ShowAllBane");
             }
             catch (Exception ex)
@@ -102,6 +104,5 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
             }
             return Page();
         }
-
     }
 }

@@ -6,51 +6,48 @@
 <form method="post">
     <br />
     <div style="background-color:lightgray">
-        <h3><br />Bruger: @Model.bruger1.BrugerId , @Model.bruger1.Brugernavn<br /></h3>
+        <h3><br />Bruger: @Model.Bruger1.BrugerId , @Model.Bruger1.Brugernavn<br /></h3>
     </div>
     <br />
 
     <div>
-        <label asp-for="@Model.booking.BookingId" class"Control-label"></label>
-        <input asp-for="@Model.booking.BookingId"  class="form-control" />
-        <span asp-validation-for="booking.BookingId" class="text-danger"></span>
+        <label asp-for="@Model.Booking.BookingId" class"Control-label"></label>
+        <input asp-for="@Model.Booking.BookingId" class="form-control" />
+        <span asp-validation-for="Booking.BookingId" class="text-danger"></span>
     </div>
     <div>
-        <label asp-for="@Model.baneId" class"Control-label"></label>
-        <input asp-for="@Model.baneId" readonly class="form-control" />
-        <span asp-validation-for="baneId" class="text-danger"></span>
+        <label asp-for="@Model.Booking.BaneId" class"Control-label"></label>
+        <input asp-for="@Model.Booking.BaneId" readonly class="form-control" />
+        <span asp-validation-for="Booking.BaneId" class="text-danger"></span>
     </div>
     <div>
-        <label asp-for="@Model.booking.Dato" class"Control-label"></label>
-        <input type="date" asp-for="@Model.booking.Dato" class="form-control">
-        <span asp-validation-for="baneId" class="text-danger"></span>
+        <label asp-for="@Model.Booking.Dato" class"Control-label"></label>
+        <input type="date" asp-for="@Model.Booking.Dato" class="form-control">
+        <span asp-validation-for="Booking.Dato" class="text-danger"></span>
     </div>
 
     <div>
         @* Select list  Tid*@
         <lavel>Tidspunkt: </lavel>
-        <select id="Tid" name="Tid" class="form-control" asp-for="@Model.StartTid" asp-items="@Model.TidSelectList">
+        <select id="StartTid" name="StartTid" class="form-control" asp-for="@Model.StartTid" asp-items="@Model.TidSelectList">
         </select>
     </div>
-
-@*     <div>
-        <label asp-for="@Model.bruger1" class"Control-label"></label>
-        <input asp-for="@Model.bruger1" readonly class="form-control" />
-        <span asp-validation-for="bruger1" class="text-danger"></span>
-    </div> *@
-    
+    <div>
+        <label asp-for="@Model.Bruger1" class"Control-label"></label>
+        <input asp-for="@Model.Bruger1" readonly class="form-control" />
+        <span asp-validation-for="Bruger1" class="text-danger"></span>
+    </div>
     <div>
         @* Select list  B2*@
         <label> Vælg din partner:</label>
-        <select id="Bruger" name="Bruger" class="form-control" asp-for="@Model.bruger2" asp-items="@Model.BrugerSelectList"> 
-
+        <select id="bruger2" name="bruger2" class="form-control" asp-for="@Model.Bruger2" asp-items="@Model.BrugerSelectList">
         </select>
     </div>
 
     <div>
-        <label asp-for="@Model.booking.Beskrivelse" class"Control-label"></label>
-        <input asp-for="@Model.booking.Beskrivelse" class="form-control" />
-        <span asp-validation-for="booking.Beskrivelse" class="text-danger"></span>
+        <label asp-for="@Model.Booking.Beskrivelse" class"Control-label"></label>
+        <input asp-for="@Model.Booking.Beskrivelse" class="form-control" />
+        <span asp-validation-for="Booking.Beskrivelse" class="text-danger"></span>
     </div>
     <br />
     <br />
