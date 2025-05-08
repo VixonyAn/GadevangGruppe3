@@ -235,7 +235,7 @@ namespace GadevangGruppe3Razor.Services
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     SqlCommand command = new SqlCommand(updateSql, connection);
-                    command.Parameters.AddWithValue("@BrugerId", bruger.BrugerId);
+                    command.Parameters.AddWithValue("@BrugerId", brugerId);
                     command.Parameters.AddWithValue("@Brugernavn", bruger.Brugernavn);
                     command.Parameters.AddWithValue("@Adgangskode", bruger.Adgangskode);
                     command.Parameters.AddWithValue("@Email", bruger.Email);

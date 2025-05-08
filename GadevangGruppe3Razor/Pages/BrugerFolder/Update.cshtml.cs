@@ -16,6 +16,9 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         [BindProperty]
         public int BrugerId { get; set; }
 
+        [BindProperty]
+        public string BilledUrl { get; set; }
+
         public UpdateModel(IBrugerService brugerService)
         {
             _brugerService = brugerService;
@@ -25,17 +28,14 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         {
             Bruger = await _brugerService.GetBrugerByIdAsync(brugerId);
             BrugerId = brugerId;
+            BilledUrl = Bruger.BilledUrl;
             return Page();
         }
         public async Task<IActionResult> OnPostAsync(int brugerId) 
         {
-			if (!ModelState.IsValid)
-			{
-				return Page();
-			}
 			try
 			{
-				await _brugerService.UpdateBrugerAsync(brugerId, new Bruger(brugerId, Bruger.Brugernavn, Bruger.Adgangskode, Bruger.Email, Bruger.Telefon, Bruger.BilledUrl, Bruger.Medlemskab, Bruger.Positionen, Bruger.Verificeret));
+				await _brugerService.UpdateBrugerAsync(brugerId, new Bruger(brugerId, Bruger.Brugernavn, Bruger.Adgangskode, Bruger.Email, Bruger.Telefon, BilledUrl, Bruger.Medlemskab, Bruger.Positionen, Bruger.Verificeret));
 				return RedirectToPage("ShowAllBruger", new { BrugerId = BrugerId });
 			}
 			catch (Exception ex)

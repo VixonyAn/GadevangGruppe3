@@ -5,7 +5,7 @@
 	ViewData["Title"] = "ShowAllBruger";
 }
 
-<h5>Antal brugerer: @Model.Brugerer.Count</h5>
+<h5>Antal brugerer: @Model.Brugere.Count</h5>
 <br />
 <a asp-page="Create" class="btn btn primary" style="color: white; background-color: green;">Opret bruger</a>
 <br/>
@@ -26,9 +26,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		@if (Model.Brugerer.Count() != 0)
+		@if (Model.Brugere.Count() != 0)
 		{
-			@foreach (Bruger items in Model.Brugerer)
+			@foreach (Bruger items in Model.Brugere)
 			{
 				<tr>
 					<td>@items.BrugerId</td>
