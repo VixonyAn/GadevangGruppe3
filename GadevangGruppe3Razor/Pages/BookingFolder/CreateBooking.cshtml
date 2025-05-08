@@ -25,7 +25,6 @@
         <input type="date" asp-for="@Model.Booking.Dato" class="form-control">
         <span asp-validation-for="Booking.Dato" class="text-danger"></span>
     </div>
-
     <div>
         @* Select list  Tid*@
         <lavel>Tidspunkt: </lavel>
@@ -40,10 +39,9 @@
     <div>
         @* Select list  B2*@
         <label> Vælg din partner:</label>
-        <select id="bruger2" name="bruger2" class="form-control" asp-for="@Model.Bruger2" asp-items="@Model.BrugerSelectList">
+        <select id="Bruger2" name="Bruger2" class="form-control" asp-for="@Model.Bruger2" asp-items="@Model.BrugerSelectList">
         </select>
     </div>
-
     <div>
         <label asp-for="@Model.Booking.Beskrivelse" class"Control-label"></label>
         <input asp-for="@Model.Booking.Beskrivelse" class="form-control" />
