@@ -1,26 +1,31 @@
 using GadevangGruppe3Razor.Interfaces;
 using GadevangGruppe3Razor.Models;
+using GadevangGruppe3Razor.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-/*
-namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
+
+namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
 {
     public class DeleteModel : PageModel
     {
         #region Instance Fields
-        private IBegivenhedService _begivenhedService;
+        private ITilmeldBegivenhedService _tilmeldBegivenhedService;
+        private IBrugerService _brugerService;
         #endregion
 
         #region Properties
-        [BindProperty] public Begivenhed Begivenhed { get; set; }
+        [BindProperty] public Bruger CurrentBruger { get; set; }
+        [BindProperty] public TilmeldBegivenhed TilmeldB { get; set; }
         [BindProperty] public bool Confirm { get; set; }
         public string MessageError { get; set; }
+        public string Email { get; set; }
         #endregion
 
         #region Constructor
-        public DeleteModel(IBegivenhedService begivenhedService)
+        public DeleteModel(ITilmeldBegivenhedService tilmeldBegivenhedService, IBrugerService brugerService)
         {
-            _begivenhedService = begivenhedService;
+            _tilmeldBegivenhedService = tilmeldBegivenhedService;
+            _brugerService = brugerService;
         }
         #endregion
 
@@ -28,11 +33,28 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
         /// <summary>
         /// Funktion når Delete siden bliver indlæst
         /// </summary>
-        /// <param name="eventId">Id på Begivenheden der skal slettes</param>
-        /// <returns>Begivenhedens informationer</returns>
+        /// <param name="eventId">Id på Begivenheden man vil frameldes</param>
+        /// <returns>Tilmeldingens informationer</returns>
         public async Task<IActionResult> OnGetAsync(int eventId)
         {
-            Begivenhed = await _begivenhedService.GetBegivenhedByIdAsync(eventId);
+            try
+            {
+                Email = HttpContext.Session.GetString("Email");
+                if (Email == null)
+                {
+                    return RedirectToPage("/BrugerFolder/Login");
+                }
+                else
+                {
+                    CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
+                    TilmeldB = await _tilmeldBegivenhedService.GetTilmeldBByIdAsync(CurrentBruger.BrugerId, eventId);
+                }
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+            }
             return Page();
         }
 
@@ -54,7 +76,7 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
             }
             try
             {
-                await _begivenhedService.DeleteBegivenhedAsync(eventId);
+                await _tilmeldBegivenhedService.DeleteTilmeldBAsync(CurrentBruger.BrugerId, eventId);
                 return RedirectToPage("ShowAllBegivenhed");
             }
             catch (Exception ex)
@@ -66,4 +88,3 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
         #endregion
     }
 }
-*/
