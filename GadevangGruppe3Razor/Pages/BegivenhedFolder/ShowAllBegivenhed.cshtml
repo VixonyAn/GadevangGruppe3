@@ -6,14 +6,26 @@
 }
 
 <h4>Der er @Model.Begivenheder.Count kommende begivenheder</h4>
+<span class="text-danger">@Model.UnverifiedWarning</span>
 <br />
-<a asp-page="Create" class="btn btn primary" style="color: white; background-color: green; border-color: green;">Opret Begivenhed</a>
+@if (@Model.CurrentBruger.Positionen == Position.Admin)
+{
+    <a asp-page="Create" class="btn btn primary" style="color: white; background-color: green; border-color: green;">Opret Begivenhed</a>
+}
+else
+{
+    <input type="submit" value="Opret Begivenhed" class="btn btn primary" style="color: white; background-color: grey; border-color: grey;" />
+}
+
 <br />
 <br />
 <table>
     <thead style="background-color: gray; border: solid 1px; border-color: white;">
         <tr>
-            <th>EventId</th>
+            @if (@Model.CurrentBruger.Positionen == Position.Admin)
+            {
+                <th>EventId</th>
+            }
             <th>Titel</th>
             <th>Sted</th>
             <th>Dato</th>
@@ -21,8 +33,11 @@
             <th>MedlemMax</th>
             <th>Pris</th>
             <th>Handlinger</th>
-            <th></th>
-            <th></th>
+            @if (@Model.CurrentBruger.Positionen == Position.Admin)
+            {
+                <th></th>
+                <th></th>
+            }
         </tr>
     </thead>
     <tbody style="background-color: lightgray; text-align: center; margin: 3px;">
@@ -31,7 +46,10 @@
             @foreach (Begivenhed item in Model.Begivenheder)
             {
                 <tr style="border: solid 1px; border-color: white;">
-                    <td style="border: solid 1px; border-color: white;">@item.EventId</td>
+                    @if (@Model.CurrentBruger.Positionen == Position.Admin)
+                    {
+                        <td style="border: solid 1px; border-color: white;">@item.EventId</td>
+                    }
                     <td style="border: solid 1px; border-color: white;">@item.Titel</td>
                     <td style="border: solid 1px; border-color: white;">@item.Sted</td>
                     <td style="border: solid 1px; border-color: white;">@item.Dato</td>
@@ -39,14 +57,24 @@
                     <td style="border: solid 1px; border-color: white;">@item.MedlemMax</td>
                     <td style="border: solid 1px; border-color: white;">@item.Pris</td>
                     <td style="border: solid 1px; border-color: white;">
-                        <a asp-page="/TilmeldBegivenhedFolder/Create" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: green; border-color: green;">Tilmeld</a>
+                        @if (@Model.CurrentBruger.Verificeret == true)
+                        {
+                            <a asp-page="/TilmeldBegivenhedFolder/Create" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: green; border-color: green;">Tilmeld</a>
+                        }
+                        else
+                        {
+                            <input type="submit" value="Tilmeld" class="btn btn primary" style="color: white; background-color: grey; border-color: grey;" />
+                        }
                     </td>
-                    <td style="border: solid 1px; border-color: white;">
-                        <a asp-page="Update" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Opdater</a>
-                    </td>
-                    <td style="border: solid 1px; border-color: white;">
-                        <a asp-page="Delete" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">Slet</a>
-                    </td>
+                    @if (@Model.CurrentBruger.Positionen == Position.Admin)
+                    {
+                        <td style="border: solid 1px; border-color: white;">
+                            <a asp-page="Update" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Opdater</a>
+                        </td>
+                            <td style="border: solid 1px; border-color: white;">
+                                <a asp-page="Delete" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">Slet</a>
+                        </td>
+                    }
                 </tr>
             }
         }

@@ -30,6 +30,11 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Funktion når Create siden bliver indlæst
+        /// </summary>
+        /// <param name="eventId">Id på Begivenheden man ønsker at tilmelde sig</param>
+        /// <returns>Begivenhedens Id, og brugerens Id</returns>
         public async Task<IActionResult> OnGetAsync(int eventId)
         {
             try

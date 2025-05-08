@@ -14,10 +14,10 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
         #endregion
 
         #region Properties
-        public List<TilmeldBegivenhed> TilmeldB { get; set; }
+        public List<TilmeldBegivenhed> TilmeldBList { get; set; }
         //public Bruger Bruger { get; set; }
         //public Begivenhed Begivenhed { get; set; }
-        //[BindProperty] public TilmeldBegivenhed TilmeldBegivenhed { get; set; }
+        //public TilmeldBegivenhed TilmeldB { get; set; }
         #endregion
 
         #region Constructor
@@ -34,13 +34,19 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
         { // await låser den del af applikationen som afhænger af dataen der ventes på, mens resten af programmet kan blive ved med at køre
             try
             {
-                TilmeldB = await _tilmeldBegivenhedService.GetAllTilmeldBAsync(); // fylder listen med data
-                //Bruger = await _brugerService.GetBrugerByIdAsync(TilmeldBegivenhed.BrugerId);
-                //Begivenhed = await _begivenhedService.GetBegivenhedByIdAsync(TilmeldBegivenhed.EventId);
+                TilmeldBList = await _tilmeldBegivenhedService.GetAllTilmeldBAsync(); // fylder listen med data
+                /*TilmeldBList = new List<TilmeldBegivenhed>();
+                foreach (TilmeldBegivenhed item in await _tilmeldBegivenhedService.GetAllTilmeldBAsync())
+                {
+                    Bruger = await _brugerService.GetBrugerByIdAsync(item.BrugerId);
+                    Begivenhed = await _begivenhedService.GetBegivenhedByIdAsync(item.EventId);
+                    TilmeldBegivenhed TB = new TilmeldBegivenhed(Bruger.BrugerId, Begivenhed.EventId, item.Kommentar);
+                    TilmeldBList.Add(TB);
+                }*/
             }
             catch (Exception ex)
             {
-                TilmeldB = new List<TilmeldBegivenhed>();
+                TilmeldBList = new List<TilmeldBegivenhed>();
                 ViewData["ErrorMessage"] = ex.Message;
             }
         }

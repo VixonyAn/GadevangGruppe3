@@ -5,7 +5,7 @@
     ViewData["Title"] = "Se Alle Tilmeldinger Til Begivenheder";
 }
 
-<h4>Der er @Model.TilmeldB.Count tilmeldinger til kommende begivenheder</h4>
+<h4>Der er @Model.TilmeldBList.Count tilmeldinger til kommende begivenheder</h4>
 <br />
 <a asp-page="Create" class="btn btn primary" style="color: white; background-color: green; border-color: green;">Opret Tilmelding Til Begivenhed</a>
 <br />
@@ -21,11 +21,13 @@
         </tr>
     </thead>
     <tbody style="background-color: lightgray; text-align: center; margin: 3px;">
-        @if (Model.TilmeldB.Count() != 0)
+        @if (Model.TilmeldBList.Count() != 0)
         {
-            @foreach (TilmeldBegivenhed item in Model.TilmeldB)
+            @foreach (TilmeldBegivenhed item in Model.TilmeldBList)
             {
                 <tr style="border: solid 1px; border-color: white;">
+                    @* <td style="border: solid 1px; border-color: white;">@Model.Bruger.Brugernavn</td>
+                    <td style="border: solid 1px; border-color: white;">@Model.Begivenhed.Titel</td> *@
                     <td style="border: solid 1px; border-color: white;">@item.BrugerId</td>
                     <td style="border: solid 1px; border-color: white;">@item.EventId</td>
                     <td style="border: solid 1px; border-color: white;">@item.Kommentar</td>
