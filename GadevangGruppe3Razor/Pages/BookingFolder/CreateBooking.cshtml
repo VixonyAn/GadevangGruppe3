@@ -1,5 +1,60 @@
 ﻿@page
-@model GadevangGruppe3Razor.Pages.BookingFolder.CrateBookingModel
+@model GadevangGruppe3Razor.Pages.BookingFolder.CreateBookingModel
 @{
 }
 
+<form method="post">
+    <br />
+    <div style="background-color:lightgray">
+        <h3><br />Bruger: @Model.bruger1.BrugerId , @Model.bruger1.Brugernavn<br /></h3>
+    </div>
+    <br />
+
+    <div>
+        <label asp-for="@Model.booking.BookingId" class"Control-label"></label>
+        <input asp-for="@Model.booking.BookingId"  class="form-control" />
+        <span asp-validation-for="booking.BookingId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.baneId" class"Control-label"></label>
+        <input asp-for="@Model.baneId" readonly class="form-control" />
+        <span asp-validation-for="baneId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.booking.Dato" class"Control-label"></label>
+        <input type="date" asp-for="@Model.booking.Dato" class="form-control">
+        <span asp-validation-for="baneId" class="text-danger"></span>
+    </div>
+
+    <div>
+        @* Select list  Tid*@
+        <lavel>Tidspunkt: </lavel>
+        <select id="Tid" name="Tid" class="form-control" asp-for="@Model.StartTid" asp-items="@Model.TidSelectList">
+        </select>
+    </div>
+
+@*     <div>
+        <label asp-for="@Model.bruger1" class"Control-label"></label>
+        <input asp-for="@Model.bruger1" readonly class="form-control" />
+        <span asp-validation-for="bruger1" class="text-danger"></span>
+    </div> *@
+    
+    <div>
+        @* Select list  B2*@
+        <label> Vælg din partner:</label>
+        <select id="Bruger" name="Bruger" class="form-control" asp-for="@Model.bruger2" asp-items="@Model.BrugerSelectList"> 
+
+        </select>
+    </div>
+
+    <div>
+        <label asp-for="@Model.booking.Beskrivelse" class"Control-label"></label>
+        <input asp-for="@Model.booking.Beskrivelse" class="form-control" />
+        <span asp-validation-for="booking.Beskrivelse" class="text-danger"></span>
+    </div>
+    <br />
+    <br />
+    <div class="formgroup">
+        <input type="submit" value="Opret " class="btn btn-primary" />
+    </div>
+</form>
