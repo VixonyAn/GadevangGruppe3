@@ -27,6 +27,7 @@
             <th>Beskrivelse</th>
             <th></th>
             <th></th>
+            <th></th>
 
         </tr>
     </thead>
@@ -47,6 +48,11 @@
                     </td>
                     <td>
                         @item.Beskrivelse
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" style="background-color:#ff035f;border-color:#ff035f" asp-page="/BookingFolder/CreateBooking" asp-route-baneId="@item.BaneId">
+                            Book Bane
+                        </a>
                     </td>
                     <td>
                         <a class="btn btn-primary" style="background-color:#ffa303;border-color:#ffa303" asp-page="UpdateBane" asp-route-baneId="@item.BaneId">
