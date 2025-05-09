@@ -8,10 +8,9 @@
 <h4>Der er @Model.TilmeldBList.Count tilmeldinger til kommende begivenheder</h4>
 <br />
 <div class="form-group">
-    <label class="custom-control-label">Sort Order</label>
-    <select asp-for="@Model.SortOrder" onchange="this.form.submit()">
-        <option value="Ascending">Ascending</option>
-        <option value="Descending">Descending</option>
+    <label class="custom-control-label">Vælg begivenhed du vil se tilmeldinger fra</label>
+    <select id="BegivenhedId" name="BegivenhedId"
+            asp-for="@Model.SortBy" asp-items="@Model.EventSelectList" onchange="this.form.submit()">
     </select>
 </div>
 <br />
