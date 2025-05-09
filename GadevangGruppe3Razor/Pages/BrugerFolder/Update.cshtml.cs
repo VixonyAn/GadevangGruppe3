@@ -10,14 +10,9 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
     {
         private IBrugerService _brugerService;
 
-        [BindProperty]
-        public Bruger Bruger { get; set; }
-
-        [BindProperty]
-        public int BrugerId { get; set; }
-
-        [BindProperty]
-        public string BilledUrl { get; set; }
+        [BindProperty] public Bruger Bruger { get; set; }
+        [BindProperty] public int BrugerId { get; set; }
+        [BindProperty] public string BilledUrl { get; set; }
 
         public UpdateModel(IBrugerService brugerService)
         {

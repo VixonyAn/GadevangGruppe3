@@ -7,9 +7,40 @@
 
 <h5>Antal brugerer: @Model.Brugere.Count</h5>
 <br />
+
 <a asp-page="Create" class="btn btn primary" style="color: white; background-color: green;">Opret bruger</a>
-<br/>
-<br/>
+<br />
+<br />
+
+<form method="get">
+	<p>
+		Søg med brugernavn: <input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.formm.submit()" />
+	</p>
+</form>
+<br />
+<br />
+
+<form asp-handler="Medlemskab" method="get">
+	<p>
+		<div class="form-group">
+			<label class="control-label">Medlemskabs Type</label>
+			<select asp-for="@Model.FilterCriteriaMedlemskab" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
+				<option value="All">All</option>
+			</select>
+		</div>
+	</p>
+</form>
+
+<form asp-handler="Position" method="get">
+	<p>
+		<div class="form-group">
+			<label class="control-label">Position</label>
+			<select asp-for="@Model.FilterCriteriaPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
+				<option value="All">All</option>
+			</select>
+		</div>
+	</p>
+</form>
 
 <table style="width:85" class="table">
 	<thead style="background-color:lightskyblue;border-radius:60px">

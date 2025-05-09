@@ -12,14 +12,9 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 		private IBrugerService _brugerService;
         private IWebHostEnvironment _webHostEnvironment;
 
-        [BindProperty]
-        public Bruger Bruger { get; set; }
-
-        [BindProperty]
-        public int BrugerId { get; set; }
-
-        [BindProperty]
-        public IFormFile? Billed { get; set; }
+        [BindProperty] public Bruger Bruger { get; set; }
+        [BindProperty] public int BrugerId { get; set; }
+        [BindProperty] public IFormFile? Billed { get; set; }
 
         public CreateModel(IBrugerService brugerService, IWebHostEnvironment webHostEnvironment)
         {
