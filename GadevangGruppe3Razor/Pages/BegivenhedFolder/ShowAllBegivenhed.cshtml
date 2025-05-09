@@ -10,11 +10,7 @@
 <br />
 @if (@Model.CurrentBruger.Positionen == Position.Admin)
 {
-    <a asp-page="Create" class="btn btn primary" style="color: white; background-color: green; border-color: green;">Opret Begivenhed</a>
-}
-else
-{
-    <input type="submit" value="Opret Begivenhed" class="btn btn primary" style="color: white; background-color: grey; border-color: grey;" />
+    <a asp-page="Create" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Opret Begivenhed</a>    <a asp-page="/TilmeldBegivenhedFolder/ShowAllTilmeldBegivenhed" class="btn btn primary" style="color: white; background-color: green; border-color: green;">Se Alle Tilmeldinger</a>
 }
 
 <br />

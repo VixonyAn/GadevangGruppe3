@@ -15,6 +15,7 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
 
         #region Properties
         public List<TilmeldBegivenhed> TilmeldBList { get; set; }
+        [BindProperty(SupportsGet = true)] public string SortBy { get; set; }
         //public Bruger Bruger { get; set; }
         //public Begivenhed Begivenhed { get; set; }
         //public TilmeldBegivenhed TilmeldB { get; set; }

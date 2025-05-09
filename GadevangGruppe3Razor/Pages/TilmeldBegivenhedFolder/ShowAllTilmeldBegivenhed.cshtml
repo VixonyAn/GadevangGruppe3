@@ -7,7 +7,13 @@
 
 <h4>Der er @Model.TilmeldBList.Count tilmeldinger til kommende begivenheder</h4>
 <br />
-<a asp-page="Create" class="btn btn primary" style="color: white; background-color: green; border-color: green;">Opret Tilmelding Til Begivenhed</a>
+<div class="form-group">
+    <label class="custom-control-label">Sort Order</label>
+    <select asp-for="@Model.SortOrder" onchange="this.form.submit()">
+        <option value="Ascending">Ascending</option>
+        <option value="Descending">Descending</option>
+    </select>
+</div>
 <br />
 <br />
 <table>
