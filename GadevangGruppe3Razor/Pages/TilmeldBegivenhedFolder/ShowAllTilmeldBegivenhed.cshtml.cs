@@ -17,7 +17,8 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
         #region Properties
         public List<TilmeldBegivenhed> TilmeldBList { get; set; }
         public List<SelectListItem> EventSelectList { get; set; }
-        [BindProperty(SupportsGet = true)] public string SortBy { get; set; }
+		[BindProperty] public int BegivenhedId { get; set; }
+        //[BindProperty(SupportsGet = true)] public string Criteria { get; set; }
         #endregion
 
         #region Constructor
@@ -43,9 +44,10 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
                     TilmeldBegivenhed TB = new TilmeldBegivenhed(Bruger.BrugerId, Begivenhed.EventId, item.Kommentar);
                     TilmeldBList.Add(TB);
                 }*/
-                if (SortBy != "-1")
+                List<TilmeldBegivenhed> tilmelding = await _tilmeldBegivenhedService.GetTilmeldBByEventIdAsync(BegivenhedId);
+                if (tilmelding != null)
                 {
-                    TilmeldBList = await _tilmeldBegivenhedService.GetTilmeldBByEventIdAsync(Convert.ToInt32(SortBy));
+                    TilmeldBList = await _tilmeldBegivenhedService.GetTilmeldBByEventIdAsync(BegivenhedId);
                 }
                 else
                 {
@@ -59,7 +61,7 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
             }
         }
 
-        public void CreateEventSelectList()
+        public async Task CreateEventSelectList()
         {
             EventSelectList = new List<SelectListItem>();
             EventSelectList.Add(new SelectListItem("Vælg begivenhed", "-1"));
