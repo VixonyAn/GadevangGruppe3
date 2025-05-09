@@ -59,7 +59,7 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
             }
         }
 
-        public async void CreateEventSelectList()
+        public void CreateEventSelectList()
         {
             EventSelectList = new List<SelectListItem>();
             EventSelectList.Add(new SelectListItem("Vælg begivenhed", "-1"));
