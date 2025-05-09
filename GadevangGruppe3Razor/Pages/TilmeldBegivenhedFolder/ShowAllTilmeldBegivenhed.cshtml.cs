@@ -17,8 +17,8 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
         #region Properties
         public List<TilmeldBegivenhed> TilmeldBList { get; set; }
         public List<SelectListItem> EventSelectList { get; set; }
-		[BindProperty] public int BegivenhedId { get; set; }
-        //[BindProperty(SupportsGet = true)] public string Criteria { get; set; }
+		//[BindProperty] public int BegivenhedId { get; set; }
+        [BindProperty(SupportsGet = true)] public string SortByEventId { get; set; }
         #endregion
 
         #region Constructor
@@ -36,22 +36,14 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
             try
             {
                 //TilmeldBList = await _tilmeldBegivenhedService.GetAllTilmeldBAsync(); // fylder listen med data
-                /*TilmeldBList = new List<TilmeldBegivenhed>();
-                foreach (TilmeldBegivenhed item in await _tilmeldBegivenhedService.GetAllTilmeldBAsync())
+                //List<TilmeldBegivenhed> tilmelding = await _tilmeldBegivenhedService.GetTilmeldBByEventIdAsync(BegivenhedId);
+                if (SortByEventId != null)
                 {
-                    Bruger = await _brugerService.GetBrugerByIdAsync(item.BrugerId);
-                    Begivenhed = await _begivenhedService.GetBegivenhedByIdAsync(item.EventId);
-                    TilmeldBegivenhed TB = new TilmeldBegivenhed(Bruger.BrugerId, Begivenhed.EventId, item.Kommentar);
-                    TilmeldBList.Add(TB);
-                }*/
-                List<TilmeldBegivenhed> tilmelding = await _tilmeldBegivenhedService.GetTilmeldBByEventIdAsync(BegivenhedId);
-                if (tilmelding != null)
-                {
-                    TilmeldBList = await _tilmeldBegivenhedService.GetTilmeldBByEventIdAsync(BegivenhedId);
+                    TilmeldBList = await _tilmeldBegivenhedService.GetTilmeldBByEventIdAsync(Convert.ToInt32(SortByEventId));
                 }
                 else
                 {
-                    TilmeldBList = await _tilmeldBegivenhedService.GetAllTilmeldBAsync(); // fylder listen med data
+                    TilmeldBList = await _tilmeldBegivenhedService.GetAllTilmeldBAsync();
                 }
             }
             catch (Exception ex)

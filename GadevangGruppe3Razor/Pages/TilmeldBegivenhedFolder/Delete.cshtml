@@ -1,55 +1,35 @@
-﻿@* @page
+﻿@page
 @using GadevangGruppe3Razor.Models
-@model GadevangGruppe3Razor.Pages.BegivenhedFolder.DeleteModel
+@model GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder.DeleteModel
 @{
-    ViewData["Title"] = "Slet Begivenhed";
+    ViewData["Title"] = "Slet Tilmelding Til Begivenhed";
 }
 
-<h3>Slet Begivenhed</h3>
+<h3>Slet Tilmelding Til Begivenhed</h3>
 
-<a asp-page="ShowAllBegivenhed" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Tilbage til oversigt</a>
+<a asp-page="/BegivenhedFolder/ShowAllBegivenhed" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Tilbage til oversigt</a>
 
 <form method="post">
     <div class="form-group">
-        <label asp-for="@Model.Begivenhed.EventId" class="control-label"></label>
-        <input asp-for="@Model.Begivenhed.EventId" style="display: br; width: 30%;" readonly class="form-control" />
-        <span asp-validation-for="@Model.Begivenhed.EventId" class="text-danger"></span>
+        <label asp-for="@Model.TilmeldB.BrugerId" class="control-label"></label>
+        <input asp-for="@Model.TilmeldB.BrugerId" style="display: br; width: 30%;" readonly class="form-control" />
+        <span asp-validation-for="@Model.TilmeldB.BrugerId" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Begivenhed.Titel" class="control-label"></label>
-        <input asp-for="@Model.Begivenhed.Titel" style="display: br; width: 30%;" readonly class="form-control" />
-        <span asp-validation-for="@Model.Begivenhed.Titel" class="text-danger"></span>
+        <label asp-for="@Model.TilmeldB.EventId" class="control-label"></label>
+        <input asp-for="@Model.TilmeldB.EventId" style="display: br; width: 30%;" readonly class="form-control" />
+        <span asp-validation-for="@Model.TilmeldB.EventId" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Begivenhed.Sted" class="control-label"></label>
-        <input asp-for="@Model.Begivenhed.Sted" style="display: br; width: 30%;" readonly class="form-control" />
-        <span asp-validation-for="@Model.Begivenhed.Sted" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.Begivenhed.Dato" class="control-label"></label>
-        <input asp-for="@Model.Begivenhed.Dato" style="display: br; width: 30%;" readonly class="form-control" />
-        <span asp-validation-for="@Model.Begivenhed.Dato" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.Begivenhed.Beskrivelse" class="control-label"></label>
-        <input asp-for="@Model.Begivenhed.Beskrivelse" style="display: br; width: 30%;" readonly class="form-control" />
-        <span asp-validation-for="@Model.Begivenhed.Beskrivelse" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.Begivenhed.MedlemMax" class="control-label"></label>
-        <input asp-for="@Model.Begivenhed.MedlemMax" style="display: br; width: 30%;" readonly class="form-control" />
-        <span asp-validation-for="@Model.Begivenhed.MedlemMax" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.Begivenhed.Pris" class="control-label"></label>
-        <input asp-for="@Model.Begivenhed.Pris" style="display: br; width: 30%;" readonly class="form-control" />
-        <span asp-validation-for="@Model.Begivenhed.Pris" class="text-danger"></span>
+        <label asp-for="@Model.TilmeldB.Kommentar" class="control-label"></label>
+        <input asp-for="@Model.TilmeldB.Kommentar" style="display: br; width: 30%;" readonly class="form-control" />
+        <span asp-validation-for="@Model.TilmeldB.Kommentar" class="text-danger"></span>
     </div>
     <span class="text-danger">@Model.MessageError</span>
     <div class="form-group">
-        <input asp-for="@Model.Confirm" type="checkbox" id="Bekræft" /> Bekræft at du ønsker at slette begivenheden
+        <input asp-for="@Model.Confirm" type="checkbox" id="Bekræft" /> Bekræft at du ønsker at slette tilmeldingen
     </div>
     <div class="formgroup">
-        <input type="submit" value="Slet" class="btn btn-primary" style="background-color: #C94646; border-color: #C94646;" />
+        <input type="submit" value="Slet Tilmelding" class="btn btn-primary" style="background-color: #C94646; border-color: #C94646;" />
     </div>
-</form> *@
+</form>

@@ -9,8 +9,8 @@
 <br />
 <div class="form-group">
     <label class="custom-control-label">Vælg begivenhed du vil se tilmeldinger fra</label>
-    <select id="BegivenhedId" name="BegivenhedId"
-            asp-for="@Model.BegivenhedId" asp-items="@Model.EventSelectList" onchange="this.form.submit()">
+    <select id="SortByEventId" name="SortByEventId"
+            asp-for="@Model.SortByEventId" asp-items="@Model.EventSelectList" onchange="this.form.submit()">
     </select>
 </div>
 <br />
@@ -37,10 +37,10 @@
                     <td style="border: solid 1px; border-color: white;">@item.EventId</td>
                     <td style="border: solid 1px; border-color: white;">@item.Kommentar</td>
                     <td style="border: solid 1px; border-color: white;">
-                        <a asp-page="Update" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Opdater</a>
+                        <a asp-page="Update" asp-route-brugerId="@item.BrugerId" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Opdater</a>
                     </td>
                     <td>
-                        <a asp-page="Delete" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">Slet</a>
+                        <a asp-page="Delete" asp-route-brugerId="@item.BrugerId" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">Slet</a>
                     </td>
                 </tr>
             }

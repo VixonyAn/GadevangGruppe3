@@ -10,22 +10,18 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
     {
         #region Instance Fields
         private ITilmeldBegivenhedService _tilmeldBegivenhedService;
-        private IBrugerService _brugerService;
         #endregion
 
         #region Properties
-        [BindProperty] public Bruger CurrentBruger { get; set; }
         [BindProperty] public TilmeldBegivenhed TilmeldB { get; set; }
         [BindProperty] public bool Confirm { get; set; }
         public string MessageError { get; set; }
-        public string Email { get; set; }
         #endregion
 
         #region Constructor
-        public DeleteModel(ITilmeldBegivenhedService tilmeldBegivenhedService, IBrugerService brugerService)
+        public DeleteModel(ITilmeldBegivenhedService tilmeldBegivenhedService)
         {
             _tilmeldBegivenhedService = tilmeldBegivenhedService;
-            _brugerService = brugerService;
         }
         #endregion
 
@@ -33,41 +29,26 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
         /// <summary>
         /// Funktion når Delete siden bliver indlæst
         /// </summary>
+        /// <param name="brugerId">Id på Brugeren der vil frameldes</param>
         /// <param name="eventId">Id på Begivenheden man vil frameldes</param>
         /// <returns>Tilmeldingens informationer</returns>
-        public async Task<IActionResult> OnGetAsync(int eventId)
+        public async Task<IActionResult> OnGetAsync(int brugerId, int eventId)
         {
-            try
-            {
-                Email = HttpContext.Session.GetString("Email");
-                if (Email == null)
-                {
-                    return RedirectToPage("/BrugerFolder/Login");
-                }
-                else
-                {
-                    CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
-                    TilmeldB = await _tilmeldBegivenhedService.GetTilmeldBByIdAsync(CurrentBruger.BrugerId, eventId);
-                }
-                return Page();
-            }
-            catch (Exception ex)
-            {
-                ViewData["ErrorMessage"] = ex.Message;
-            }
+            TilmeldB = await _tilmeldBegivenhedService.GetTilmeldBByIdAsync(brugerId, eventId);
             return Page();
         }
 
         /// <summary>
         /// Funktion når "Slet" klikkes på Delete siden
         /// </summary>
-        /// <param name="eventId">Id på Begivenheden der skal slettes</param>
+        /// <param name="brugerId">Id på Brugeren der skal frameldes</param>
+        /// <param name="eventId">Id på Begivenheden der skal frameldes</param>
         /// <returns>
-        /// True: Begivenhed bliver slettet og brugeren sendt tilbage til oversigten
+        /// True: Tilmelding bliver slettet og brugeren sendt tilbage til oversigten
         /// <br></br>
         /// False: ErrorMessage bliver aktiveret og siden genindlæses
         /// </returns>
-        public async Task<IActionResult> OnPostAsync(int eventId)
+        public async Task<IActionResult> OnPostAsync(int brugerId, int eventId)
         {
             if (Confirm == false)
             {
@@ -76,8 +57,8 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
             }
             try
             {
-                await _tilmeldBegivenhedService.DeleteTilmeldBAsync(CurrentBruger.BrugerId, eventId);
-                return RedirectToPage("ShowAllBegivenhed");
+                await _tilmeldBegivenhedService.DeleteTilmeldBAsync(brugerId, eventId);
+                return RedirectToPage("ShowAllTilmeldBegivenhed");
             }
             catch (Exception ex)
             {
