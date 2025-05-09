@@ -35,14 +35,6 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
             try
             {
                 //TilmeldBList = await _tilmeldBegivenhedService.GetAllTilmeldBAsync(); // fylder listen med data
-                /*TilmeldBList = new List<TilmeldBegivenhed>();
-                foreach (TilmeldBegivenhed item in await _tilmeldBegivenhedService.GetAllTilmeldBAsync())
-                {
-                    Bruger = await _brugerService.GetBrugerByIdAsync(item.BrugerId);
-                    Begivenhed = await _begivenhedService.GetBegivenhedByIdAsync(item.EventId);
-                    TilmeldBegivenhed TB = new TilmeldBegivenhed(Bruger.BrugerId, Begivenhed.EventId, item.Kommentar);
-                    TilmeldBList.Add(TB);
-                }*/
                 if (SortBy != "-1")
                 {
                     TilmeldBList = await _tilmeldBegivenhedService.GetTilmeldBByEventIdAsync(Convert.ToInt32(SortBy));
