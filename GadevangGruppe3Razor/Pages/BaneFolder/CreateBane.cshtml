@@ -3,12 +3,9 @@
 @{
     ViewData["Title"] = "CreateBane";
 }
-
 <h4>Opret Bane</h4>
 
-    <br />
     <form method="post">
-        <br />
         <div>
             <label asp-for="@Model.bane.BaneId" class"Control-label"></label>
             <input asp-for="@Model.bane.BaneId" class="form-control" />
@@ -25,6 +22,7 @@
                 </select>
         <br />
         </div>
+        <br />
 @*         <div>
             <label asp-for="@Model.bane.Type" class"Control-label"></label>
             <input  asp-for="@Model.bane.Type" class="form-control"/>
@@ -40,9 +38,8 @@
                         asp-for="@Model.bane.Miljø" asp-items="@Model.MiljøSelectList">
 
                 </select>
-
-
         </div>
+        <br />
 @*         <div>
             <label asp-for="@Model.bane.Miljø" class"Control-label"></label>
             <input asp-for="@Model.bane.Miljø" class="form-control" />
@@ -56,7 +53,7 @@
         <br />
         <br />
         <div class="formgroup">
-            <input type="submit" value="Opret bane" class="btn btn-primary" />
+            <input type="submit" value="Opret bane" style="background-color:green" class="btn btn-primary" />
         </div>
     </form>
 
