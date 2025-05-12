@@ -17,11 +17,12 @@
 <br />
 <hr />
 
-<table style="width:85%;align-content:center">
+<table style="width:85%;text-align:center">
     <thead style="border-radius:60px;
-               background-color:#a2d9ce ;
+               background-color:#7AC5F4 ;
                border:solid 1px;
                border:white;
+
                text-align:center">
         <tr style="border-bottom: 2px solid black;">
             <th>Bane Id</th>
@@ -54,7 +55,7 @@
                     @if (Model.CurrentBruger.Positionen == Position.Admin)
                     {
                         <td>
-                            <a class="btn btn-primary" style="background-color:#ffa303;border-color:#ffa303" asp-page="UpdateBane" asp-route-baneId="@item.BaneId">
+                            <a class="btn btn-primary" style="background-color:#2C5DCA;border-color:#2C5DCA" asp-page="UpdateBane" asp-route-baneId="@item.BaneId">
                                 Update
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -64,7 +65,7 @@
                         </td>
 
                         <td>
-                            <a class="btn btn-primary" style="background-color:#ff035f;border-color:#ff035f" asp-page="DeleteBane" asp-route-baneId="@item.BaneId">
+                            <a class="btn btn-primary" style="background-color:#CF3535;border-color:#CF3535" asp-page="DeleteBane" asp-route-baneId="@item.BaneId">
                             Delete
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />

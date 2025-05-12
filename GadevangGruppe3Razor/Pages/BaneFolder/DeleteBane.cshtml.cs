@@ -10,6 +10,12 @@ namespace GadevangGruppe3Razor.Pages.BaneFolder
         IBaneService _baeService;
         [BindProperty]
         public Bane bane { get; set; }
+
+        [BindProperty] public bool Confirm { get; set; }
+
+        public string MessageError { get; set; }
+
+
         public DeleteBaneModel(IBaneService baneService)
         {
             _baeService = baneService;
@@ -21,6 +27,11 @@ namespace GadevangGruppe3Razor.Pages.BaneFolder
 
         public async Task<IActionResult> OnPostAsync(int baneId) 
         {
+            if (Confirm == false)
+            {
+                MessageError = $"Husk at klikke Bekræft";
+                return Page();
+            }
             try 
             {
                 _baeService.DeleteBaneAsync(bane.BaneId);
