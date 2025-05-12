@@ -32,24 +32,19 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                 {
 					Brugere = await _brugerService.GetAllBrugerAsync();
 				}
-            }
+				FilterBrugerMedlemskab();
+				FilterBrugerPosition();
+			}
             catch (Exception ex)
             {
                 Brugere = new List<Bruger>();
                 ViewData["ErrorMessage"] = ex.Message;
             }
-        }
+		}
 
-        public async Task OnGetMedlemskab()
+        public async Task OnGetFilter()
         {
             await OnGetAsync();
-            FilterBrugerMedlemskab();
-        }
-
-        public async Task OnGetPosition()
-        {
-            await OnGetAsync();
-            FilterBrugerPosition();
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int brugerId)
@@ -62,21 +57,21 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
             return RedirectToPage("Update", new { brugerId = brugerId });
         }
 
-        private async void FilterBrugerMedlemskab()
+        private void FilterBrugerMedlemskab()
         {
             if (!FilterCriteriaMedlemskab.IsNullOrEmpty() && FilterCriteriaMedlemskab != "All")
             {
                 MedlemskabsType criteriaMedlemskab = (MedlemskabsType)Enum.Parse(typeof(MedlemskabsType), FilterCriteriaMedlemskab);
-                Brugere = await _brugerService.FilterBrugerByMedlemskabsTypeAsync(criteriaMedlemskab);
+				Brugere = Brugere.FindAll(b => b.Medlemskab == criteriaMedlemskab);
             }
         }
 
-        private async void FilterBrugerPosition()
+        private void FilterBrugerPosition()
         {
             if (!FilterCriteriaPosition.IsNullOrEmpty() && FilterCriteriaPosition != "All")
             {
                 Position criteriaPosition = (Position)Enum.Parse(typeof(Position), FilterCriteriaPosition);
-                Brugere = await _brugerService.FilterBrugerByPositionAsync(criteriaPosition);
+                Brugere = Brugere.FindAll(b => b.Positionen == criteriaPosition);
             }
         }
     }
