@@ -19,6 +19,7 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
         [BindProperty] public Booking Booking { get; set; }
         [BindProperty] public Bruger Bruger1 { get; set; }
         [BindProperty] public Bruger Bruger2 { get; set; }
+        [BindProperty] public int Bruger2ID { get; set; }
         [BindProperty] public int StartTid { get; set; }
         public string Email { get; set; }
         public List<SelectListItem> TidSelectList { get; set; }
@@ -62,19 +63,19 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
         private void CreateTidSelectList() 
         {
             TidSelectList = new List<SelectListItem>();
-            TidSelectList.Add(new SelectListItem("8", ":00-9:00"));
-            TidSelectList.Add(new SelectListItem("9", ":00-10:00"));
-            TidSelectList.Add(new SelectListItem("10", ":00-11:00"));
-            TidSelectList.Add(new SelectListItem("11", ":00-12:00"));
-            TidSelectList.Add(new SelectListItem("12", ":00-13:00"));
-            TidSelectList.Add(new SelectListItem("13", ":00-14:00"));
-            TidSelectList.Add(new SelectListItem("14", ":00-15:00"));
-            TidSelectList.Add(new SelectListItem("15", ":00-16:00"));
-            TidSelectList.Add(new SelectListItem("16", ":00-17:00"));
-            TidSelectList.Add(new SelectListItem("17", ":00-18:00"));
-            TidSelectList.Add(new SelectListItem("18", ":00-19:00"));
-            TidSelectList.Add(new SelectListItem("19", ":00-20:00"));
-            TidSelectList.Add(new SelectListItem("20", ":00-21:00"));
+            TidSelectList.Add(new SelectListItem("8:00-9:00", "8"));
+            TidSelectList.Add(new SelectListItem("9:00-10:00", "9"));
+            TidSelectList.Add(new SelectListItem("10:00-11:00", "10"));
+            TidSelectList.Add(new SelectListItem("11:00-12:00", "11"));
+            TidSelectList.Add(new SelectListItem("12:00-13:00", "12"));
+            TidSelectList.Add(new SelectListItem("13:00-14:00", "13"));
+            TidSelectList.Add(new SelectListItem("14:00-15:00", "14"));
+            TidSelectList.Add(new SelectListItem("15:00-16:00", "15"));
+            TidSelectList.Add(new SelectListItem("16:00-17:00", "16"));
+            TidSelectList.Add(new SelectListItem("17:00-18:00", "17"));
+            TidSelectList.Add(new SelectListItem("18:00-19:00", "18"));
+            TidSelectList.Add(new SelectListItem("19:00-20:00", "19"));
+            TidSelectList.Add(new SelectListItem("20:00-21:00", "20"));
         }
 
         public async void CreateBrugerSelectList() 
@@ -92,11 +93,19 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
         {
             try
             {
-                Booking.Bruger1 = Bruger1.BrugerId;
-                Booking.Bruger2 = Bruger2.BrugerId;
+                Email = HttpContext.Session.GetString("Email");
+                if (Email == null)
+                {
+                    return RedirectToPage("/BrugerFolder/Login");
+                }
+                Bruger1 = await _brugerService.GetBrugerByEmailAsync(Email);
+                Bruger2 = await _brugerService.GetBrugerByIdAsync(Bruger2ID);
+                //if (Bruger1 == Bruger2) 
+                //{ 
 
+                //}
                 await _bookingService.CreateBookingAsync(new Booking(Booking.BookingId, Booking.BaneId, Booking.Dato, StartTid, Bruger1.BrugerId, Bruger2.BrugerId, Booking.Beskrivelse));
-                return RedirectToPage("ShowAllBane");
+                return RedirectToPage("/BaneFolder/ShowAllBane");
             }
             catch (Exception ex)
             {

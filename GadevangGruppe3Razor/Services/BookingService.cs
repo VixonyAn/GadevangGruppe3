@@ -100,10 +100,5 @@ namespace GadevangGruppe3Razor.Services
             throw new NotImplementedException();
         }
 
-        public async Task<bool> UpdateBookingAsync(int bookingId, Booking booking)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }
