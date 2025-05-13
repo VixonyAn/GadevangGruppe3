@@ -3,27 +3,48 @@
 @{
     ViewData["Title"] = "CreateBane";
 }
-
 <h4>Opret Bane</h4>
 
-    <br />
     <form method="post">
-        <br />
-    <div>
-        <label asp-for="@Model.bane.BaneId" class"Control-label"></label>
-        <input asp-for="@Model.bane.BaneId" class="form-control" />
-        <span asp-validation-for="bane.BaneId" class="text-danger"></span>
-    </div>
         <div>
+            <label asp-for="@Model.bane.BaneId" class"Control-label"></label>
+            <input asp-for="@Model.bane.BaneId" class="form-control" />
+            <span asp-validation-for="bane.BaneId" class="text-danger"></span>
+         </div>
+        <br />
+        <div class="form-group">
+                <label>Vælg bane type:</label> 
+                <br />
+                <select id="ModleBaneType" name="ModleBaneType" 
+                        class="control-label"
+                        style="display: br" class="form-control"
+                        asp-for="@Model.bane.Type" asp-items="@Model.TypeSelectList">
+                </select>
+        <br />
+        </div>
+        <br />
+@*         <div>
             <label asp-for="@Model.bane.Type" class"Control-label"></label>
             <input  asp-for="@Model.bane.Type" class="form-control"/>
             <span asp-validation-for="bane.Type" class="text-danger"></span>
+        </div> *@
+
+        <div class="form-group">
+                <label>Vælg bane miljø:</label> 
+                <br />
+                <select id="ModleBAneMiljø" 
+                        class="control-label"
+                        style="display:br" class="form-control"
+                        asp-for="@Model.bane.Miljø" asp-items="@Model.MiljøSelectList">
+
+                </select>
         </div>
-        <div>
+        <br />
+@*         <div>
             <label asp-for="@Model.bane.Miljø" class"Control-label"></label>
             <input asp-for="@Model.bane.Miljø" class="form-control" />
             <span asp-validation-for="bane.Miljø" class="text-danger"></span>
-        </div>
+        </div> *@
         <div>
             <label asp-for="@Model.bane.Beskrivelse" class"Control-label"></label>
             <input asp-for="@Model.bane.Beskrivelse" class="form-control" />
@@ -31,9 +52,9 @@
         </div>
         <br />
         <br />
-    <div class="formgroup">
-        <input type="submit" value="Opret bane" class="btn btn-primary" />
-    </div>
+        <div class="formgroup">
+            <input type="submit" value="Opret bane" style="background-color:green" class="btn btn-primary" />
+        </div>
     </form>
 
     
