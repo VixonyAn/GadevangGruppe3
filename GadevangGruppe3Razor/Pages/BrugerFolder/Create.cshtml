@@ -1,4 +1,5 @@
 ﻿@page
+@using GadevangGruppe3Razor.Models;
 @model GadevangGruppe3Razor.Pages.BrugerFolder.CreateModel
 @{
 	ViewData["Title"] = "Create";
@@ -33,13 +34,17 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label asp-for="@Model.Bruger.Medlemskab" class="control-label"></label>
-		<input asp-for="@Model.Bruger.Medlemskab" style="display: br; width: 20%;" class="form-control" />
+		<label class="control-label">Medlemskabs Type</label>
+		<select asp-for="@Model.SelectMedlemskabsType" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
+			<option value="Select">Vælg en medlemskabstype</option>
+		</select>
 	</div>
 	<div class="form-group">
-		<label asp-for="@Model.Bruger.Positionen" class="control-label"></label>
-		<input asp-for="@Model.Bruger.Positionen" style="display: br; width: 20%;" class="form-control" />
-	</div>
+		<label class="control-label">Position</label>
+		<select asp-for="@Model.SelectPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
+			<option value="Select">Vælg en position</option>
+		</select>
+	<span class="text-danger">@Model.MessageError</span>
 	<div class="formgroup">
 		<input type="submit" value="Confirm" class="btn btn-primary" style="background-color: green; border-color: green;" />
 	</div>
