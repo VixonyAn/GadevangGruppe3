@@ -15,13 +15,14 @@
     <input type="submit" value="Filter" />
 </form> *@
 
-<table style="width:85%;align-content:center">
+<table style="width:100%;align-content:center">
     <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
         <tr style="border-bottom: 2px solid black;">
             <th>Bane Id</th>
             <th>Bane Type</th>
             <th>Bane Miljø</th>
             <th>Beskrivelse</th>
+            <th></th>
             @if (Model.CurrentBruger.Positionen == Position.Admin)
             {
                 <th></th>
@@ -47,6 +48,11 @@
                     </td>
                     <td style="background-color: #C7DDF4;">
                         @item.Beskrivelse
+                    </td>
+                    <td style="background-color: #C7DDF4;">
+                        <a class="btn btn-primary" style="background-color:#ff035f;border-color:#ff035f" asp-page="/BookingFolder/CreateBooking" asp-route-baneId="@item.BaneId">
+                            Book Bane
+                        </a>
                     </td>
                     @if (Model.CurrentBruger.Positionen == Position.Admin)
                     {
