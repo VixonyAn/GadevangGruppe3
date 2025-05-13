@@ -15,15 +15,26 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         [BindProperty(SupportsGet = true)] public string FilterCriteriaBrugernavn { get; set; }
         [BindProperty(SupportsGet = true)] public string FilterCriteriaMedlemskab { get; set; }
         [BindProperty(SupportsGet = true)] public string FilterCriteriaPosition { get; set; }
+        [BindProperty] public Bruger CurrentBruger { get; set; }
+        public string Email { get; set; }
 
         public ShowAllBrugerModel(IBrugerService brugerService)
         {
             _brugerService = brugerService;
         }
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             try
             {
+                Email = HttpContext.Session.GetString("Email");
+                if (Email == null)
+                {
+                    return RedirectToPage("/BrugerFolder/Login");
+                }
+                else
+                {
+                    CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
+                }
                 if (!string.IsNullOrEmpty(FilterCriteriaBrugernavn))
                 {
                     Brugere = await _brugerService.FilterBrugerByBrugernavnAsync(FilterCriteriaBrugernavn);
@@ -40,6 +51,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                 Brugere = new List<Bruger>();
                 ViewData["ErrorMessage"] = ex.Message;
             }
+            return Page();
 		}
 
         public async Task OnGetFilter()

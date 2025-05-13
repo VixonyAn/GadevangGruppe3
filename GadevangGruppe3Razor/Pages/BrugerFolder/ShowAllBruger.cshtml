@@ -30,15 +30,20 @@
 			<select asp-for="@Model.FilterCriteriaPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
 				<option value="All">All</option>
 			</select>
-			<input type="submit" value="Filter" />
+			<br/>
+			<input type="submit" value="Filter" class=btn btn-primary" style="color: white; background-color: grey; border-color: grey;"/>
 		</div>
 	</p>
 </form>
+<br/>
 
 <table style="width:85" class="table">
-	<thead style="background-color:lightskyblue;border-radius:60px">
+	<thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
 		<tr>
-			<th>BrugerId</th>
+			@if (Model.CurrentBruger.Positionen == Position.Admin)
+			{
+				<th>BrugerId</th>
+			}
 			<th>Brugernavn</th>
 			<th>Email</th>
 			<th>Telefon</th>
@@ -49,27 +54,30 @@
 			<th>Handlinger</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody style="text-align: center; margin: 3px;">
 		@if (Model.Brugere.Count() != 0)
 		{
 			@foreach (Bruger items in Model.Brugere)
 			{
-				<tr>
-					<td>@items.BrugerId</td>
-					<td>@items.Brugernavn</td>
-					<td>@items.Email</td>
-					<td>@items.Telefon</td>
-					<td>@items.Medlemskab</td>
-					<td>@items.Positionen</td>
-					<td>
+				<tr style="border-bottom: solid 1px; border-color: gray;">
+					@if (Model.CurrentBruger.Positionen == Position.Admin)
+					{
+						<td style="background-color: #E2EDF9;">@items.BrugerId</td>
+					}
+					<td style="background-color: #C7DDF4;">@items.Brugernavn</td>
+					<td style="background-color: #E2EDF9;">@items.Email</td>
+					<td style="background-color: #C7DDF4;">@items.Telefon</td>
+					<td style="background-color: #E2EDF9;">@items.Medlemskab</td>
+					<td style="background-color: #C7DDF4;">@items.Positionen</td>
+					<td style="background-color: #E2EDF9;">
 						@if (items.BilledUrl != null)
 						{
 							<img src="~/images/@items.BilledUrl" width="100px"
 								height="100px" /> 
 						}
 					</td>
-					<td>@(items.Verificeret ? "Verificeret" : "") </td>
-					<td>
+					<td style="background-color: #C7DDF4;">@(items.Verificeret ? "Verificeret" : "") </td>
+					<td style="background-color: #C7DDF4;">
 						<a asp-page="Update" asp-route-brugerId="@items.BrugerId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Update</a>
 						<a asp-page="Delete" asp-route-brugerId="@items.BrugerId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">Delete</a>
 					</td>

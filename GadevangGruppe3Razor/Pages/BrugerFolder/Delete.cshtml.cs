@@ -13,8 +13,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         [BindProperty] public Bruger Bruger { get; set; }
         [BindProperty] public int BrugerId { get; set; }
         [BindProperty] public bool Confirm { get; set; }
-
-        public string Message { get; set; }
+        public string MessageError { get; set; }
 
         public DeleteModel(IBrugerService brugerService)
         {
@@ -31,7 +30,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         {
             if (Confirm == false)
             {
-                Message = $"Husk at checke godkendelsesboksen af";
+                MessageError = $"Husk at checke godkendelsesboksen af";
                 return Page();
             }
             try

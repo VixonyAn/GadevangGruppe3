@@ -203,8 +203,8 @@ namespace GadevangGruppe3Razor.Services
                 Bruger bruger = new Bruger();
                 try
                 {
-                    SqlCommand command = new SqlCommand(selectSql + " where Email like @Search", connection);
-                    command.Parameters.AddWithValue("@Search", "%" + email + "%");
+                    SqlCommand command = new SqlCommand(selectSql + " where Email = @Email", connection);
+                    command.Parameters.AddWithValue("@Email", email);
                     await command.Connection.OpenAsync();
                     SqlDataReader reader = await command.ExecuteReaderAsync();
                     while (await reader.ReadAsync()) // reads from data not from console

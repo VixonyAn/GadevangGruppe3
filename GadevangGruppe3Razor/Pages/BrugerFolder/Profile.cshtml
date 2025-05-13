@@ -1,0 +1,65 @@
+﻿@page
+@using GadevangGruppe3Razor.Models;
+@model GadevangGruppe3Razor.Pages.BrugerFolder.ProfileModel
+@{
+	ViewData["Title"] = "Show Profile";
+}
+
+<h3>Velkommen til din profilside</h3>
+<br />
+@if (Model.ProfileBruger.BilledUrl != null)
+{
+	<img src="~/images/@Model.ProfileBruger.BilledUrl" width="300px"
+		 height="300px" />
+}
+<br />
+<br />
+<h5>Brugernavn: @Model.ProfileBruger.Brugernavn</h5>
+<br />
+<h5> @Model.Email</h5>
+<br />
+<h5>Telefon: @Model.ProfileBruger.Telefon</h5>
+<br />
+<h5>Bruger Medlemskabtype: @Model.ProfileBruger.Medlemskab</h5>
+<br />
+<h5>Position som Medlem: @Model.ProfileBruger.Positionen</h5>
+<br />
+<h5>Bruger Verificering: @(Model.ProfileBruger.Verificeret ? "Verificeret" : "Ikke Verificeret")</h5>
+
+<!-- #region Tilmeld Tables -->
+<br />
+<h4>Dine Tilmeldinger</h4>
+<table>
+    <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
+        <tr>
+            <th>BrugerId</th>
+            <th>EventId</th>
+            <th>Kommentar</th>
+            <th>Handlinger</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody style="text-align: center; margin: 3px;">
+        @if (Model.TilmeldBList.Count() != 0)
+        {
+            @foreach (TilmeldBegivenhed item in Model.TilmeldBList)
+            {
+                <tr style="border-bottom: solid 1px; border-color: gray;">
+                    @* <td style="border: solid 1px; border-color: white;">@Model.Bruger.Brugernavn</td>
+            <td style="border: solid 1px; border-color: white;">@Model.Begivenhed.Titel</td> *@
+                    <td style="background-color: #E2EDF9;">@item.BrugerId</td>
+                    <td style="background-color: #C7DDF4;">@item.EventId</td>
+                    <td style="background-color: #E2EDF9;">@item.Kommentar</td>
+                    <td style="background-color: #E2EDF9;">
+                        <a asp-page="/TilmeldBegivenhedFolder/Update" asp-route-brugerId="@item.BrugerId" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Opdater</a>
+                    </td>
+                    <td style="background-color: #E2EDF9;">
+                        <a asp-page="/TilmeldBegivenhedFolder/Delete" asp-route-brugerId="@item.BrugerId" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">Slet</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<!-- #endregion -->

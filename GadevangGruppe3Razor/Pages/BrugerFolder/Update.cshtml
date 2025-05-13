@@ -1,4 +1,5 @@
 ﻿@page
+@using GadevangGruppe3Razor.Models;
 @model GadevangGruppe3Razor.Pages.BrugerFolder.UpdateModel
 @{
 	ViewData["Title"] = "Update";
@@ -21,32 +22,36 @@
 	<div class="form-group">
 		<label asp-for="@Model.Bruger.Adgangskode" class="control-label"></label>
 		<input asp-for="@Model.Bruger.Adgangskode" class="form-control" />
-		<span asp-validation-for="@Model.Bruger.Brugernavn" class="text-danger"></span>
+		<span asp-validation-for="@Model.Bruger.Adgangskode" class="text-danger"></span>
 	</div>
 	<div class="form-group">
 		<label asp-for="@Model.Bruger.Email" class="control-label"></label>
 		<input asp-for="@Model.Bruger.Email" class="form-control" />
-		<span asp-validation-for="@Model.Bruger.Brugernavn" class="text-danger"></span>
+		<span asp-validation-for="@Model.Bruger.Email" class="text-danger"></span>
 	</div>
 	<div class="form-group">
 		<label asp-for="@Model.Bruger.Telefon" class="control-label"></label>
 		<input asp-for="@Model.Bruger.Telefon" class="form-control" />
-		<span asp-validation-for="@Model.Bruger.Brugernavn" class="text-danger"></span>
+		<span asp-validation-for="@Model.Bruger.Telefon" class="text-danger"></span>
 	</div>
 	<div class="form-group">
 		<input asp-for="@Model.BilledUrl" hidden="true" class="form-control" />
 	</div>
 	<div class="form-group">
-		<label asp-for="@Model.Bruger.Medlemskab" class="control-label"></label>
-		<input asp-for="@Model.Bruger.Medlemskab" class="form-control" />
-		<span asp-validation-for="@Model.Bruger.Brugernavn" class="text-danger"></span>
+		<label class="control-label">Medlemskabs Type</label>
+		<select asp-for="@Model.SelectMedlemskabsType" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
+			<option value="Select">Vælg en medlemskabstype</option>
+		</select>
+		<span asp-validation-for="@Model.Bruger.Medlemskab" class="text-danger"></span>
 	</div>
 	<div class="form-group">
-		<label asp-for="@Model.Bruger.Positionen" class="control-label"></label>
-		<input asp-for="@Model.Bruger.Positionen" class="form-control" />
-		<span asp-validation-for="@Model.Bruger.Brugernavn" class="text-danger"></span>
+		<label class="control-label">Position</label>
+		<select asp-for="@Model.SelectPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
+			<option value="Select">Vælg en position</option>
+		</select>
+		<span asp-validation-for="@Model.Bruger.Positionen" class="text-danger"></span>
 	</div>
 	<div class="form-group">
-		<input type="submit" value="Opdater" class="btn btn-primary" style="background-color: green; border-color: green;" />
+		<input type="submit" value="Opdater" class="btn btn-primary" style="background-color: grey; border-color: grey;" />
 	</div>
 </form>
