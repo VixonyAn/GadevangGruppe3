@@ -8,14 +8,36 @@
         <label asp-for="@Model.bane.BaneId" class="control-label"></label>
         <input asp-for="@Model.bane.BaneId" readonly class="form-control" />
     </div>
-    <div>
+    <br />
+    <div class="form-group">
+        <label>Vælg bane type:</label>
+        <br />
+        <select id="ModleBaneType" name="ModleBaneType"
+                class="control-label"
+                style="display: br" class="form-control"
+                asp-for="@Model.bane.Type" asp-items="@Model.TypeSelectList">
+        </select>
+        <br />
+    </div>
+    <br />
+@*     <div>
         <label asp-for="@Model.bane.Type" class="control-label"></label>
         <input asp-for="@Model.bane.Type" class="form-control" />
+    </div> *@
+    <div class="form-group">
+        <label>Vælg bane miljø:</label>
+        <br />
+        <select id="ModleBAneMiljø"
+                class="control-label"
+                style="display:br" class="form-control"
+                asp-for="@Model.bane.Miljø" asp-items="@Model.MiljøSelectList">
+        </select>
     </div>
-    <div>
+    <br />
+@*     <div>
         <label asp-for="@Model.bane.Miljø" class="control-label"></label>
         <input asp-for="@Model.bane.Miljø" class="form-control" />
-    </div>
+    </div> *@
     <div>
         <label asp-for="@Model.bane.Beskrivelse" class="control-label"></label>
         <input asp-for="@Model.bane.Beskrivelse" class="form-control" />

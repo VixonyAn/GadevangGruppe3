@@ -14,8 +14,6 @@
     Søg efter banetyppe: <input type="text" asp-for="@Model.FilterName" />
     <input type="submit" value="Filter" />
 </form> *@
-<br />
-<hr />
 
 <table style="width:85%;align-content:center">
     <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
@@ -24,8 +22,11 @@
             <th>Bane Type</th>
             <th>Bane Miljø</th>
             <th>Beskrivelse</th>
-            <th></th>
-            <th></th>
+            @if (Model.CurrentBruger.Positionen == Position.Admin)
+            {
+                <th></th>
+                <th></th>
+            }
 
         </tr>
     </thead>
