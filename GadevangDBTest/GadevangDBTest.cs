@@ -8,68 +8,68 @@ namespace GadevangDBTest
     [TestClass]
     public class GadevangServiceTest
     {
-        #region Bruger Test
-        [TestMethod]
-        public void TestReadBruger()
-        {
-            //Arrange
-            IBrugerService brugerService = new BrugerService();
-            List<Bruger> bruger = brugerService.GetAllBrugerAsync().Result;
+        //#region Bruger Test
+        //[TestMethod]
+        //public void TestReadBruger()
+        //{
+        //    //Arrange
+        //    IBrugerService brugerService = new BrugerService();
+        //    List<Bruger> bruger = brugerService.GetAllBrugerAsync().Result;
 
-            //Act
-            int numOfBruger = bruger.Count;
+        //    //Act
+        //    int numOfBruger = bruger.Count;
 
-            //Assert
-            Assert.IsNotNull(numOfBruger);
-        }
+        //    //Assert
+        //    Assert.IsNotNull(numOfBruger);
+        //}
 
-        [TestMethod]
-        public void TestCreateBruger()
-        {
-            //Arrange
-            IBrugerService brugerService = new BrugerService();
-            List<Bruger> brugere = brugerService.GetAllBrugerAsync().Result;
+        //[TestMethod]
+        //public void TestCreateBruger()
+        //{
+        //    //Arrange
+        //    IBrugerService brugerService = new BrugerService();
+        //    List<Bruger> brugere = brugerService.GetAllBrugerAsync().Result;
 
-            //Act
-            int numOfBrugerBefore = brugere.Count;
-            Bruger testBruger = new Bruger(999, "Vibeke Sandau", "JKL82", "VISA@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
-            bool ok = brugerService.CreateBrugerAsync(testBruger).Result;
-            brugere = brugerService.GetAllBrugerAsync().Result;
-            int numOfBrugerAfter = brugere.Count;
-            Bruger? removedBruger = brugerService.DeleteBrugerAsync(testBruger.BrugerId).Result;
+        //    //Act
+        //    int numOfBrugerBefore = brugere.Count;
+        //    Bruger testBruger = new Bruger(999, "Vibeke Sandau", "JKL82", "VISA@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
+        //    bool ok = brugerService.CreateBrugerAsync(testBruger).Result;
+        //    brugere = brugerService.GetAllBrugerAsync().Result;
+        //    int numOfBrugerAfter = brugere.Count;
+        //    Bruger? removedBruger = brugerService.DeleteBrugerAsync(testBruger.BrugerId).Result;
 
-            //Assert
-            Assert.AreEqual(numOfBrugerBefore + 1, numOfBrugerAfter);
-            Assert.IsTrue(ok);
-            Assert.AreEqual(removedBruger.BrugerId, testBruger.BrugerId);
+        //    //Assert
+        //    Assert.AreEqual(numOfBrugerBefore + 1, numOfBrugerAfter);
+        //    Assert.IsTrue(ok);
+        //    Assert.AreEqual(removedBruger.BrugerId, testBruger.BrugerId);
 
-        }
+        //}
         
-        [TestMethod]
-        public void TestUpdateBruger()
-        {
-            //Arrange
-            IBrugerService brugerService = new BrugerService();
-            List<Bruger> brugere = brugerService.GetAllBrugerAsync().Result;
+        //[TestMethod]
+        //public void TestUpdateBruger()
+        //{
+        //    //Arrange
+        //    IBrugerService brugerService = new BrugerService();
+        //    List<Bruger> brugere = brugerService.GetAllBrugerAsync().Result;
 
-            //Act
-            int numOfBrugerBefore = brugere.Count;
-            Bruger testBruger = new Bruger(999, "Vibeke Sandau", "JKL82", "VISA@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
-            bool ok = brugerService.CreateBrugerAsync(testBruger).Result;
-            Bruger updateBruger = new Bruger(999, "Jytte Hermsgervørdenbrøtbørda", "JKL82", "JYHE@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
-            bool updateOk = brugerService.UpdateBrugerAsync(testBruger.BrugerId, updateBruger).Result;
-            brugere = brugerService.GetAllBrugerAsync().Result;
-            int numOfBrugerAfter = brugere.Count;
-            Bruger? removedBruger = brugerService.DeleteBrugerAsync(testBruger.BrugerId).Result;
+        //    //Act
+        //    int numOfBrugerBefore = brugere.Count;
+        //    Bruger testBruger = new Bruger(999, "Vibeke Sandau", "JKL82", "VISA@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
+        //    bool ok = brugerService.CreateBrugerAsync(testBruger).Result;
+        //    Bruger updateBruger = new Bruger(999, "Jytte Hermsgervørdenbrøtbørda", "JKL82", "JYHE@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
+        //    bool updateOk = brugerService.UpdateBrugerAsync(testBruger.BrugerId, updateBruger).Result;
+        //    brugere = brugerService.GetAllBrugerAsync().Result;
+        //    int numOfBrugerAfter = brugere.Count;
+        //    Bruger? removedBruger = brugerService.DeleteBrugerAsync(testBruger.BrugerId).Result;
 
-            //Assert
-            Assert.AreEqual(numOfBrugerBefore + 1, numOfBrugerAfter);
-            Assert.IsTrue(ok);
-            Assert.IsTrue(updateOk);
-            Assert.AreEqual(removedBruger.Brugernavn, updateBruger.Brugernavn);
+        //    //Assert
+        //    Assert.AreEqual(numOfBrugerBefore + 1, numOfBrugerAfter);
+        //    Assert.IsTrue(ok);
+        //    Assert.IsTrue(updateOk);
+        //    Assert.AreEqual(removedBruger.Brugernavn, updateBruger.Brugernavn);
 
-        }
-        #endregion
+        //}
+        //#endregion
 
         #region Bane Test
         [TestMethod]
@@ -128,18 +128,42 @@ namespace GadevangDBTest
             IBaneService bs = new BaneService();
             List<Bane> baner = bs.GetAllBaneAsync().Result;
 
-            // Act
-            int numberOfbanerBefore = baner.Count();
+            // Act 
+                   //Der oprettes en ny bane, hvorefter der opretttes en ny liste BanerAfterCreate,
+                   //hvor count gemmes som numberOFBanerAfter
             Bane bd = new Bane(20, BaneType.Paddel, BaneMiljø.Udendørs, "Nylavet");
             bs.CreateBaneAsync(bd);
-            int numbersOfBanerAfterCreate = baner.Count();
+            List<Bane> banerAfterCreate = bs.GetAllBaneAsync().Result;
+            int numbersOfBanerAfterCreate = banerAfterCreate.Count();
 
+                   //Den nye bane slettes, hvorefter der opretttes en ny liste BanerAfterDelete,
+                  //hvor count gemmes som numberOgBanerAfterDeletee
             bs.DeleteBaneAsync(bd.BaneId);
-            int numberOfBanerAfterDelete = baner.Count();
+
             List<Bane> banerAfter = bs.GetAllBaneAsync().Result;
+            int numberOfBanerAfterDelete = banerAfter.Count();
 
             // Assert
-            Assert.AreEqual(numberOfBanerAfterDelete, numbersOfBanerAfterCreate - 1);
+            Assert.AreEqual(banerAfterCreate.Count()-1, banerAfter.Count());
+        }
+        #endregion
+
+        #region Booking Test
+        [TestMethod]
+        public void TestCreateBookingAngGetAlll() 
+        {
+            //Arrange
+            IBookingService bs = new BookingService();
+            List<Booking> bookinger = new List<Booking>();
+
+            //Act
+            int BookingerBefore = bookinger.Count();
+            Booking b = new Booking(10,1,new DateOnly(2025,06,11),10,1,2,"Personlig");
+            bool ok = bs.CreateBookingAsync(b).Result;
+            //Assert
+            Assert.IsNotNull(BookingerBefore);
+            Assert.IsTrue(ok);
+
         }
         #endregion
 

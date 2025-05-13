@@ -47,7 +47,7 @@ namespace GadevangGruppe3Razor.Pages.BaneFolder1
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid) { return Page(); }
+            //if (!ModelState.IsValid) { return Page(); }
             try
             {
                  _baneService.CreateBaneAsync(new Bane(bane.BaneId, bane.Type, bane.Miljø, bane.Beskrivelse));

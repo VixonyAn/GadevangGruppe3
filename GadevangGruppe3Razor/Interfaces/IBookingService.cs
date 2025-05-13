@@ -4,13 +4,11 @@ namespace GadevangGruppe3Razor.Interfaces
 {
     public interface IBookingService
     {
-        List<Booking> GetAll();
-        Booking GetBookingById(int bookingId);
+        Task<List<Booking>> GetAllAsync();
+        Task<Booking> GetBookingByIdAsync(int bookingId);
 
-        bool CreateBooking(Booking booking);
+        Task<bool> CreateBookingAsync(Booking booking);
 
-        bool UpdateBooking(int bookingId,Booking booking);
-
-        Booking DeleteBooking(int bookingId);
+        Task<Booking> DeleteBookingAsync(int bookingId);
     }
 }
