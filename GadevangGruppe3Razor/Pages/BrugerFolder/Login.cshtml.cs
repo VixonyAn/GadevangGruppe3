@@ -39,7 +39,10 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         public async Task<IActionResult> OnPostAsync()
         {
             // if ModelState is NOT valid, reload (triggers error messages)
-            if (!ModelState.IsValid) { return Page(); }
+            if (!ModelState.IsValid) 
+            { 
+                return Page(); 
+            }
             try
             {
                 Bruger? loginBruger = await _brugerService.ValidateBrugerAsync(Email, Adgangskode);

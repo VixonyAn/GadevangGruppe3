@@ -1,0 +1,21 @@
+﻿@page
+@using GadevangGruppe3Razor.Models;
+@model GadevangGruppe3Razor.Pages.BrugerFolder.ProfileModel
+@{
+	ViewData["Title"] = "Show Profile";
+}
+
+<h3>Velkommen til din profilside</h3>
+<br />
+<br />
+<h2>Brugernavn: @Model.ProfileBruger.Brugernavn</h2>
+<br />
+<h2>Email: @Model.Email</h2>
+<br />
+<h2>Telefon: @Model.ProfileBruger.Telefon</h2>
+<br />
+<h2>Bruger Medlemskabtype: @Model.ProfileBruger.Medlemskab</h2>
+<br />
+<h2>Position som Medlem: @Model.ProfileBruger.Positionen</h2>
+<br />
+<h2>Bruger Verificering: @(Model.ProfileBruger.Verificeret ? "Verificeret" : "Ikke Verificeret")</h2>
