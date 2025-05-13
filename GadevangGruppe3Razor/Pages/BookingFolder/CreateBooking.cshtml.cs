@@ -102,11 +102,11 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
                 }
                 Bruger1 = await _brugerService.GetBrugerByEmailAsync(Email);
                 Bruger2 = await _brugerService.GetBrugerByIdAsync(Bruger2ID);
-                //if (Bruger1.BrugerId == Bruger2.BrugerId)
-                //{
-                //    MessageError = $"Du kan ikke være partner med dig selv";
-                //    return Page();
-                //}
+                if (Bruger1.BrugerId == Bruger2.BrugerId)
+                {
+                    MessageError = $"Du kan desværre ikke tilmelde dig begivenheder lige nu, da din medlemskab er ikke verificeret.";
+                    return Page();
+                }
                 await _bookingService.CreateBookingAsync(new Booking(Booking.BookingId, Booking.BaneId, Booking.Dato, StartTid, Bruger1.BrugerId, Bruger2.BrugerId, Booking.Beskrivelse));
                 return RedirectToPage("/BaneFolder/ShowAllBane");
             }

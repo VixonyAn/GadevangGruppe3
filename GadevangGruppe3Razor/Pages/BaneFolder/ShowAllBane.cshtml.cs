@@ -16,6 +16,7 @@ namespace GadevangGruppe3Razor.Pages.BaneFolder1
         [BindProperty]public Bruger CurrentBruger { get; set; }
 
         public string Email { get; set; }
+        public string NotVerafiedMessage { get; set; }
 
         public ShowAllBaneModel(IBaneService baneservice,IBrugerService brugerService)
         {
@@ -35,6 +36,10 @@ namespace GadevangGruppe3Razor.Pages.BaneFolder1
                 else
                 {
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
+                    if (!CurrentBruger.Verificeret)
+                    {
+                        NotVerafiedMessage = $"Du kan desværre ikke booke en bane, da dit medlemskab er ikke verificeret.";
+                    }
                 }
                 Baner= await _baneservice.GetAllBaneAsync();
             }

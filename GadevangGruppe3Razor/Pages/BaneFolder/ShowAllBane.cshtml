@@ -3,18 +3,16 @@
 @model GadevangGruppe3Razor.Pages.BaneFolder1.ShowAllBaneModel
 @{
 }
-<h4>Baner:</h4>
+<h4>Baner i klubben</h4>
 
 @if (Model.CurrentBruger.Positionen == Position.Admin)
 {
 <a asp-page="CreateBane" style="background-color:green"class="btn btn-primary">Opret bane</a>
 <hr />
 }
-@* <form>
-    Søg efter banetyppe: <input type="text" asp-for="@Model.FilterName" />
-    <input type="submit" value="Filter" />
-</form> *@
-
+<br />
+<span class="text-danger">@Model.NotVerafiedMessage</span>
+<br />
 <table style="width:100%;align-content:center">
     <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
         <tr style="border-bottom: 2px solid black;">
@@ -49,11 +47,14 @@
                     <td style="background-color: #C7DDF4;">
                         @item.Beskrivelse
                     </td>
-                    <td style="background-color: #C7DDF4;">
-                        <a class="btn btn-primary" style="background-color:#ff035f;border-color:#ff035f" asp-page="/BookingFolder/CreateBooking" asp-route-baneId="@item.BaneId">
+                    @if (Model.CurrentBruger.Verificeret == true)
+                    {
+                        <td style="background-color: #C7DDF4;">
+                            <a class="btn btn-primary" style="background-color:#ff035f;border-color:#ff035f" asp-page="/BookingFolder/CreateBooking" asp-route-baneId="@item.BaneId">
                             Book Bane
                         </a>
-                    </td>
+                        </td>
+                    }
                     @if (Model.CurrentBruger.Positionen == Position.Admin)
                     {
                         <td style="background-color: #C7DDF4;">
