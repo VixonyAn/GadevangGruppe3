@@ -83,6 +83,41 @@ namespace GadevangGruppe3Razor.Services
             return tilmeldBList;
         }
 
+        public async Task<List<TilmeldBegivenhed>> GetTilmeldBByBrugerIdAsync(int brugerId)
+        {
+            List<TilmeldBegivenhed> tilmeldBList = new List<TilmeldBegivenhed>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(selectString + " where BrugerId = @BrugerId", connection);
+                    command.Parameters.AddWithValue("@BrugerId", brugerId);
+                    await command.Connection.OpenAsync();
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        int eventId = reader.GetInt32("EventId");
+                        string kommentar = reader.GetString("Kommentar");
+                        TilmeldBegivenhed tilmeldB = new TilmeldBegivenhed(brugerId, eventId, kommentar);
+                        tilmeldBList.Add(tilmeldB);
+                    }
+                    reader.Close();
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error" + sqlExp.Message);
+                    throw sqlExp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+                    throw ex;
+                }
+                finally { }
+            }
+            return tilmeldBList;
+        }
+
         public async Task<TilmeldBegivenhed?> GetTilmeldBByIdAsync(int brugerId, int eventId)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
