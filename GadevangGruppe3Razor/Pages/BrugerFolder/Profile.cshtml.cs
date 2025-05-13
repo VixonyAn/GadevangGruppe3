@@ -7,15 +7,23 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 {
     public class ProfileModel : PageModel
     {
+        #region Instance Fields
         private IBrugerService _brugerService;
+        #endregion
+
+        #region Properties
         [BindProperty] public Bruger ProfileBruger { get; set; }
         [BindProperty] public string Email { get; set; }
+        #endregion
 
+        #region Constructor
         public ProfileModel(IBrugerService brugerService)
         {
             _brugerService = brugerService;
         }
+        #endregion
 
+        #region Methods
         public async Task<IActionResult> OnGetAsync()
         {
             try
@@ -37,5 +45,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
             }
             return Page();
 		}
+        #endregion
     }
 }
