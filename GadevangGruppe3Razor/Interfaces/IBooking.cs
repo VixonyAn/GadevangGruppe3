@@ -8,10 +8,8 @@ namespace GadevangGruppe3Razor.Interfaces
 
         int BaneId { get; set; }
 
-        DateTime StartTid { get; set; }
-
-        DateTime SlutTid { get; set; }
-
+        DateOnly Dato { get; set; }
+        int StartTid { get; set; }
         int Bruger1 { get; set; }
 
         int Bruger2 { get; set; }
