@@ -24,6 +24,8 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
         public string Email { get; set; }
         public List<SelectListItem> TidSelectList { get; set; }
         public List<SelectListItem> BrugerSelectList { get; set; }
+
+        public string MessageError { get; set; }
         #endregion
 
         public CreateBookingModel(IBookingService bookingService,IBaneService baneService,IBrugerService brugerService)
@@ -100,9 +102,10 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
                 }
                 Bruger1 = await _brugerService.GetBrugerByEmailAsync(Email);
                 Bruger2 = await _brugerService.GetBrugerByIdAsync(Bruger2ID);
-                //if (Bruger1 == Bruger2) 
-                //{ 
-
+                //if (Bruger1.BrugerId == Bruger2.BrugerId)
+                //{
+                //    MessageError = $"Du kan ikke være partner med dig selv";
+                //    return Page();
                 //}
                 await _bookingService.CreateBookingAsync(new Booking(Booking.BookingId, Booking.BaneId, Booking.Dato, StartTid, Bruger1.BrugerId, Bruger2.BrugerId, Booking.Beskrivelse));
                 return RedirectToPage("/BaneFolder/ShowAllBane");
