@@ -27,6 +27,39 @@
 <h5>Bruger Verificering: @(Model.ProfileBruger.Verificeret ? "Verificeret" : "Ikke Verificeret")</h5>
 
 <!-- #region Tilmeld Tables -->
-
+<br />
+<h4>Dine Tilmeldinger</h4>
+<table>
+    <thead style="background-color: gray; border: solid 1px; border-color: white;">
+        <tr>
+            <th>BrugerId</th>
+            <th>EventId</th>
+            <th>Kommentar</th>
+            <th>Handlinger</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody style="background-color: lightgray; text-align: center; margin: 3px;">
+        @if (Model.TilmeldBList.Count() != 0)
+        {
+            @foreach (TilmeldBegivenhed item in Model.TilmeldBList)
+            {
+                <tr style="border: solid 1px; border-color: white;">
+                    @* <td style="border: solid 1px; border-color: white;">@Model.Bruger.Brugernavn</td>
+            <td style="border: solid 1px; border-color: white;">@Model.Begivenhed.Titel</td> *@
+                    <td style="border: solid 1px; border-color: white;">@item.BrugerId</td>
+                    <td style="border: solid 1px; border-color: white;">@item.EventId</td>
+                    <td style="border: solid 1px; border-color: white;">@item.Kommentar</td>
+                    <td style="border: solid 1px; border-color: white;">
+                        <a asp-page="/TilmeldBegivenhedFolder/Update" asp-route-brugerId="@item.BrugerId" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Opdater</a>
+                    </td>
+                    <td>
+                        <a asp-page="/TilmeldBegivenhedFolder/Delete" asp-route-brugerId="@item.BrugerId" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">Slet</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
 
 <!-- #endregion -->
