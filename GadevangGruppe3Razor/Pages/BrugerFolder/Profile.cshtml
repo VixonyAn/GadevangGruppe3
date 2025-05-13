@@ -7,6 +7,12 @@
 
 <h3>Velkommen til din profilside</h3>
 <br />
+@if (Model.ProfileBruger.BilledUrl != null)
+{
+	<img src="~/images/@Model.ProfileBruger.BilledUrl" width="300px"
+		 height="300px" />
+}
+<br />
 <br />
 <h5>Brugernavn: @Model.ProfileBruger.Brugernavn</h5>
 <br />
