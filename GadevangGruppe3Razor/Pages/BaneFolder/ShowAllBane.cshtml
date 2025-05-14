@@ -7,7 +7,7 @@
 
 @if (Model.CurrentBruger.Positionen == Position.Admin)
 {
-<a asp-page="CreateBane" style="background-color:green"class="btn btn-primary">Opret bane</a>
+<a asp-page="CreateBane" style="background-color:green;border-color:green"class="btn btn-primary">Opret bane</a>
 <hr />
 }
 <br />
@@ -50,7 +50,7 @@
                     @if (Model.CurrentBruger.Verificeret == true)
                     {
                         <td style="background-color: #C7DDF4;">
-                            <a class="btn btn-primary" style="background-color:#ff035f;border-color:#ff035f" asp-page="/BookingFolder/CreateBooking" asp-route-baneId="@item.BaneId">
+                            <a class="btn btn-primary" style="background-color:#2C5DCA;border-color:#2C5DCA" asp-page="/BookingFolder/CreateBooking" asp-route-baneId="@item.BaneId">
                             Book Bane
                         </a>
                         </td>
