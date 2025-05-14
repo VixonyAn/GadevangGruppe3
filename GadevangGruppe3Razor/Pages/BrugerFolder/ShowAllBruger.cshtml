@@ -5,11 +5,9 @@
 	ViewData["Title"] = "ShowAllBruger";
 }
 
-<h5>Antal brugerer: @Model.Brugere.Count</h5>
-<br />
+<h4>Antal brugerer: @Model.Brugere.Count</h4>
 
 <a asp-page="Create" class="btn btn primary" style="color: white; background-color: green;">Opret bruger</a>
-<br />
 <br />
 
 <form asp-handler="Filter" method="get">
@@ -18,11 +16,11 @@
 			<label class="control-label">Søg efter brugernavn:</label>
 			<input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.form.submit()" />
 			<br />
-			<label class="control-label">Vælg Medlemskabs Type</label>
+			<label class="control-label">Filtrer efter Medlemskab</label>
 			<select asp-for="@Model.FilterCriteriaMedlemskab" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
 				<option value="All">All</option>
 			</select>
-			<label class="control-label">Vælg Position</label>
+			<label class="control-label">Filtrer efter Position</label>
 			<select asp-for="@Model.FilterCriteriaPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
 				<option value="All">All</option>
 			</select>
@@ -31,20 +29,19 @@
 		</div>
 	</p>
 </form>
-<br/>
 
 <form method="get">
 	<p>
 		<div class=form-group>
-			<label class="custom-control-label">Sortering</label><br />
+			<label class="custom-control-label">Sortér efter</label> 
 			<input type="radio" asp-for="@Model.SortOrder" value="Brugernavn" onclick="this.form.submit()" />Brugernavn</input>
 			<input type="radio" asp-for="@Model.SortOrder" value="BrugerId" onclick="this.form.submit()" />BrugerId</input>
 		</div>
 		<div class="form-group">
-			<label class="custom-control-label">Sort Order</label>
+			<label class="custom-control-label">Rækkefølge</label>
 			<select asp-for="SortOrderAscDesc" onchange="this.form.submit()">
-				<option value="Ascending">Ascending</option>
-				<option value="Descending">Descending</option>
+				<option value="Ascending">Stigende</option>
+				<option value="Descending">Faldende</option>
 			</select>
 		</div>
 	</p>

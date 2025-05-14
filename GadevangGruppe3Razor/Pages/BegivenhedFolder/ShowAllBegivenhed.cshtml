@@ -7,7 +7,6 @@
 
 <h4>Der er @Model.Begivenheder.Count kommende begivenheder</h4>
 <span class="text-danger">@Model.UnverifiedWarning</span>
-<br />
 @if (@Model.CurrentBruger.Positionen == Position.Admin)
 {
     <a asp-page="Create" class="btn btn primary" style="color: white; background-color: green; border-color: green;">Opret Begivenhed</a>    <a asp-page="/TilmeldBegivenhedFolder/ShowAllTilmeldBegivenhed" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Se Alle Tilmeldinger</a>
