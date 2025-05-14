@@ -1,4 +1,6 @@
 ﻿@page
+@inject GadevangGruppe3Razor.Interfaces.IBrugerService brugerService;
+@inject GadevangGruppe3Razor.Interfaces.IBegivenhedService begivenhedService;
 @using GadevangGruppe3Razor.Models;
 @model GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder.ShowAllTilmeldBegivenhedModel
 @{
@@ -6,40 +8,48 @@
 }
 
 <h4>Der er @Model.TilmeldBList.Count tilmeldinger til kommende begivenheder</h4>
+
 <br />
-<div class="form-group">
-    <label class="custom-control-label">Vælg begivenhed du vil se tilmeldinger fra</label>
-    <select id="SortByEventId" name="SortByEventId"
-            asp-for="@Model.SortByEventId" asp-items="@Model.EventSelectList" onchange="this.form.submit()">
-    </select>
-</div>
+
+<form method="get">
+    <p>
+        <div class="form-group">
+            <label class="custom-control-label">Vælg begivenhed du vil se tilmeldinger fra</label>
+            <select asp-for="@Model.FilterEventId" asp-items="@Model.EventSelectList" onchange="this.form.submit()"> </select>
+        </div>
+    </p>
+</form>
+
 <br />
 <br />
+
 <table>
-    <thead style="background-color: gray; border: solid 1px; border-color: white;">
+    <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
         <tr>
             <th>BrugerId</th>
+            <th>Brugernavn</th>
             <th>EventId</th>
+            <th>Begivenhed</th>
             <th>Kommentar</th>
             <th>Handlinger</th>
             <th></th>
         </tr>
     </thead>
-    <tbody style="background-color: lightgray; text-align: center; margin: 3px;">
-        @if (Model.TilmeldBList.Count() != 0)
+    <tbody style="text-align: center; margin: 3px;">
+            @if (Model.TilmeldBList.Count() != 0)
         {
             @foreach (TilmeldBegivenhed item in Model.TilmeldBList)
             {
-                <tr style="border: solid 1px; border-color: white;">
-                    @* <td style="border: solid 1px; border-color: white;">@Model.Bruger.Brugernavn</td>
-                    <td style="border: solid 1px; border-color: white;">@Model.Begivenhed.Titel</td> *@
-                    <td style="border: solid 1px; border-color: white;">@item.BrugerId</td>
-                    <td style="border: solid 1px; border-color: white;">@item.EventId</td>
-                    <td style="border: solid 1px; border-color: white;">@item.Kommentar</td>
-                    <td style="border: solid 1px; border-color: white;">
+                <tr>
+                    <td style="background-color: #E2EDF9;">@item.BrugerId</td>
+                    <td style="background-color: #C7DDF4;">@brugerService.GetBrugerByIdAsync(@item.BrugerId).Result.Brugernavn</td>
+                    <td style="background-color: #E2EDF9;">@item.EventId</td>
+                    <td style="background-color: #C7DDF4;">@begivenhedService.GetBegivenhedByIdAsync(@item.EventId).Result.Titel</td>
+                    <td style="background-color: #E2EDF9;">@item.Kommentar</td>
+                    <td style="background-color: #E2EDF9;">
                         <a asp-page="Update" asp-route-brugerId="@item.BrugerId" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Opdater</a>
                     </td>
-                    <td>
+                    <td style="background-color: #E2EDF9;">
                         <a asp-page="Delete" asp-route-brugerId="@item.BrugerId" asp-route-eventId="@item.EventId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">Slet</a>
                     </td>
                 </tr>
