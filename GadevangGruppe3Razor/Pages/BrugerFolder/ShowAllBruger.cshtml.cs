@@ -39,7 +39,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
                     if (CurrentBruger.Positionen != Position.Admin)
                     {
-                        return RedirectToAction("/Index");
+                        return RedirectToPage("/Index");
                     }
                 }
 				if (!string.IsNullOrEmpty(FilterCriteriaBrugernavn))
