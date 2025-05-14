@@ -16,6 +16,7 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
         [BindProperty] public TilmeldBegivenhed TilmeldB { get; set; }
         [BindProperty] public bool Confirm { get; set; }
         public string MessageError { get; set; }
+        [BindProperty] public int EventId { get; set; }
         #endregion
 
         #region Constructor
@@ -34,6 +35,7 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
         /// <returns>Tilmeldingens informationer</returns>
         public async Task<IActionResult> OnGetAsync(int brugerId, int eventId)
         {
+            EventId = eventId;
             TilmeldB = await _tilmeldBegivenhedService.GetTilmeldBByIdAsync(brugerId, eventId);
             return Page();
         }
@@ -58,7 +60,7 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
             try
             {
                 await _tilmeldBegivenhedService.DeleteTilmeldBAsync(brugerId, eventId);
-                return RedirectToPage("/BrugerFolder/Profile");
+                return RedirectToPage("/BrugerFolder/Profile", new { EventId = EventId});
             }
             catch (Exception ex)
             {
