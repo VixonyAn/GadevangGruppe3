@@ -38,15 +38,15 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                 {
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
                 }
-                if (!string.IsNullOrEmpty(FilterCriteriaBrugernavn))
-                {
-                    Brugere = await _brugerService.FilterBrugerByBrugernavnAsync(FilterCriteriaBrugernavn);
-                }
-                else
-                {
+				if (!string.IsNullOrEmpty(FilterCriteriaBrugernavn))
+				{
+					Brugere = await _brugerService.FilterBrugerByBrugernavnAsync(FilterCriteriaBrugernavn);
+				}
+				else
+				{
 					Brugere = await _brugerService.GetAllBrugerAsync();
 				}
-                if (SortOrder == "Brugernavn")
+				if (SortOrder == "Brugernavn")
                 {
                     Brugere.Sort(new BrugernavnComparer());
                 }
@@ -54,6 +54,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                 {
                     Brugere.Reverse();
                 }
+                
 				FilterBrugerMedlemskab();
 				FilterBrugerPosition();
 			}

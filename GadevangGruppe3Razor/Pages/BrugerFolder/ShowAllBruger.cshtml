@@ -12,9 +12,29 @@
 <br />
 <br />
 
+<form asp-handler="Filter" method="get">
+	<p>
+		<div class="form-group">
+			<label class="control-label">Søg efter brugernavn:</label>
+			<input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.form.submit()" />
+			<br />
+			<label class="control-label">Vælg Medlemskabs Type</label>
+			<select asp-for="@Model.FilterCriteriaMedlemskab" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
+				<option value="All">All</option>
+			</select>
+			<label class="control-label">Vælg Position</label>
+			<select asp-for="@Model.FilterCriteriaPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
+				<option value="All">All</option>
+			</select>
+			<br/>
+			<input type="submit" value="Filter" class=btn btn-primary" style="color: white; background-color: grey; border-color: grey;"/>
+		</div>
+	</p>
+</form>
+<br/>
+
 <form method="get">
 	<p>
-		Søg efter brugernavn: <input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.formm.submit()" />
 		<div class=form-group>
 			<label class="custom-control-label">Sortering</label><br />
 			<input type="radio" asp-for="@Model.SortOrder" value="Brugernavn" onclick="this.form.submit()" />Brugernavn</input>
@@ -29,23 +49,6 @@
 		</div>
 	</p>
 </form>
-<form asp-handler="Filter" method="get">
-	<p>
-		<div class="form-group">
-			<label class="control-label">Medlemskabs Type</label>
-			<select asp-for="@Model.FilterCriteriaMedlemskab" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
-				<option value="All">All</option>
-			</select>
-			<label class="control-label">Position</label>
-			<select asp-for="@Model.FilterCriteriaPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
-				<option value="All">All</option>
-			</select>
-			<br/>
-			<input type="submit" value="Filter" class=btn btn-primary" style="color: white; background-color: grey; border-color: grey;"/>
-		</div>
-	</p>
-</form>
-<br/>
 
 <table style="width:85" class="table">
 	<thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
