@@ -14,7 +14,7 @@
 
 <form method="get">
 	<p>
-		Søg med brugernavn: <input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.formm.submit()" />
+		Søg efter brugernavn: <input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.formm.submit()" />
 		<div class=form-group>
 			<label class="custom-control-label">Sortering</label><br />
 			<input type="radio" asp-for="@Model.SortOrder" value="Brugernavn" onclick="this.form.submit()" />Brugernavn</input>
@@ -29,8 +29,6 @@
 		</div>
 	</p>
 </form>
-<br />
-
 <form asp-handler="Filter" method="get">
 	<p>
 		<div class="form-group">
