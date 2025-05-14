@@ -7,7 +7,7 @@
 	ViewData["Title"] = "Show Profile";
 }
 
-<a asp-page="/BrugerFolder/Login" asp-page-handler="Logout" class="btn btn-primary" style="background-color: #CF3535; border-color: #CF3535;">Logout</a>
+<a asp-page="/BrugerFolder/Login" asp-page-handler="Logout" class="btn btn-primary" style="position: absolute; top: 10px; right: 10px; background-color: #BD3030; border-color: #BD3030;">Logout</a>
 
 <h3 style="text-align: center;">Velkommen til din profilside @Model.CurrentBruger.Brugernavn</h3>
 <br />
@@ -24,12 +24,13 @@
                  height="200px" />
         }
         <br />
+        <br />
         <p>Brugernavn: @Model.CurrentBruger.Brugernavn</p>
-        <p> @Model.Email</p>
+        <p>Email: @Model.Email</p>
         <p>Telefon: @Model.CurrentBruger.Telefon</p>
-        <p>Bruger Medlemskabtype: @Model.CurrentBruger.Medlemskab</p>
-        <p>Position som Medlem: @Model.CurrentBruger.Positionen</p>
-        <p>Bruger Verificering: @(Model.CurrentBruger.Verificeret ? "Verificeret" : "Ikke Verificeret")</p>
+        <p>Medlemskab: @Model.CurrentBruger.Medlemskab</p>
+        <p>Position: @Model.CurrentBruger.Positionen</p>
+        <p>Verificering: @(Model.CurrentBruger.Verificeret ? "Verificeret" : "Ikke Verificeret")</p>
     </div>
 
     <div class="tables" style="">
