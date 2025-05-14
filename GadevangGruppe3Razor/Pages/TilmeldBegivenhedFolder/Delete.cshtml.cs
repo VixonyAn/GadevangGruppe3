@@ -58,7 +58,7 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
             try
             {
                 await _tilmeldBegivenhedService.DeleteTilmeldBAsync(brugerId, eventId);
-                return RedirectToPage("ShowAllTilmeldBegivenhed");
+                return RedirectToPage("/BrugerFolder/Profile");
             }
             catch (Exception ex)
             {
