@@ -13,14 +13,13 @@
          </div>
         <br />
         <div class="form-group">
-                <label>Vælg bane type:</label> 
-                <br />
-                <select id="ModleBaneType" name="ModleBaneType" 
-                        class="control-label"
-                        style="display: br" class="form-control"
-                        asp-for="@Model.bane.Type" asp-items="@Model.TypeSelectList">
-                </select>
+        <label>Vælg bane type:</label>
         <br />
+            <select id="ModleBaneType"
+                    class="control-label"
+                    style="display:br" class="form-control"
+                    asp-for="@Model.bane.Type" asp-items="@Model.TypeSelectList">
+            </select>
         </div>
         <br />
 @*         <div>
