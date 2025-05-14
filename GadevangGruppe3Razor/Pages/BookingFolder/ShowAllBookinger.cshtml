@@ -2,3 +2,21 @@
 @model GadevangGruppe3Razor.Pages.BookingFolder.ShowAllBookingerModel
 @{
 }
+
+<h4> Bookigoversigt: @Model.ValgtDato;</h4>
+<br />
+
+<table style="width:100%;align-content:center">
+    <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
+        <tr style="border-bottom: 2px solid black;">
+            <th>Tid</th>
+            @foreach (var item in Model.Baner)
+            {
+                <th>Bane @item.BaneId </th>
+            }
+        </tr>
+    </thead>
+    <tbody style="text-align: center; margin: 3px;">
+
+    </tbody>
+</table>

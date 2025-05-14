@@ -9,6 +9,7 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
     {
         private IBookingService _bookingservice;
         private IBaneService _baneService;
+        private IBrugerService _brugerService;
 
         public DateOnly ValgtDato { get; set; }
 
@@ -16,19 +17,25 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
 
         public int ValgtTId { get; set; }
 
-        public int Emial { get; set; }
+        public int Email { get; set; }
 
-        public int CurentBruger { get; set; }
+        public Bruger CurrentBruger { get; set; }
 
-        public ShowAllBookingerModel(IBookingService bookingService,IBaneService baneservice)
+        public List<Bane> Baner { get; set; }
+        public List<int> Tider { get; set; }
+        
+        public string NotVerafiedMessage { get; set; }
+
+        public ShowAllBookingerModel(IBookingService bookingService,IBaneService baneservice,IBrugerService brugerService)
         {
             _bookingservice = bookingService;
             _baneService = baneservice;
+            _brugerService = brugerService;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-
+            Baner = await _baneService.GetAllBaneAsync();
         }
 
        
