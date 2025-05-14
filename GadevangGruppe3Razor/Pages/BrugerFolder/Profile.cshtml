@@ -52,6 +52,7 @@
                 </tr>
             </thead>
             <tbody style="text-align: center; margin: 3px;">
+                <span class="text-danger">@Model.ConfirmRemoved</span>
                 @if (Model.TilmeldBList.Count() != 0)
                 {
                     @foreach (TilmeldBegivenhed item in Model.TilmeldBList)
