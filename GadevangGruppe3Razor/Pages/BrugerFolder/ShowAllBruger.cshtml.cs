@@ -1,3 +1,4 @@
+using GadevangGruppe3Razor.Helper;
 using GadevangGruppe3Razor.Interfaces;
 using GadevangGruppe3Razor.Models;
 using GadevangGruppe3Razor.Services;
@@ -15,6 +16,8 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         [BindProperty(SupportsGet = true)] public string FilterCriteriaBrugernavn { get; set; }
         [BindProperty(SupportsGet = true)] public string FilterCriteriaMedlemskab { get; set; }
         [BindProperty(SupportsGet = true)] public string FilterCriteriaPosition { get; set; }
+        [BindProperty(SupportsGet = true)] public string SortOrder { get; set; }
+        [BindProperty(SupportsGet = true)] public string SortOrderAscDesc { get; set; }
         [BindProperty] public Bruger CurrentBruger { get; set; }
         public string Email { get; set; }
 
@@ -43,6 +46,14 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                 {
 					Brugere = await _brugerService.GetAllBrugerAsync();
 				}
+                if (SortOrder == "Brugernavn")
+                {
+                    Brugere.Sort(new BrugernavnComparer());
+                }
+                if (SortOrderAscDesc == "Descending")
+                {
+                    Brugere.Reverse();
+                }
 				FilterBrugerMedlemskab();
 				FilterBrugerPosition();
 			}

@@ -15,6 +15,18 @@
 <form method="get">
 	<p>
 		Søg med brugernavn: <input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.formm.submit()" />
+		<div class=form-group>
+			<label class="custom-control-label">Sortering</label><br />
+			<input type="radio" asp-for="@Model.SortOrder" value="Brugernavn" onclick="this.form.submit()" />Brugernavn</input>
+			<input type="radio" asp-for="@Model.SortOrder" value="BrugerId" onclick="this.form.submit()" />BrugerId</input>
+		</div>
+		<div class="form-group">
+			<label class="custom-control-label">Sort Order</label>
+			<select asp-for="SortOrderAscDesc" onchange="this.form.submit()">
+				<option value="Ascending">Ascending</option>
+				<option value="Descending">Descending</option>
+			</select>
+		</div>
 	</p>
 </form>
 <br />
