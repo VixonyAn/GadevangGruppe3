@@ -37,16 +37,20 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                 else
                 {
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
+                    if (CurrentBruger.Positionen != Position.Admin)
+                    {
+                        return RedirectToPage("/Index");
+                    }
                 }
-                if (!string.IsNullOrEmpty(FilterCriteriaBrugernavn))
-                {
-                    Brugere = await _brugerService.FilterBrugerByBrugernavnAsync(FilterCriteriaBrugernavn);
-                }
-                else
-                {
+				if (!string.IsNullOrEmpty(FilterCriteriaBrugernavn))
+				{
+					Brugere = await _brugerService.FilterBrugerByBrugernavnAsync(FilterCriteriaBrugernavn);
+				}
+				else
+				{
 					Brugere = await _brugerService.GetAllBrugerAsync();
 				}
-                if (SortOrder == "Brugernavn")
+				if (SortOrder == "Brugernavn")
                 {
                     Brugere.Sort(new BrugernavnComparer());
                 }

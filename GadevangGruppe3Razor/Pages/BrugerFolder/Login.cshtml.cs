@@ -33,7 +33,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         public IActionResult OnGetLogout()
         {
             HttpContext.Session.Remove("Email");
-            return RedirectToPage("Login");
+            return RedirectToPage("/BrugerFolder/Login");
         }
 
         public async Task<IActionResult> OnPostAsync()

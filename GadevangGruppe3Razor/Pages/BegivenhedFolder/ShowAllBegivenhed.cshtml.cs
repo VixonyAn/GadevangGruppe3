@@ -44,7 +44,7 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
                 {
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
                     if (!CurrentBruger.Verificeret)
-                    {
+				    {
                         UnverifiedWarning = $"Du kan desværre ikke tilmelde dig begivenheder lige nu, da din medlemskab er ikke verificeret.";
                     }
                     Begivenheder = await _begivenhedService.GetAllBegivenhedAsync(); // fylder listen med data

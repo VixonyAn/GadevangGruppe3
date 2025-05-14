@@ -5,38 +5,22 @@
 	ViewData["Title"] = "ShowAllBruger";
 }
 
-<h5>Antal brugerer: @Model.Brugere.Count</h5>
-<br />
+<h4>Antal brugerer: @Model.Brugere.Count</h4>
 
 <a asp-page="Create" class="btn btn primary" style="color: white; background-color: green;">Opret bruger</a>
 <br />
-<br />
 
-<form method="get">
-	<p>
-		Søg efter brugernavn: <input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.formm.submit()" />
-		<div class=form-group>
-			<label class="custom-control-label">Sortering</label><br />
-			<input type="radio" asp-for="@Model.SortOrder" value="Brugernavn" onclick="this.form.submit()" />Brugernavn</input>
-			<input type="radio" asp-for="@Model.SortOrder" value="BrugerId" onclick="this.form.submit()" />BrugerId</input>
-		</div>
-		<div class="form-group">
-			<label class="custom-control-label">Sort Order</label>
-			<select asp-for="SortOrderAscDesc" onchange="this.form.submit()">
-				<option value="Ascending">Ascending</option>
-				<option value="Descending">Descending</option>
-			</select>
-		</div>
-	</p>
-</form>
 <form asp-handler="Filter" method="get">
 	<p>
 		<div class="form-group">
-			<label class="control-label">Medlemskabs Type</label>
+			<label class="control-label">Søg efter brugernavn:</label>
+			<input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.form.submit()" />
+			<br />
+			<label class="control-label">Filtrer efter Medlemskab</label>
 			<select asp-for="@Model.FilterCriteriaMedlemskab" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
 				<option value="All">All</option>
 			</select>
-			<label class="control-label">Position</label>
+			<label class="control-label">Filtrer efter Position</label>
 			<select asp-for="@Model.FilterCriteriaPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
 				<option value="All">All</option>
 			</select>
@@ -45,7 +29,23 @@
 		</div>
 	</p>
 </form>
-<br/>
+
+<form method="get">
+	<p>
+		<div class=form-group>
+			<label class="custom-control-label">Sortér efter</label> 
+			<input type="radio" asp-for="@Model.SortOrder" value="Brugernavn" onclick="this.form.submit()" />Brugernavn</input>
+			<input type="radio" asp-for="@Model.SortOrder" value="BrugerId" onclick="this.form.submit()" />BrugerId</input>
+		</div>
+		<div class="form-group">
+			<label class="custom-control-label">Rækkefølge</label>
+			<select asp-for="SortOrderAscDesc" onchange="this.form.submit()">
+				<option value="Ascending">Stigende</option>
+				<option value="Descending">Faldende</option>
+			</select>
+		</div>
+	</p>
+</form>
 
 <table style="width:85" class="table">
 	<thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
