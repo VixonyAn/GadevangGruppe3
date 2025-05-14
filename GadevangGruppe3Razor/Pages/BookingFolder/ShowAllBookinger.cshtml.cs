@@ -23,6 +23,8 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
 
         public List<Bane> Baner { get; set; }
         public Dictionary<int,string> Tider { get; set; }
+
+        public List<Booking> Bookinger { get; set; }
         
         public string NotVerafiedMessage { get; set; }
 
@@ -39,6 +41,7 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
         {
             Baner = await _baneService.GetAllBaneAsync();
             ValgtDato = DateOnly.FromDateTime(DateTime.Now);
+            Bookinger = await _bookingservice.GetBookingByDatoAsync(ValgtDato);
 
         }
 
