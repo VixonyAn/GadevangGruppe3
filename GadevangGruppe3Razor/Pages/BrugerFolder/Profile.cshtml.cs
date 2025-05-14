@@ -14,7 +14,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         #endregion
 
         #region Properties
-        [BindProperty] public Bruger ProfileBruger { get; set; }
+        [BindProperty] public Bruger CurrentBruger { get; set; }
         public List<TilmeldBegivenhed> TilmeldBList { get; set; }
         [BindProperty] public string Email { get; set; }
         #endregion
@@ -39,13 +39,13 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 				}
                 else
                 {
-                    ProfileBruger = await _brugerService.GetBrugerByEmailAsync(Email);
-                    TilmeldBList = await _tilmeldBegivenhedService.GetTilmeldBByBrugerIdAsync(ProfileBruger.BrugerId);
+                    CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
+                    TilmeldBList = await _tilmeldBegivenhedService.GetTilmeldBByBrugerIdAsync(CurrentBruger.BrugerId);
                 }
             }
             catch (Exception ex)
             {
-                ProfileBruger = new Bruger();
+                CurrentBruger = new Bruger();
                 TilmeldBList = new List<TilmeldBegivenhed>();
                 ViewData["Title"] = ex.Message;
             }
