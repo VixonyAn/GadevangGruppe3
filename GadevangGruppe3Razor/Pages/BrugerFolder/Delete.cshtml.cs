@@ -30,7 +30,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         {
             if (Confirm == false)
             {
-                MessageError = $"Husk at checke godkendelsesboksen af";
+                MessageError = $"Husk at klikke Bekræft";
                 return Page();
             }
             try
