@@ -40,7 +40,9 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
 
         public async Task<IActionResult> OnGetAsync(int baneId)
         {
+            
             Booking = new Booking();
+            Booking.Dato = DateOnly.FromDateTime(DateTime.Now);
             try
             {
                 Email = HttpContext.Session.GetString("Email");

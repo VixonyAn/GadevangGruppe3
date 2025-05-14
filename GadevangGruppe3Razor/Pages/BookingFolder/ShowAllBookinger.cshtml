@@ -3,7 +3,7 @@
 @{
 }
 
-<h4> Bookigoversigt: @Model.ValgtDato;</h4>
+<h4> BookingOversigt: @Model.ValgtDato</h4>
 <br />
 
 <table style="width:100%;align-content:center">
@@ -16,7 +16,13 @@
             }
         </tr>
     </thead>
-    <tbody style="text-align: center; margin: 3px;">
-
+    <tbody style="text-align: center; margin: 3px;border:solid black 1px">
+        @for( int i=0; i <Model.Tider.Count;i++)
+        {
+            var tid = Model.Tider.ElementAt(i).Value;
+            <tr>
+                <td>@tid</td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -10,5 +10,7 @@ namespace GadevangGruppe3Razor.Interfaces
         Task<bool> CreateBookingAsync(Booking booking);
 
         Task<Booking> DeleteBookingAsync(int bookingId);
+
+        Task<List<Booking>> GetBookingByDatoAsync(DateOnly dato);
     }
 }
