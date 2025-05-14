@@ -58,7 +58,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                 {
                     Brugere.Reverse();
                 }
-                
 				FilterBrugerMedlemskab();
 				FilterBrugerPosition();
 			}

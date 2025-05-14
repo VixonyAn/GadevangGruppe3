@@ -17,6 +17,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         [BindProperty] public Bruger CurrentBruger { get; set; }
         public List<TilmeldBegivenhed> TilmeldBList { get; set; }
         [BindProperty] public string Email { get; set; }
+        
         #endregion
 
         #region Constructor
@@ -28,6 +29,8 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         #endregion
 
         #region Methods
+
+        
         public async Task<IActionResult> OnGetAsync()
         {
             try
