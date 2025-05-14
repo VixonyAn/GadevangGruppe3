@@ -20,22 +20,16 @@
     <div class="info" style="">
         @if (Model.CurrentBruger.BilledUrl != null)
         {
-            <img src="~/images/@Model.CurrentBruger.BilledUrl" width="300px"
-                 height="300px" />
+            <img src="~/images/@Model.CurrentBruger.BilledUrl" width="200px"
+                 height="200px" />
         }
         <br />
-        <br />
-        <h5>Brugernavn: @Model.CurrentBruger.Brugernavn</h5>
-        <br />
-        <h5> @Model.Email</h5>
-        <br />
-        <h5>Telefon: @Model.CurrentBruger.Telefon</h5>
-        <br />
-        <h5>Bruger Medlemskabtype: @Model.CurrentBruger.Medlemskab</h5>
-        <br />
-        <h5>Position som Medlem: @Model.CurrentBruger.Positionen</h5>
-        <br />
-        <h5>Bruger Verificering: @(Model.CurrentBruger.Verificeret ? "Verificeret" : "Ikke Verificeret")</h5>
+        <p>Brugernavn: @Model.CurrentBruger.Brugernavn</p>
+        <p> @Model.Email</p>
+        <p>Telefon: @Model.CurrentBruger.Telefon</p>
+        <p>Bruger Medlemskabtype: @Model.CurrentBruger.Medlemskab</p>
+        <p>Position som Medlem: @Model.CurrentBruger.Positionen</p>
+        <p>Bruger Verificering: @(Model.CurrentBruger.Verificeret ? "Verificeret" : "Ikke Verificeret")</p>
     </div>
 
     <div class="tables" style="">
