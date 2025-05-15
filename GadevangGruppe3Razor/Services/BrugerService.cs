@@ -8,13 +8,16 @@ namespace GadevangGruppe3Razor.Services
 {
     public class BrugerService : IBrugerService
     {
+        #region Instance Fields
         private String connectionString = Secret.ConnectionString;
         private string selectSql = "Select BrugerId, Brugernavn, Adgangskode, Email, Telefon, BilledUrl, Medlemskab, Position, Verificeret from Bruger";
         private string insertSql = "Insert into Bruger (BrugerID, Brugernavn, Adgangskode, Email, Telefon, BilledUrl, Medlemskab, Position, Verificeret) values (@BrugerID, @Brugernavn, @Adgangskode, @Email, @Telefon, @BilledUrl, @Medlemskab, @Position, @Verificeret)";
         private string deleteSql = "Delete from Bruger where BrugerId = @BrugerId";
         private string updateSql = "Update Bruger set Brugernavn = @Brugernavn, Adgangskode = @Adgangskode, Email = @Email, Telefon = @Telefon, BilledUrl = @BilledUrl, Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
         private string loginSql = "Select Email, Adgangskode from Bruger";
+        #endregion
 
+        #region Methods
         public async Task<bool> CreateBrugerAsync(Bruger bruger)
         {
             bool isCreated = false;
@@ -359,5 +362,6 @@ namespace GadevangGruppe3Razor.Services
 				return bruger;
 			}
 		}
-	}
+        #endregion
+    }
 }

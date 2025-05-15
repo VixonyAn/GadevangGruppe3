@@ -9,6 +9,22 @@
 
 <a asp-page="/BegivenhedFolder/ShowAllBegivenhed" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Tilbage til oversigt</a>
 
+<div class="container"
+     style="display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 15px;">
+
+    <div class="bruger">
+
+    </div >
+
+    <div class="begivenhed">
+    
+    </div>
+</div>
+
+
+
 <form method="post">
     <div class="form-group">
         <label asp-for="@Model.CurrentBruger.BrugerId" class="control-label"></label>
@@ -25,6 +41,7 @@
         <input asp-for="@Model.Kommentar" style="display: br; width: 30%;" class="form-control" />
         <span asp-validation-for="@Model.Kommentar" class="text-danger"></span>
     </div>
+    <br />
     <div class="formgroup">
         <input type="submit" value="Opret" class="btn btn-primary" style="background-color: green; border-color: green;" />
     </div>

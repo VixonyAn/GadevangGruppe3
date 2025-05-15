@@ -6,6 +6,7 @@ namespace GadevangGruppe3Razor.Models
 {
     public class Bruger : IBruger
     {
+        #region Properties
         [Required(ErrorMessage = "Bruger Id kan ikke være null")]
         public int BrugerId { get; set; }
 
@@ -36,6 +37,9 @@ namespace GadevangGruppe3Razor.Models
 
         [StringLength(255, MinimumLength = 0, ErrorMessage = "Billed url kan ikke være længere end 255 karakterer")]
         public string BilledUrl { get; set; }
+        #endregion
+
+        #region Constructors
         public Bruger()
         {
             
@@ -59,10 +63,13 @@ namespace GadevangGruppe3Razor.Models
             Positionen = position;
             Verificeret = verificeret;
         }
+        #endregion
 
+        #region Methods
         public override string ToString()
         {
             return $"Bruger ID: {BrugerId}, Brugernavn: {Brugernavn}, Adgangskode: {Adgangskode}, Email: {Email}, Telefonnummer: {Telefon}, Medlemskab: {Medlemskab}, Position: {Positionen}, Verificeret: {Verificeret}";
         }
+        #endregion
     }
 }
