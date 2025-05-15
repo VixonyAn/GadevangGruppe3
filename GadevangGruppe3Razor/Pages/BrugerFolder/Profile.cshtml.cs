@@ -19,6 +19,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         [BindProperty] public Bruger CurrentBruger { get; set; }
         public List<TilmeldBegivenhed> TilmeldBList { get; set; }
         public List<Booking> BookingList { get; set; }
+        
         [BindProperty] public string Email { get; set; }
         [BindProperty] public int EventId { get; set; }
         [BindProperty] public Begivenhed Begivenhed { get; set; }

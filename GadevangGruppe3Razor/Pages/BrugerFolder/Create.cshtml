@@ -5,6 +5,8 @@
 	ViewData["Title"] = "Create";
 }
 
+<h3>Opret Bruger</h3>
+
 <form method="post" enctype="multipart/form-data">
 	<div class="form-group">
 		<label asp-for="@Model.Bruger.BrugerId" class="control-label"></label>
@@ -46,6 +48,6 @@
 	<span class="text-danger">@Model.MessageError</span>
 	<span class="text-danger">@Model.MessageErrorInvalidAlder</span>
 	<div class="formgroup">
-		<input type="submit" value="Confirm" class="btn btn-primary" style="background-color: green; border-color: green;" />
+		<input type="submit" value="Opret" class="btn btn-primary" style="background-color: green; border-color: green;" />
 	</div>
 </form>

@@ -1,11 +1,12 @@
 ﻿@page
 @using GadevangGruppe3Razor.Models
+@inject GadevangGruppe3Razor.Interfaces.IBrugerService brugerService;
+@inject GadevangGruppe3Razor.Interfaces.IBegivenhedService begivenhedService;
 @model GadevangGruppe3Razor.Pages.BookingFolder.ShowAllBookingerModel
 @{
 }
 
 <h4> BookingOversigt: @Model.ValgtDato</h4>
-<br />
 @* @if (Model.Bookinger.Count() != 0)
 {
     @foreach (Booking item in Model.Bookinger)
@@ -13,8 +14,10 @@
         @item.ToString()
     }
 } *@
+<span class="text-danger">@Model.GæsteSpil</span>
+<br />
 
-<table style="width:100%;align-content:center"  class="table table-bordered">
+<table style="width:100%;align-content:center" class="table table-bordered">
     <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
         <tr>
             <th>Tid</th>
@@ -42,15 +45,63 @@
 
                     @if(erBooket==true)
                     {
-                        <td style="background-color:#fa4f4f ">
-                            Optaget
+                        var booking = Model.Bookinger.Find(booking => booking.Dato == Model.ValgtDato &&
+                        booking.BaneId == bane.BaneId &&
+                        booking.StartTid == tid.Key);
+                        @if ((Model.CurrentBruger.Medlemskab == MedlemskabsType.Passivt_Medlemskab || Model.CurrentBruger.Verificeret == false) || Model.Email == null)
+                        {
+                            <td style="background-color: #C7DDF4;">
+                                <a class="btn btn-primary" style="background-color:#fa4f4f;border-color:#fa4f4f">
+                                    <svg style="color:darkred" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                    </svg>
+                                    <em>Optaget</em>
+                                </a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="background-color: #C7DDF4;">
+                                <a class="btn btn-primary" style="background-color:#fa4f4f;border-color:#fa4f4f">
+                                <svg style="color:darkred" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                                <br /><em style="text-size-adjust:15px ">@brugerService.GetBrugerByIdAsync(booking.Bruger1).Result.Brugernavn <br /> @brugerService.GetBrugerByIdAsync(booking.Bruger2).Result.Brugernavn</em>
+                            </a>
                         </td>
+                        }
                     }
                     else
                     {
-                        <td style="background-color:#a7f981  ">
+@*                         <td style="background-color:#a7f981  ">
                             Ledig
-                        </td>
+                        </td> *@
+                        @if (Model.CurrentBruger.Medlemskab == MedlemskabsType.Passivt_Medlemskab || Model.CurrentBruger.Verificeret == false)
+                        {
+                            <td style="background-color: #C7DDF4;">
+                                <a class="btn btn-primary" style="background-color:#a7f981;border-color:#a7f981">
+
+                                    <svg style="color:green" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                    </svg>
+                                </a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="background-color: #C7DDF4;">
+                                <a class="btn btn-primary" style="background-color:#a7f981;border-color:#a7f981"
+                                    asp-page="/BookingFolder/CreateBookingFromShowAll"
+                                    asp-route-startTid="@tid.Key"
+                                    asp-route-baneId="@bane.BaneId"
+                                    asp-route-Dato="@Model.ValgtDato">
+   
+                                    <svg style="color:green" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                                </a>
+                            </td>
+                        }
                     }
                 }
             </tr>

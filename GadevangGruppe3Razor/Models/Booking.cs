@@ -18,7 +18,15 @@ namespace GadevangGruppe3Razor.Models
         {
             
         }
-
+        public Booking(int bookingId, int baneId, DateOnly dato, int startTid, int bruger1, string beskrivelse)
+        {
+            BookingId = bookingId;
+            BaneId = baneId;
+            Dato = dato;
+            StartTid = startTid;
+            Bruger1 = bruger1;
+            Beskrivelse = beskrivelse;
+        }
         public Booking(int bookingId,int baneId, DateOnly dato, int startTid, int bruger1, int bruger2, string beskrivelse)
         {
             BookingId = bookingId;
