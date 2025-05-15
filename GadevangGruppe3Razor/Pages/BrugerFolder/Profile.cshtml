@@ -18,6 +18,7 @@
     column-gap: 15px;">
     
     <div class="info" style="">
+        <!-- #region Profil Info -->
         @if (Model.CurrentBruger.BilledUrl != null)
         {
             <img src="~/images/@Model.CurrentBruger.BilledUrl" width="200px"
@@ -31,10 +32,15 @@
         <p>Medlemskab: @Model.CurrentBruger.Medlemskab</p>
         <p>Position: @Model.CurrentBruger.Positionen</p>
         <p>Verificering: @(Model.CurrentBruger.Verificeret ? "Verificeret" : "Ikke Verificeret")</p>
+        <!-- #endregion -->
     </div>
 
     <div class="tables" style="">
-        <!-- #region Tilmeld Tables -->
+        <!-- #region Tilmeld Tabeller -->
+
+
+        <!-- #endregion -->
+        <!-- #region Tilmeld Tabeller -->
         <h4>Dine Tilmeldinger</h4>
         <table>
             <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
