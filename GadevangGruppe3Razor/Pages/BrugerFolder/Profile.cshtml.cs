@@ -24,10 +24,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         [BindProperty] public int EventId { get; set; }
         [BindProperty] public Begivenhed Begivenhed { get; set; }
         public string ConfirmRemoved { get; set; }
-        
-        [BindProperty] public int Bruger2Id { get; set; }
-        [BindProperty] public Bruger Bruger2 { get; set; }
-        public string GæsteSpil { get; set; }
         #endregion
 
         #region Constructor
@@ -41,7 +37,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         #endregion
 
         #region Methods
-        public async Task<IActionResult> OnGetAsync(int EventId, int Bruger2Id)
+        public async Task<IActionResult> OnGetAsync(int EventId)
         {
             try
             {
@@ -56,14 +52,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                     {
                         Begivenhed = await _begivenhedService.GetBegivenhedByIdAsync(EventId);
                         ConfirmRemoved = $"Du har nu meldt adbud til {Begivenhed.Titel}";
-                    }
-                    if (Bruger2Id != 0 && Bruger2 != null)
-                    {
-                        if (Bruger2.Medlemskab == MedlemskabsType.Passivt_Medlemskab || Bruger2.Verificeret == false)
-                        {
-                            Bruger2 = await _brugerService.GetBrugerByIdAsync(Bruger2Id);
-                            GæsteSpil = $"Da din partner gælder som en gæst, koster det 50 kr. pr. gæste time";
-                        }
                     }
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
                     TilmeldBList = await _tilmeldBegivenhedService.GetTilmeldBByBrugerIdAsync(CurrentBruger.BrugerId);
