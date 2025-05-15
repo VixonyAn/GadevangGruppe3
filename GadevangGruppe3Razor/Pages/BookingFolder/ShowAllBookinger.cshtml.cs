@@ -2,11 +2,13 @@ using GadevangGruppe3Razor.Interfaces;
 using GadevangGruppe3Razor.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GadevangGruppe3Razor.Pages.BookingFolder
 {
     public class ShowAllBookingerModel : PageModel
     {
+
         #region Instance Fields
         private IBookingService _bookingservice;
         private IBaneService _baneService;
@@ -21,15 +23,14 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
         public Bane ValgtBane { get; set; }
         public DateOnly ValgtDato { get; set; }
         public int ValgtTid { get; set; }
+         public string Email { get; set; }
 
-        public int Email { get; set; }
         public Bruger CurrentBruger { get; set; }
-
         [BindProperty] public Bruger Bruger2 { get; set; }
-        public string GæsteSpil { get; set; }
+        public string GæsteSpil {get; set;}
         #endregion
 
-        public ShowAllBookingerModel(IBookingService bookingService,IBaneService baneservice,IBrugerService brugerService)
+        public ShowAllBookingerModel(IBookingService bookingService, IBaneService baneservice, IBrugerService brugerService)
         {
             _bookingservice = bookingService;
             _baneService = baneservice;
@@ -38,20 +39,86 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
             GenererTider();
         }
 
-        public async Task OnGetAsync(int Bruger2ID)
+        public async Task<IActionResult> OnGetAsync(int Bruger2ID)
         {
-            if (Bruger2ID != 0)
+
+            try
             {
-                Bruger2 = await _brugerService.GetBrugerByIdAsync(Bruger2ID);
-                if (Bruger2.Medlemskab == MedlemskabsType.Passivt_Medlemskab || Bruger2.Verificeret == false)
+                Email = HttpContext.Session.GetString("Email");
+                if (Email == null)
                 {
-                    GæsteSpil = $"Da din partner gælder som en gæst, koster det 50 kr. pr. gæste time";
+                    return RedirectToPage("/BrugerFolder/Login");
                 }
+                else
+                {
+                    CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
+                }
+                if (Bruger2ID != 0)
+                {
+                    Bruger2 = await _brugerService.GetBrugerByIdAsync(Bruger2ID);
+                    if (Bruger2.Medlemskab == MedlemskabsType.Passivt_Medlemskab || Bruger2.Verificeret == false)
+                    {
+                        GæsteSpil = $"Da din partner gælder som en gæst, koster det 50 kr. pr. gæste time";
+                    }
+                }
+                Baner = await _baneService.GetAllBaneAsync();
+                ValgtDato = DateOnly.FromDateTime(DateTime.Now);
+                Bookinger = await _bookingservice.GetBookingByDatoAsync(ValgtDato);
+                return Page();
             }
-            Baner = await _baneService.GetAllBaneAsync();
-            ValgtDato = DateOnly.FromDateTime(DateTime.Now);
-            Bookinger = await _bookingservice.GetBookingByDatoAsync(ValgtDato);
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+            }
+            return Page();
         }
+
+
+        //#region Instance Fields
+        //private IBookingService _bookingservice;
+        //private IBaneService _baneService;
+        //private IBrugerService _brugerService;
+        //#endregion
+
+        //#region Properties
+        //public List<Bane> Baner { get; set; }
+        //public List<Booking> Bookinger { get; set; }
+        //public Dictionary<int, string> Tider { get; set; }
+
+        //public Bane ValgtBane { get; set; }
+        //public DateOnly ValgtDato { get; set; }
+        //public int ValgtTid { get; set; }
+
+        //public int Email { get; set; }
+        //public Bruger CurrentBruger { get; set; }
+
+        //[BindProperty] public Bruger Bruger2 { get; set; }
+        //public string GæsteSpil { get; set; }
+        //#endregion
+
+        //public ShowAllBookingerModel(IBookingService bookingService,IBaneService baneservice,IBrugerService brugerService)
+        //{
+        //    _bookingservice = bookingService;
+        //    _baneService = baneservice;
+        //    _brugerService = brugerService;
+
+        //    GenererTider();
+        //}
+
+        //public async Task OnGetAsync(int Bruger2ID)
+        //{
+        //    if (Bruger2ID != 0)
+        //    {
+        //        Bruger2 = await _brugerService.GetBrugerByIdAsync(Bruger2ID);
+        //        if (Bruger2.Medlemskab == MedlemskabsType.Passivt_Medlemskab || Bruger2.Verificeret == false)
+        //        {
+        //            GæsteSpil = $"Da din partner gælder som en gæst, koster det 50 kr. pr. gæste time";
+        //        }
+        //    }
+        //    Baner = await _baneService.GetAllBaneAsync();
+        //    ValgtDato = DateOnly.FromDateTime(DateTime.Now);
+        //    Bookinger = await _bookingservice.GetBookingByDatoAsync(ValgtDato);
+        //}
 
         public void GenererTider()
         {
