@@ -16,7 +16,7 @@ namespace GadevangGruppe3Razor.Services
         private string _UpdateString = "UPDATE Booking SET BookingId=@BookingId,BaneId=@BaneId,Dato=@Dato,StartTid=@StartTid,Bruger1=@Bruger1,Bruger2=Bruger2,Beskrivelse=@Beskrivelse WHERE BookingId=@BookingId AND Bruger1=@Bruger1";
         private string _DeleteSql = "DELETE from Booking WHERE BookingId=@BookingId AND Bruger1=@Bruger1";
         private string _GetBookingByDay = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking WHERE Dato=@Dato";
-        private string _GetBookingByBrugerId = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking WHERE BrugerId=@BrugerId";
+        private string _GetBookingByBrugerId = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking WHERE Bruger1=@Bruger1";
 
         public async Task<bool> CreateBookingAsync(Booking booking)
         {
