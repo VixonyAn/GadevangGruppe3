@@ -5,6 +5,8 @@
 	ViewData["Title"] = "Create";
 }
 
+<h3>Opret Bruger</h3>
+
 <form method="post" enctype="multipart/form-data">
 	<div class="form-group">
 		<label asp-for="@Model.Bruger.BrugerId" class="control-label"></label>
@@ -35,17 +37,18 @@
 	</div>
 	<div class="form-group">
 		<label class="control-label">Medlemskabs Type</label>
-		<select asp-for="@Model.SelectMedlemskabsType" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
+		<select asp-for="@Model.SelectMedlemskabsType" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" style="display: br; width: 20%;" class="form-control">
 			<option value="Select">Vælg en medlemskabstype</option>
 		</select>
 	</div>
 	<div class="form-group">
 		<label class="control-label">Position</label>
-		<select asp-for="@Model.SelectPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
+		<select asp-for="@Model.SelectPosition" asp-items="Html.GetEnumSelectList<Position>()" style="display: br; width: 20%;" class="form-control">
 			<option value="Select">Vælg en position</option>
 		</select>
 	<span class="text-danger">@Model.MessageError</span>
+	<br />
 	<div class="formgroup">
-		<input type="submit" value="Confirm" class="btn btn-primary" style="background-color: green; border-color: green;" />
+		<input type="submit" value="Opret" class="btn btn-primary" style="background-color: green; border-color: green;" />
 	</div>
 </form>
