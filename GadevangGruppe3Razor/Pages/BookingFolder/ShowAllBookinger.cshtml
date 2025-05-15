@@ -42,8 +42,12 @@
 
                     @if(erBooket==true)
                     {
+                        var booking = Model.Bookinger.Find(booking => booking.Dato == Model.ValgtDato &&
+                        booking.BaneId == bane.BaneId &&
+                        booking.StartTid == tid.Key);
+
                         <td style="background-color:#fa4f4f ">
-                            Optaget
+                            Optaget af: <em>@booking.Bruger2</em>
                         </td>
                     }
                     else
