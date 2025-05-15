@@ -54,14 +54,14 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                     }
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
                     TilmeldBList = await _tilmeldBegivenhedService.GetTilmeldBByBrugerIdAsync(CurrentBruger.BrugerId);
-                    //BookingList = await _bookingService.GetBookingByBrugerId(CurrentBruger.BrugerId);
+                    BookingList = await _bookingService.GetBookingByBrugerId(CurrentBruger.BrugerId);
                 }
             }
             catch (Exception ex)
             {
                 CurrentBruger = new Bruger();
                 TilmeldBList = new List<TilmeldBegivenhed>();
-                //BookingList = new List<Booking>();
+                BookingList = new List<Booking>();
                 ViewData["Title"] = ex.Message;
             }
             return Page();

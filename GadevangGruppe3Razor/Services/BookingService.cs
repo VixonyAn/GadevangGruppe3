@@ -189,26 +189,26 @@ namespace GadevangGruppe3Razor.Services
         }
         public async Task<List<Booking>> GetBookingByBrugerId(int brugerId)
         {
-            List<Booking> bookinger = null;
+            List<Booking> bookinger = new List<Booking>();
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     SqlCommand command = new SqlCommand(_GetBookingByBrugerId, connection);
                     await command.Connection.OpenAsync();
-                    command.Parameters.AddWithValue("@BrugerId", brugerId);
+                    command.Parameters.AddWithValue("@Bruger1", brugerId);
                     SqlDataReader reader = await command.ExecuteReaderAsync();
                     while (await reader.ReadAsync())
                     {
                         int bookingId = reader.GetInt32("BookingId");
                         int baneId = reader.GetInt32("BaneId");
                         DateTime dateTime = reader.GetDateTime(reader.GetOrdinal("Dato"));
-                        DateOnly dato1 = DateOnly.FromDateTime(dateTime);
+                        DateOnly dato = DateOnly.FromDateTime(dateTime);
                         int startTid = reader.GetInt32("StartTid");
                         int bruger1 = reader.GetInt32("Bruger1");
                         int bruger2 = reader.GetInt32("Bruger2");
                         string beskrivelse = reader.GetString("Beskrivelse");
-                        Booking booking = new Booking(bookingId, baneId, dato1, startTid, bruger1, bruger2, beskrivelse);
+                        Booking booking = new Booking(bookingId, baneId, dato, startTid, bruger1, bruger2, beskrivelse);
                         bookinger.Add(booking);
                     }
                     reader.Close();
