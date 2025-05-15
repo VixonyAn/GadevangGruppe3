@@ -194,9 +194,9 @@ namespace GadevangGruppe3Razor.Services
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    SqlCommand command = new SqlCommand(_DeleteSql, connection);
+                    SqlCommand command = new SqlCommand(_GetBookingByBrugerId, connection);
                     await command.Connection.OpenAsync();
-                    command.Parameters.AddWithValue("@BookingId", brugerId);
+                    command.Parameters.AddWithValue("@BrugerId", brugerId);
                     SqlDataReader reader = await command.ExecuteReaderAsync();
                     while (await reader.ReadAsync())
                     {

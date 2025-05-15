@@ -10,6 +10,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
     {
         #region Instance Fields
         private IBrugerService _brugerService;
+        private IBookingService _bookingService;
         private IBegivenhedService _begivenhedService;
         private ITilmeldBegivenhedService _tilmeldBegivenhedService;
         #endregion
@@ -17,6 +18,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         #region Properties
         [BindProperty] public Bruger CurrentBruger { get; set; }
         public List<TilmeldBegivenhed> TilmeldBList { get; set; }
+        public List<Booking> BookingList { get; set; }
         [BindProperty] public string Email { get; set; }
         [BindProperty] public int EventId { get; set; }
         [BindProperty] public Begivenhed Begivenhed { get; set; }
@@ -24,10 +26,11 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         #endregion
 
         #region Constructor
-        public ProfileModel(IBrugerService brugerService, IBegivenhedService begivenhedService, ITilmeldBegivenhedService tilmeldBegivenhedService)
+        public ProfileModel(IBrugerService brugerService, IBookingService bookingService, IBegivenhedService begivenhedService, ITilmeldBegivenhedService tilmeldBegivenhedService)
         {
             _tilmeldBegivenhedService = tilmeldBegivenhedService;
             _begivenhedService = begivenhedService;
+            _bookingService = bookingService;
             _brugerService = brugerService;
         }
         #endregion
@@ -51,12 +54,14 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                     }
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
                     TilmeldBList = await _tilmeldBegivenhedService.GetTilmeldBByBrugerIdAsync(CurrentBruger.BrugerId);
+                    //BookingList = await _bookingService.GetBookingByBrugerId(CurrentBruger.BrugerId);
                 }
             }
             catch (Exception ex)
             {
                 CurrentBruger = new Bruger();
                 TilmeldBList = new List<TilmeldBegivenhed>();
+                //BookingList = new List<Booking>();
                 ViewData["Title"] = ex.Message;
             }
             return Page();
