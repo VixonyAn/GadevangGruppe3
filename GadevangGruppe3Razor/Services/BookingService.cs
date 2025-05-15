@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
 using System.Reflection.PortableExecutable;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GadevangGruppe3Razor.Services
 {

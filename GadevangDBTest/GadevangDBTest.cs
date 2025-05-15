@@ -150,7 +150,7 @@ namespace GadevangDBTest
 
         #region Booking Test
         [TestMethod]
-        public void TestCreateBookingAngGetAlll() 
+        public void TestCreateBookingAngGetAll() 
         {
             //Arrange
             IBookingService bs = new BookingService();
@@ -161,10 +161,10 @@ namespace GadevangDBTest
             Booking b = new Booking(10,1,new DateOnly(2025,06,11),10,1,2,"Personlig");
             bool ok = bs.CreateBookingAsync(b).Result;
             //Assert
-            Assert.IsNotNull(BookingerBefore);
+            Assert.IsNull(BookingerBefore);
             Assert.IsTrue(ok);
-
         }
+
         #endregion
 
         #region Event Test

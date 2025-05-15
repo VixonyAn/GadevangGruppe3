@@ -4,9 +4,9 @@ using System.Security.AccessControl;
 Console.WriteLine("Hello World");
 
 #region Johanne
-//// Test Create Bane - virker 30/4 
-//Bane b1 = new Bane(1, BaneType.Tennis, BaneMiljø.Udendørs, "Grusbane");
-//Console.WriteLine(b1.ToString());
+// Test Create Bane - virker 30/4 
+Bane b1 = new Bane(1, BaneType.Tennis, BaneMiljø.Udendørs, "Grusbane");
+Console.WriteLine(b1.ToString());
 
 
 /* // Test GetAllBaneAsync - virker 4/10 
@@ -20,10 +20,17 @@ foreach (Bane b in baner)
 Console.ReadKey();
  */
 
-//// Test GetAllBaneAsync -  
-//Console.Clear();
-
-//BaneService bs = new BaneService();
+// Test Create og delete booking -  
+BookingService bs = new BookingService();
+Booking bb = new Booking(1, 1, new DateOnly(2025, 06, 23), 12, 1,1, "");
+Console.WriteLine(bb.ToString());
+bs.DeleteBookingAsync(bb.BookingId);
+if (bb == null) 
+{
+    Console.WriteLine("Booking er slettet");
+}
+else 
+{ Console.WriteLine(bb.ToString()); }
 
 
 
