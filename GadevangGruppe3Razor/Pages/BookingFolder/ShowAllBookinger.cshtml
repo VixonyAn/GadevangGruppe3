@@ -48,8 +48,17 @@
                     }
                     else
                     {
-                        <td style="background-color:#a7f981  ">
+@*                         <td style="background-color:#a7f981  ">
                             Ledig
+                        </td> *@
+                        <td style="background-color: #C7DDF4;">
+                            <a class="btn btn-primary" style="background-color:#a7f981;border-color:#a7f981"
+                               asp-page="/BookingFolder/CreateBookingFromShowAll"
+                               asp-route-startTid="@tid.Key"
+                               asp-route-baneId="@bane.BaneId"
+                               asp-route-Dato="@Model.ValgtDato">
+                                Ledig
+                            </a>
                         </td>
                     }
                 }

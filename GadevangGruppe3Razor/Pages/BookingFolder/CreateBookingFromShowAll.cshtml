@@ -1,0 +1,50 @@
+﻿@page
+@model GadevangGruppe3Razor.Pages.BookingFolder.CreateBookingFromShowAllModel
+@{
+}
+<form method="post">
+    <br />
+    <div style="background-color:lightgray">
+        <h3><br />Bruger: @Model.Bruger1.BrugerId , @Model.Bruger1.Brugernavn<br /></h3>
+    </div>
+    <br />
+
+    <div>
+        <label asp-for="@Model.Booking.BookingId" class"Control-label"></label>
+        <input asp-for="@Model.Booking.BookingId" class="form-control" />
+        <span asp-validation-for="Booking.BookingId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.Booking.BaneId" class"Control-label"></label>
+        <input asp-for="@Model.Booking.BaneId" readonly class="form-control" />
+        <span asp-validation-for="Booking.BaneId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.Booking.Dato" class"Control-label"></label>
+        <input type="date" asp-for="@Model.Booking.Dato" readonly class="form-control">
+        <span asp-validation-for="Booking.Dato" class="text-danger"></span>
+    </div>
+    <br />
+     <div>
+        <label asp-for="@Model.StartTid" class"Control-label"></label>
+        <input asp-for="@Model.StartTid" readonly class="form-control" />
+        <span asp-validation-for="StartTid" class="text-danger"></span>
+    </div> 
+    <br />
+    <div>
+        @*  Select list  B2 *@
+        <label> Vælg din partner:</label>
+        <select id="Bruger2ID" name="Bruger2ID" class="form-control" asp-for="@Model.Bruger2ID" asp-items="@Model.BrugerSelectList">
+        </select>
+    </div>
+    <div>
+        <label asp-for="@Model.Booking.Beskrivelse" class"Control-label"></label>
+        <input asp-for="@Model.Booking.Beskrivelse" class="form-control" />
+        <span asp-validation-for="Booking.Beskrivelse" class="text-danger"></span>
+    </div>
+    <br />
+    <br />
+    <div class="formgroup">
+        <input type="submit" value="Book " class="btn btn-primary" style="background-color:green" />
+    </div>
+</form>

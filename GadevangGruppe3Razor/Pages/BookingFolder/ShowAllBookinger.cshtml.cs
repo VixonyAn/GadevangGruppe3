@@ -42,7 +42,6 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
             Baner = await _baneService.GetAllBaneAsync();
             ValgtDato = DateOnly.FromDateTime(DateTime.Now);
             Bookinger = await _bookingservice.GetBookingByDatoAsync(ValgtDato);
-
         }
 
         public void GenererTider()

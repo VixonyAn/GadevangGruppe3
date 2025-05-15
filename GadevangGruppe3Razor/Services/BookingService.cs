@@ -14,9 +14,11 @@ namespace GadevangGruppe3Razor.Services
         private string _SelectSQL = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking";
         private string _InsertionString = "Insert INTO Booking Values(@BookingId, @BaneId, @Dato, @StartTid, @Bruger1, @Bruger2, @Beskrivelse)";
         private string _UpdateString = "UPDATE Booking SET BookingId=@BookingId,BaneId=@BaneId,Dato=@Dato,StartTid=@StartTid,Bruger1=@Bruger1,Bruger2=Bruger2,Beskrivelse=@Beskrivelse WHERE BookingId=@BookingId AND Bruger1=@Bruger1";
-        private string _DeleteSql = "DELETE from Booking WHERE BookingId=@BookingId AND Bruger1=@Bruger1";
+        private string _DeleteSql = "DELETE from Booking WHERE BookingId=@BookingId";
         private string _GetBookingByDay = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking WHERE Dato=@Dato";
         private string _GetBookingByBrugerId = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking WHERE Bruger1=@Bruger1";
+        private string _GetBookingById = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking WHERE BookingId=@BookingId";
+
 
         public async Task<bool> CreateBookingAsync(Booking booking)
         {
@@ -59,7 +61,7 @@ namespace GadevangGruppe3Razor.Services
                 try 
                 {
                     SqlCommand command = new SqlCommand(_DeleteSql, connection);
-                    command.Parameters.AddWithValue("@BookingId",booking);
+                    command.Parameters.AddWithValue("@BookingId",bookingId);
                     await connection.OpenAsync();
                     await command.ExecuteNonQueryAsync();
                 }
@@ -162,16 +164,28 @@ namespace GadevangGruppe3Razor.Services
         public async Task<Booking> GetBookingByIdAsync(int bookingId)
         {
             Booking booking = null;
-            if (booking == null) { return null; }
 
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    SqlCommand command = new SqlCommand(_DeleteSql, connection);
+                    SqlCommand command = new SqlCommand(_GetBookingById, connection);
                     command.Parameters.AddWithValue("@BookingId", bookingId);
                     await command.Connection.OpenAsync();
-                    await command.ExecuteNonQueryAsync();
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        int bookingId1 = reader.GetInt32("BookingId");
+                        int baneId = reader.GetInt32("BaneId");
+                        DateTime dateTime = reader.GetDateTime(reader.GetOrdinal("Dato"));
+                        DateOnly dato1 = DateOnly.FromDateTime(dateTime);
+                        int startTid = reader.GetInt32("StartTid");
+                        int bruger1 = reader.GetInt32("Bruger1");
+                        int bruger2 = reader.GetInt32("Bruger2");
+                        string beskrivelse = reader.GetString("Beskrivelse");
+                        booking = new Booking(bookingId1, baneId, dato1, startTid, bruger1, bruger2, beskrivelse);
+                    }
+                    reader.Close();
                 }
 
             }

@@ -1,0 +1,42 @@
+﻿@page
+@model GadevangGruppe3Razor.Pages.BookingFolder.DeleteBookingModel
+@{
+}
+
+<h4>Slet booking</h4>
+
+    <form method="post">
+        <div>
+            <label asp-for="@Model.booking.BookingId" class"Control-label"></label>
+        <input asp-for="@Model.booking.BookingId" readonly class="form-control" />
+        <span asp-validation-for="booking.BookingId" class="text-danger"></span>
+         </div>
+        <br />
+
+        <div>
+            <label asp-for="@Model.booking.BaneId" class"Control-label"></label>
+        <input asp-for="@Model.booking.BaneId" readonly class="form-control" />
+        <span asp-validation-for="booking.BaneId" class="text-danger"></span>
+        </div> 
+        <br />
+         <div>
+            <label asp-for="@Model.booking.Bruger2" class"Control-label"></label>
+        <input asp-for="@Model.booking.Bruger2" readonly class="form-control" />
+            <span asp-validation-for="booking.Bruger2" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="@Model.booking.Beskrivelse" class"Control-label"></label>
+            <input asp-for="@Model.booking.Beskrivelse" readonly class="form-control" />
+            <span asp-validation-for="booking.Beskrivelse" class="text-danger"></span>
+        </div>
+        <br />
+         <div class="form-group">
+        <input asp-for="@Model.Confirm" type="checkbox" id=" Bekræft" /> Bekræft at du ønsker at slette bookingen
+        </div>
+        <br />
+        <div class="formgroup">
+        <input type="submit" value="Slet" style="background-color: #c94646;border:#c94646" class="btn btn-primary" />
+        </div>
+    </form>
+
+    

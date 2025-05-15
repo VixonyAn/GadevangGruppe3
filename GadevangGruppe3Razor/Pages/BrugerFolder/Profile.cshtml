@@ -41,6 +41,7 @@
         <table>
             <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
                 <tr>
+                    <th>BId</th>
                     <th>Bane</th>
                     <th>Dato</th>
                     <th>Tid</th>
@@ -55,12 +56,13 @@
                     @foreach (Booking item in Model.BookingList)
                     {
                         <tr style="border-bottom: solid 1px; border-color: gray;">
+                            <td>@item.BookingId</td>
                             <td style="background-color: #C7DDF4;">@item.BaneId</td>
                             <td style="background-color: #C7DDF4;">@item.Dato</td>
                             <td style="background-color: #E2EDF9;">@item.StartTid</td>
                             <td style="background-color: #C7DDF4;">@brugerService.GetBrugerByIdAsync(@item.Bruger2).Result.Brugernavn</td>
                             <td style="background-color: #C7DDF4;">
-                                <a asp-page="/TilmeldBegivenhedFolder/Delete" asp-route-bookingId="@item.BookingId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">
+                                <a asp-page="/BookingFolder/DeleteBooking" asp-route-bookingId="@item.BookingId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">
                                     Slet
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
