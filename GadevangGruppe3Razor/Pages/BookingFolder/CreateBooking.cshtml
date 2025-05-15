@@ -27,7 +27,7 @@
     </div>
  <br/>   
     <div>
-         Select list  Tid
+        @*  Select list  Tid *@
         <label>Tidspunkt: </label>
         <select id="StartTid" name="StartTid" class="form-control" asp-for="@Model.StartTid" asp-items="@Model.TidSelectList">
         </select>
@@ -37,14 +37,9 @@
         <input asp-for="@Model.Booking.StartTid" class="form-control" />
         <span asp-validation-for="Booking.StartTid" class="text-danger"></span>
     </div> *@
-    <div>
-        <label asp-for="@Model.Bruger1" class"Control-label"></label>
-        <input asp-for="@Model.Bruger1" readonly class="form-control" />
-        <span asp-validation-for="Bruger1" class="text-danger"></span>
-    </div>
      <br/>
     <div>
-         Select list  B2
+        @*  Select list  B2 *@
         <label> Vælg din partner:</label>
     <select id="Bruger2ID" name="Bruger2ID" class="form-control" asp-for="@Model.Bruger2ID" asp-items="@Model.BrugerSelectList">
         </select>

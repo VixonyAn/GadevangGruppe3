@@ -1,4 +1,93 @@
 ﻿@page
+@using GadevangGruppe3Razor.Models
 @model GadevangGruppe3Razor.Pages.BookingFolder.ShowAllBookingerModel
 @{
 }
+
+<h4> BookingOversigt: @Model.ValgtDato</h4>
+<br />
+@* @if (Model.Bookinger.Count() != 0)
+{
+    @foreach (Booking item in Model.Bookinger)
+    {
+        @item.ToString()
+    }
+} *@
+
+<table style="width:100%;align-content:center"  class="table table-bordered">
+    <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
+        <tr>
+            <th>Tid</th>
+            @foreach (var bane in Model.Baner)
+            {
+                <th>Bane @bane.BaneId</th>
+            }
+        </tr>
+    </thead>
+    <tbody style="text-align: center; margin: 3px;border:solid black 1px">
+        @* For hver mulig tid, skal der laves en thred/række, hvor stiden står i første kolonne
+           Herefter loopes gennem alle banerne i kolonen. Her er en bool, der checker om der er nogen 
+           bokninger, som har den samme dato, bane id og startid.
+        *@
+        @foreach (var tid in Model.Tider)
+        {
+            <tr>
+                <td style="background-color:#E2EDF9;">@tid.Value</td>
+                @foreach (var bane in Model.Baner)
+                {
+                    bool erBooket = Model.Bookinger.Any(booking =>
+                    booking.Dato == Model.ValgtDato &&
+                    booking.BaneId == bane.BaneId &&
+                    booking.StartTid == tid.Key);
+
+                    @if(erBooket==true)
+                    {
+                        <td style="background-color:#fa4f4f ">
+                            Optaget
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="background-color:#a7f981  ">
+                            Ledig
+                        </td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@* 
+<table style="width:100%;align-content:center">
+    <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
+        <tr style="border-bottom: 2px solid black;">
+            <th>Tid</th>
+            @foreach (Bane bane in Model.Baner)
+            {
+                <th>Bane @bane.BaneId </th>
+            }
+        </tr>
+    </thead>
+    <tbody style="text-align: center; margin: 3px;border:solid black 1px">
+        @for( int i=0; i <Model.Tider.Count;i++)
+        {
+            var tid = Model.Tider.ElementAt(i).Value;
+            <tr>
+                <td>@tid</td>
+            </tr>
+
+            @foreach (Booking booking in Model.Bookinger)
+            {
+                if (Model.Tider.TryGetValue(booking.StartTid, out tid))
+                {
+                    <td>@booking.Bruger1.</td>
+                }
+                else
+                {
+                    <td>Ledig</td>
+                }
+            }
+        }
+    </tbody>
+</table> *@

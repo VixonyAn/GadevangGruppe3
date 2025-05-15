@@ -18,6 +18,7 @@
     column-gap: 15px;">
     
     <div class="info" style="">
+        <!-- #region Profil Info -->
         @if (Model.CurrentBruger.BilledUrl != null)
         {
             <img src="~/images/@Model.CurrentBruger.BilledUrl" width="200px"
@@ -26,15 +27,54 @@
         <br />
         <br />
         <p>Brugernavn: @Model.CurrentBruger.Brugernavn</p>
-        <p>Email: @Model.Email</p>
+        <p>Email: @Model.CurrentBruger.Email</p>
         <p>Telefon: @Model.CurrentBruger.Telefon</p>
         <p>Medlemskab: @Model.CurrentBruger.Medlemskab</p>
         <p>Position: @Model.CurrentBruger.Positionen</p>
         <p>Verificering: @(Model.CurrentBruger.Verificeret ? "Verificeret" : "Ikke Verificeret")</p>
+        <!-- #endregion -->
     </div>
 
     <div class="tables" style="">
-        <!-- #region Tilmeld Tables -->
+        <!-- #region Booking Tabeller -->
+        <h4>Dine Bookinger</h4>
+        <table>
+            <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
+                <tr>
+                    <th>Bane</th>
+                    <th>Dato</th>
+                    <th>Tid</th>
+                    <th>Partner</th>
+                    <th>Handlinger</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center; margin: 3px;">
+                @if (Model.BookingList.Count() != 0)
+                {
+                    @foreach (Booking item in Model.BookingList)
+                    {
+                        <tr style="border-bottom: solid 1px; border-color: gray;">
+                            <td style="background-color: #C7DDF4;">@item.BaneId</td>
+                            <td style="background-color: #C7DDF4;">@item.Dato</td>
+                            <td style="background-color: #E2EDF9;">@item.StartTid</td>
+                            <td style="background-color: #C7DDF4;">@brugerService.GetBrugerByIdAsync(@item.Bruger2).Result.Brugernavn</td>
+                            <td style="background-color: #C7DDF4;">
+                                <a asp-page="/TilmeldBegivenhedFolder/Delete" asp-route-bookingId="@item.BookingId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">
+                                    Slet
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <!-- #endregion -->
+
+        <!-- #region Tilmeld Tabeller -->
         <h4>Dine Tilmeldinger</h4>
         <table>
             <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">

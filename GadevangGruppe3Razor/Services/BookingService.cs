@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
 using System.Reflection.PortableExecutable;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GadevangGruppe3Razor.Services
 {
@@ -14,7 +15,8 @@ namespace GadevangGruppe3Razor.Services
         private string _InsertionString = "Insert INTO Booking Values(@BookingId, @BaneId, @Dato, @StartTid, @Bruger1, @Bruger2, @Beskrivelse)";
         private string _UpdateString = "UPDATE Booking SET BookingId=@BookingId,BaneId=@BaneId,Dato=@Dato,StartTid=@StartTid,Bruger1=@Bruger1,Bruger2=Bruger2,Beskrivelse=@Beskrivelse WHERE BookingId=@BookingId AND Bruger1=@Bruger1";
         private string _DeleteSql = "DELETE from Booking WHERE BookingId=@BookingId AND Bruger1=@Bruger1";
-
+        private string _GetBookingByDay = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking WHERE Dato=@Dato";
+        private string _GetBookingByBrugerId = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking WHERE Bruger1=@Bruger1";
 
         public async Task<bool> CreateBookingAsync(Booking booking)
         {
@@ -51,7 +53,29 @@ namespace GadevangGruppe3Razor.Services
 
         public async Task<Booking> DeleteBookingAsync(int bookingId)
         {
-            throw new NotImplementedException();
+            Booking booking = await GetBookingByIdAsync(bookingId);
+            using(SqlConnection connection  = new SqlConnection(_connectionString))
+            {
+                try 
+                {
+                    SqlCommand command = new SqlCommand(_DeleteSql, connection);
+                    command.Parameters.AddWithValue("@BookingId",booking);
+                    await connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error: " + sqlExp.Message);
+                    throw sqlExp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("General error: " + ex.Message);
+                    throw ex;
+                }
+
+                return booking;
+            }
         }
 
         public async Task<List<Booking>> GetAllAsync()
@@ -75,7 +99,7 @@ namespace GadevangGruppe3Razor.Services
                         int bruger1 = reader.GetInt32("Bruger1");
                         int bruger2 = reader.GetInt32("Bruger2");
                         string beskrivelse = reader.GetString("Beskrivelse");
-                        Booking booking = new Booking(bookingId,baneId,dato,startTid,bruger1,bruger2,beskrivelse);
+                        Booking booking = new Booking(bookingId, baneId, dato, startTid, bruger1, bruger2, beskrivelse);
                         bookinger.Add(booking);
                     }
                     reader.Close();
@@ -95,10 +119,113 @@ namespace GadevangGruppe3Razor.Services
             }
         }
 
+        public async Task<List<Booking>> GetBookingByDatoAsync(DateOnly dato)
+        {
+            List<Booking> bookinger = new List<Booking>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    SqlCommand command = new SqlCommand(_GetBookingByDay, connection);
+                    await command.Connection.OpenAsync();
+                    command.Parameters.AddWithValue("@Dato", dato);
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        int bookingId = reader.GetInt32("BookingId");
+                        int baneId = reader.GetInt32("BaneId");
+                        DateTime dateTime = reader.GetDateTime(reader.GetOrdinal("Dato"));
+                        DateOnly dato1 = DateOnly.FromDateTime(dateTime);
+                        int startTid = reader.GetInt32("StartTid");
+                        int bruger1 = reader.GetInt32("Bruger1");
+                        int bruger2 = reader.GetInt32("Bruger2");
+                        string beskrivelse = reader.GetString("Beskrivelse");
+                        Booking booking = new Booking(bookingId, baneId, dato1, startTid, bruger1, bruger2, beskrivelse);
+                        bookinger.Add(booking);
+                    }
+                    reader.Close();
+                }
+
+            }
+            catch (SqlException sqlExp)
+            {
+                Console.WriteLine("Database error: " + sqlExp.Message);
+                throw sqlExp;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("General error: " + ex.Message);
+                throw ex;
+            }
+            return bookinger;
+        }
         public async Task<Booking> GetBookingByIdAsync(int bookingId)
         {
-            throw new NotImplementedException();
-        }
+            Booking booking = null;
+            if (booking == null) { return null; }
 
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    SqlCommand command = new SqlCommand(_DeleteSql, connection);
+                    command.Parameters.AddWithValue("@BookingId", bookingId);
+                    await command.Connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
+                }
+
+            }
+            catch (SqlException sqlExp)
+            {
+                Console.WriteLine("Database error: " + sqlExp.Message);
+                throw sqlExp;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("General error: " + ex.Message);
+                throw ex;
+            }
+            return booking;
+        }
+        public async Task<List<Booking>> GetBookingByBrugerId(int brugerId)
+        {
+            List<Booking> bookinger = new List<Booking>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    SqlCommand command = new SqlCommand(_GetBookingByBrugerId, connection);
+                    await command.Connection.OpenAsync();
+                    command.Parameters.AddWithValue("@Bruger1", brugerId);
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        int bookingId = reader.GetInt32("BookingId");
+                        int baneId = reader.GetInt32("BaneId");
+                        DateTime dateTime = reader.GetDateTime(reader.GetOrdinal("Dato"));
+                        DateOnly dato = DateOnly.FromDateTime(dateTime);
+                        int startTid = reader.GetInt32("StartTid");
+                        int bruger1 = reader.GetInt32("Bruger1");
+                        int bruger2 = reader.GetInt32("Bruger2");
+                        string beskrivelse = reader.GetString("Beskrivelse");
+                        Booking booking = new Booking(bookingId, baneId, dato, startTid, bruger1, bruger2, beskrivelse);
+                        bookinger.Add(booking);
+                    }
+                    reader.Close();
+                }
+
+            }
+            catch (SqlException sqlExp)
+            {
+                Console.WriteLine("Database error: " + sqlExp.Message);
+                throw sqlExp;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("General error: " + ex.Message);
+                throw ex;
+            }
+            return bookinger;
+        }
     }
 }
