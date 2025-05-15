@@ -42,7 +42,7 @@
 		<select asp-for="@Model.SelectMedlemskabsType" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
 			<option value="Select">Vælg en medlemskabstype</option>
 		</select>
-		<span asp-validation-for="@Model.Bruger.Medlemskab" class="text-danger"></span>
+		<span asp-validation-for="@Model.Bruger.MedlemskabsTypen" class="text-danger"></span>
 	</div>
 	<div class="form-group">
 		<label class="control-label">Position</label>

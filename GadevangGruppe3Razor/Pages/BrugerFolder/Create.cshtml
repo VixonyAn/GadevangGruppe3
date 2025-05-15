@@ -19,6 +19,16 @@
 		<input type="password" asp-for="@Model.Bruger.Adgangskode" style="display: br; width: 20%;" class="form-control" />
 	</div>
 	<div class="form-group">
+		<label asp-for="@Model.Bruger.Fødselsdato" class="control-label"></label>
+		<input asp-for="@Model.Bruger.Fødselsdato" style="display: br; width: 20%;" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label class="control-label">Køn</label>
+		<select asp-for="@Model.SelectKøn" asp-items="Html.GetEnumSelectList<Køn>()" class="form-control">
+			<option value="Select">Vælg et køn</option>
+		</select>
+	</div>
+	<div class="form-group">
 		<label asp-for="@Model.Bruger.Email" class="control-label"></label>
 		<input asp-for="@Model.Bruger.Email" style="display: br; width: 20%;" class="form-control" />
 	</div>
@@ -33,18 +43,8 @@
 			<label class="custom-file-label"></label>
 		</div>
 	</div>
-	<div class="form-group">
-		<label class="control-label">Medlemskabs Type</label>
-		<select asp-for="@Model.SelectMedlemskabsType" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
-			<option value="Select">Vælg en medlemskabstype</option>
-		</select>
-	</div>
-	<div class="form-group">
-		<label class="control-label">Position</label>
-		<select asp-for="@Model.SelectPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
-			<option value="Select">Vælg en position</option>
-		</select>
 	<span class="text-danger">@Model.MessageError</span>
+	<span class="text-danger">@Model.MessageErrorInvalidAlder</span>
 	<div class="formgroup">
 		<input type="submit" value="Confirm" class="btn btn-primary" style="background-color: green; border-color: green;" />
 	</div>

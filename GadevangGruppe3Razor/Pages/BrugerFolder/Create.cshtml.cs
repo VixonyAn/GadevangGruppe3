@@ -1,3 +1,4 @@
+using GadevangGruppe3Razor.Helper;
 using GadevangGruppe3Razor.Interfaces;
 using GadevangGruppe3Razor.Models;
 using GadevangGruppe3Razor.Services;
@@ -16,9 +17,9 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         [BindProperty] public Bruger Bruger { get; set; }
         [BindProperty] public int BrugerId { get; set; }
         [BindProperty] public IFormFile? Billed { get; set; }
-        [BindProperty(SupportsGet = true)] public string SelectMedlemskabsType { get; set; }
-        [BindProperty(SupportsGet = true)] public string SelectPosition { get; set; }
+        [BindProperty] public string SelectKøn { get; set; }
         public string MessageError { get; set; }
+        public string MessageErrorInvalidAlder { get; set; }
         public bool SelectCheck { get; set; }
 
         public CreateModel(IBrugerService brugerService, IWebHostEnvironment webHostEnvironment)
@@ -49,13 +50,23 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 			}
             try
             {
-				SelectBrugerMedlemskab();
-				SelectBrugerPosition();
-                if (!SelectCheck)
-                {
-                    MessageError = "Du mangler at vælge en mulighed";
+                SelectBrugerKøn();
+				if (!SelectCheck)
+				{
+					MessageError = "Du mangler at vælge en mulighed";
 					return Page();
+				}
+				BestemMedlemskabsType bestemMedlemskab = new BestemMedlemskabsType();
+                int alder = bestemMedlemskab.CalculateAlder(Bruger.Fødselsdato);
+                if (alder >= 5)
+                {
+					Bruger.MedlemskabsTypen = bestemMedlemskab.BestemMedlemskabsTypeFraAlder(alder);
+				}
+				else
+                {
+                    MessageErrorInvalidAlder = "Du er for ung til at være et medlem";
                 }
+                Bruger.Positionen = Position.Medlem;
 				await _brugerService.CreateBrugerAsync(Bruger);
 				return RedirectToPage("ShowAllBruger", new { BrugerId = BrugerId });
 			}
@@ -82,31 +93,17 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
             return uniqueFileName;
         }
 
-        private void SelectBrugerMedlemskab()
-        {
-			if (!SelectMedlemskabsType.IsNullOrEmpty() && SelectMedlemskabsType != "Select")
+		private void SelectBrugerKøn()
+		{
+			if (!SelectKøn.IsNullOrEmpty() && SelectKøn != "Select")
 			{
-				MedlemskabsType criteriaMedlemskab = (MedlemskabsType)Enum.Parse(typeof(MedlemskabsType), SelectMedlemskabsType);
-                Bruger.Medlemskab = criteriaMedlemskab;
-                SelectCheck = true;
+				Køn criteriaKøn = (Køn)Enum.Parse(typeof(Køn), SelectKøn);
+				Bruger.Kønnet = criteriaKøn;
+				SelectCheck = true;
 			}
-            else
-            {
-                SelectCheck = false;
-            }
-		}
-
-        private void SelectBrugerPosition()
-        {
-            if (!SelectPosition.IsNullOrEmpty() && SelectPosition != "Select")
-            {
-                Position criteriaPosition = (Position)Enum.Parse(typeof(Position), SelectPosition);
-                Bruger.Positionen = criteriaPosition;
-                SelectCheck = true;
-            }
-            else
-            {
-                SelectCheck = false;
+			else
+			{
+				SelectCheck = false;
 			}
 		}
     }

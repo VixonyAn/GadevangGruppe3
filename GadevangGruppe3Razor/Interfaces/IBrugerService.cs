@@ -12,5 +12,6 @@ namespace GadevangGruppe3Razor.Interfaces
         Task<Bruger?> ValidateBrugerAsync(string email, string adgangskode);
         Task<Bruger> GetBrugerByEmailAsync(string email);
         Task<List<Bruger>> FilterBrugerByBrugernavnAsync(string filterBrugernavnCriteria);
+        Task<bool> VerifyBrugerAsync(int brugerId, Bruger bruger);
 	}
 }

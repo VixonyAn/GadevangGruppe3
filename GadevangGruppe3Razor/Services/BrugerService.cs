@@ -10,11 +10,12 @@ namespace GadevangGruppe3Razor.Services
     {
         #region Instance Fields
         private String connectionString = Secret.ConnectionString;
-        private string selectSql = "Select BrugerId, Brugernavn, Adgangskode, Email, Telefon, BilledUrl, Medlemskab, Position, Verificeret from Bruger";
-        private string insertSql = "Insert into Bruger (BrugerID, Brugernavn, Adgangskode, Email, Telefon, BilledUrl, Medlemskab, Position, Verificeret) values (@BrugerID, @Brugernavn, @Adgangskode, @Email, @Telefon, @BilledUrl, @Medlemskab, @Position, @Verificeret)";
+        private string selectSql = "Select BrugerId, Brugernavn, Adgangskode, Fødselsdato, Køn, Email, Telefon, BilledUrl, Medlemskab, Position, Verificeret from Bruger";
+        private string insertSql = "Insert into Bruger (BrugerID, Brugernavn, Adgangskode, Fødselsdato, Køn, Email, Telefon, BilledUrl, Medlemskab, Position, Verificeret) values (@BrugerID, @Brugernavn, @Adgangskode, @Fødselsdato, @Køn, @Email, @Telefon, @BilledUrl, @Medlemskab, @Position, @Verificeret)";
         private string deleteSql = "Delete from Bruger where BrugerId = @BrugerId";
-        private string updateSql = "Update Bruger set Brugernavn = @Brugernavn, Adgangskode = @Adgangskode, Email = @Email, Telefon = @Telefon, BilledUrl = @BilledUrl, Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
+        private string updateSql = "Update Bruger set Brugernavn = @Brugernavn, Adgangskode = @Adgangskode, Fødselsdato = @Fødselsdato, Køn = @Køn, Email = @Email, Telefon = @Telefon, BilledUrl = @BilledUrl, Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
         private string loginSql = "Select Email, Adgangskode from Bruger";
+        private string verifySql = "Update Bruger set Verificeret = @Verificeret where BrugerId = @BrugerId";
         #endregion
 
         #region Methods
@@ -30,10 +31,12 @@ namespace GadevangGruppe3Razor.Services
                     command.Parameters.AddWithValue("@BrugerId", bruger.BrugerId);
                     command.Parameters.AddWithValue("@Brugernavn", bruger.Brugernavn);
                     command.Parameters.AddWithValue("@Adgangskode", bruger.Adgangskode);
+                    command.Parameters.AddWithValue("@Fødselsdato", bruger.Fødselsdato);
+                    command.Parameters.AddWithValue("@Køn", bruger.Kønnet);
                     command.Parameters.AddWithValue("@Email", bruger.Email);
                     command.Parameters.AddWithValue("@Telefon", bruger.Telefon);
 					command.Parameters.AddWithValue("@BilledUrl", bruger.BilledUrl);
-                    command.Parameters.AddWithValue("@Medlemskab", bruger.Medlemskab);
+                    command.Parameters.AddWithValue("@Medlemskab", bruger.MedlemskabsTypen);
                     command.Parameters.AddWithValue("@Position", bruger.Positionen);
 					command.Parameters.AddWithValue("@Verificeret", bruger.Verificeret);
 					int rowsAffected = command.ExecuteNonQuery();
@@ -111,14 +114,16 @@ namespace GadevangGruppe3Razor.Services
 					{
 						int brugerId = reader.GetInt32("BrugerId");
 						string brugernavn = reader.GetString("Brugernavn");
-						string adgangskode = reader.GetString("adgangskode");
+						string adgangskode = reader.GetString("Adgangskode");
+                        DateOnly fødselsdato = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("Fødselsdato")));
+                        Køn køn = (Køn)reader.GetInt32(reader.GetOrdinal("Køn"));
 						string email = reader.GetString("Email");
 						string telefon = reader.GetString("Telefon");
 						string billedUrl = reader.GetString("BilledUrl");
 						MedlemskabsType medlemskab = (MedlemskabsType)reader.GetInt32(reader.GetOrdinal("Medlemskab"));
 						Position position = (Position)reader.GetInt32(reader.GetOrdinal("Position"));
 						bool verificeret = reader.GetBoolean("Verificeret");
-						Bruger bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, billedUrl, medlemskab, position, verificeret);
+						Bruger bruger = new Bruger(brugerId, brugernavn, adgangskode, fødselsdato, køn, email, telefon, billedUrl, medlemskab, position, verificeret);
 						if (!brugere.Contains(brugere.Find(c => c.Email.Equals(email))) || !brugere.Contains(brugere.Find(c => c.Telefon.Equals(telefon))))
 						{
 							brugere.Add(bruger);
@@ -163,13 +168,15 @@ namespace GadevangGruppe3Razor.Services
                         int brugerId = reader.GetInt32("BrugerId");
                         string brugernavn = reader.GetString("Brugernavn");
                         string adgangskode = reader.GetString("adgangskode");
+                        DateOnly fødselsdato = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("Fødselsdato")));
+                        Køn køn = (Køn)reader.GetInt32(reader.GetOrdinal("Køn"));
                         string email = reader.GetString("Email");
                         string telefon = reader.GetString("Telefon");
 						string billedUrl = reader.GetString("BilledUrl");
 						MedlemskabsType medlemskab = (MedlemskabsType)reader.GetInt32(reader.GetOrdinal("Medlemskab"));
                         Position position = (Position)reader.GetInt32(reader.GetOrdinal("Position"));
                         bool verificeret = reader.GetBoolean("Verificeret");
-                        Bruger bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, billedUrl, medlemskab, position, verificeret);
+                        Bruger bruger = new Bruger(brugerId, brugernavn, adgangskode, fødselsdato, køn, email, telefon, billedUrl, medlemskab, position, verificeret);
                         if (!brugere.Contains(brugere.Find(c => c.Email.Equals(email))) || !brugere.Contains(brugere.Find(c => c.Telefon.Equals(telefon))))
                         {
 							brugere.Add(bruger);
@@ -215,12 +222,14 @@ namespace GadevangGruppe3Razor.Services
                         int brugerId = reader.GetInt32("BrugerId");
                         string brugernavn = reader.GetString("Brugernavn");
                         string adgangskode = reader.GetString("adgangskode");
+                        DateOnly fødselsdato = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("Fødselsdato")));
+                        Køn køn = (Køn)reader.GetInt32(reader.GetOrdinal("Køn"));
                         string telefon = reader.GetString("Telefon");
                         string billedUrl = reader.GetString("BilledUrl");
                         MedlemskabsType medlemskab = (MedlemskabsType)reader.GetInt32(reader.GetOrdinal("Medlemskab"));
                         Position position = (Position)reader.GetInt32(reader.GetOrdinal("Position"));
                         bool verificeret = reader.GetBoolean("Verificeret");
-                        bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, billedUrl, medlemskab, position, verificeret);
+                        bruger = new Bruger(brugerId, brugernavn, adgangskode, fødselsdato, køn, email, telefon, billedUrl, medlemskab, position, verificeret);
                     }
                     reader.Close();
                 }
@@ -257,13 +266,15 @@ namespace GadevangGruppe3Razor.Services
                     {
                         string brugernavn = reader.GetString("Brugernavn");
                         string adgangskode = reader.GetString("Adgangskode");
+                        DateOnly fødselsdato = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("Fødselsdato")));
+                        Køn køn = (Køn)reader.GetInt32(reader.GetOrdinal("Køn"));
                         string email = reader.GetString("Email");
                         string telefon = reader.GetString("Telefon");
                         string billedUrl = reader.GetString("BilledUrl");
 						MedlemskabsType medlemskab = (MedlemskabsType)reader.GetInt32(reader.GetOrdinal("Medlemskab"));
                         Position position = (Position)reader.GetInt32(reader.GetOrdinal("Position"));
                         bool verificeret = reader.GetBoolean("Verificeret");
-                        bruger = new Bruger(brugerId, brugernavn, adgangskode, email, telefon, billedUrl, medlemskab, position, verificeret);
+                        bruger = new Bruger(brugerId, brugernavn, adgangskode, fødselsdato, køn, email, telefon, billedUrl, medlemskab, position, verificeret);
                     }
                     reader.Close();
                     return bruger;
@@ -296,13 +307,14 @@ namespace GadevangGruppe3Razor.Services
                     command.Parameters.AddWithValue("@BrugerId", brugerId);
                     command.Parameters.AddWithValue("@Brugernavn", bruger.Brugernavn);
                     command.Parameters.AddWithValue("@Adgangskode", bruger.Adgangskode);
+                    command.Parameters.AddWithValue("@Fødselsdato", bruger.Fødselsdato);
+                    command.Parameters.AddWithValue("@Køn", bruger.Kønnet);
                     command.Parameters.AddWithValue("@Email", bruger.Email);
                     command.Parameters.AddWithValue("@Telefon", bruger.Telefon);
                     command.Parameters.AddWithValue("@BilledUrl", bruger.BilledUrl);
-                    command.Parameters.AddWithValue("@Verificeret", bruger.Verificeret);
-                    command.Parameters.AddWithValue("@Medlemskab", bruger.Medlemskab);
+                    command.Parameters.AddWithValue("@Medlemskab", bruger.MedlemskabsTypen);
                     command.Parameters.AddWithValue("@Position", bruger.Positionen);
-                    await command.Connection.OpenAsync();
+					await command.Connection.OpenAsync();
                     int rowsAffected = command.ExecuteNonQuery();
                     if (rowsAffected > 0)
                     {
@@ -362,6 +374,40 @@ namespace GadevangGruppe3Razor.Services
 				return bruger;
 			}
 		}
-        #endregion
-    }
+
+		public async Task<bool> VerifyBrugerAsync(int brugerId, Bruger bruger)
+		{
+            bool isVerified = false;
+            Bruger foundBruger = await GetBrugerByIdAsync(brugerId);
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand(verifySql, connection);
+                    command.Parameters.AddWithValue("@BrugerId", brugerId);
+                    command.Parameters.AddWithValue("@Verificeret", bruger.Verificeret);
+                    await command.Connection.OpenAsync();
+                    int rowsAffected = command.ExecuteNonQuery(); 
+                    if (rowsAffected > 0)
+                    {
+                        isVerified = true;
+                    }
+                }
+            }
+			catch (SqlException sqlex)
+			{
+				Console.WriteLine(sqlex.Message);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			finally
+			{
+
+			}
+            return isVerified;
+		}
+		#endregion
+	}
 }

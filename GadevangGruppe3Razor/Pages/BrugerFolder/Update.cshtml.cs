@@ -42,7 +42,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 					MessageError = "Du mangler at vælge en mulighed";
 					return Page();
 				}
-				await _brugerService.UpdateBrugerAsync(brugerId, new Bruger(brugerId, Bruger.Brugernavn, Bruger.Adgangskode, Bruger.Email, Bruger.Telefon, BilledUrl, Bruger.Medlemskab, Bruger.Positionen, Bruger.Verificeret));
+				await _brugerService.UpdateBrugerAsync(brugerId, new Bruger(brugerId, Bruger.Brugernavn, Bruger.Adgangskode, Bruger.Fødselsdato, Bruger.Kønnet, Bruger.Email, Bruger.Telefon, BilledUrl, Bruger.MedlemskabsTypen, Bruger.Positionen, Bruger.Verificeret));
 				return RedirectToPage("ShowAllBruger", new { BrugerId = BrugerId });
 			}
 			catch (Exception ex)
@@ -57,7 +57,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 			if (!SelectMedlemskabsType.IsNullOrEmpty() && SelectMedlemskabsType != "Select")
 			{
 				MedlemskabsType criteriaMedlemskab = (MedlemskabsType)Enum.Parse(typeof(MedlemskabsType), SelectMedlemskabsType);
-				Bruger.Medlemskab = criteriaMedlemskab;
+				Bruger.MedlemskabsTypen = criteriaMedlemskab;
 				SelectCheck = true;
 			}
 			else

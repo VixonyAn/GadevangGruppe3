@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GadevangGruppe3Razor.Models
 {
-    public class Bruger : IBruger
+    public class Bruger : IBruger 
     {
         #region Properties
         [Required(ErrorMessage = "Bruger Id kan ikke være null")]
@@ -18,6 +18,12 @@ namespace GadevangGruppe3Razor.Models
         [StringLength(30, MinimumLength = 4, ErrorMessage = "Adgangskode kan ikke være korterer end 4 karakterer længere end 50 karakterer")]
         public string Adgangskode { get; set; }
 
+        [Required(ErrorMessage = "Fødselsdato kan ikke være null")]
+        public DateOnly Fødselsdato { get; set; }
+
+        [Required(ErrorMessage = "Køn kan ikke være null")]
+        public Køn Kønnet { get; set; }
+
         [Required(ErrorMessage = "Email kan ikke være null")]
         [StringLength(30, MinimumLength = 4, ErrorMessage = "Email kan ikke være korterer end 4 karakterer længere end 50 karakterer")]
         public string Email { get; set; }
@@ -26,8 +32,8 @@ namespace GadevangGruppe3Razor.Models
         [StringLength(8, MinimumLength = 8, ErrorMessage = "Telefonnummer kan ikke være længere end 8 karakterer")]
         public string Telefon { get; set; }
 
-        [Required(ErrorMessage = "MedlemskabsTypen kan ikke være null")]
-        public MedlemskabsType Medlemskab { get; set; }
+        [Required(ErrorMessage = "Medlemskabstypen kan ikke være null")]
+        public MedlemskabsType MedlemskabsTypen { get; set; }
 
         [Required(ErrorMessage = "Positionen kan ikke være null")]
         public Position Positionen { get; set; }
@@ -51,15 +57,17 @@ namespace GadevangGruppe3Razor.Models
             Adgangskode = adgangskode;
         }
 
-		public Bruger(int brugerID, string brugernavn, string adgangskode, string email, string telefon, string billedUrl, MedlemskabsType medlemskab, Position position, bool verificeret)
+		public Bruger(int brugerID, string brugernavn, string adgangskode, DateOnly fødselsdato, Køn køn, string email, string telefon, string billedUrl, MedlemskabsType medlemskabsType, Position position, bool verificeret)
         {
 			BrugerId = brugerID;
 			Brugernavn = brugernavn;
 			Adgangskode = adgangskode;
+            Fødselsdato = fødselsdato;
+            Kønnet = køn;
 			Email = email;
             Telefon = telefon;
             BilledUrl = billedUrl;
-            Medlemskab = medlemskab;
+            MedlemskabsTypen = medlemskabsType;
             Positionen = position;
             Verificeret = verificeret;
         }
@@ -68,7 +76,7 @@ namespace GadevangGruppe3Razor.Models
         #region Methods
         public override string ToString()
         {
-            return $"Bruger ID: {BrugerId}, Brugernavn: {Brugernavn}, Adgangskode: {Adgangskode}, Email: {Email}, Telefonnummer: {Telefon}, Medlemskab: {Medlemskab}, Position: {Positionen}, Verificeret: {Verificeret}";
+            return $"Bruger ID: {BrugerId}, Brugernavn: {Brugernavn}, Adgangskode: {Adgangskode}, Fødselsdato: {Fødselsdato}, Køn: {Kønnet}, Email: {Email}, Telefonnummer: {Telefon}, Medlemskab: {MedlemskabsTypen}, Position: {Positionen}, Verificeret: {Verificeret}";
         }
         #endregion
     }
