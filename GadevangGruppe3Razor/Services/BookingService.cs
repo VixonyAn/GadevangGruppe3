@@ -16,7 +16,7 @@ namespace GadevangGruppe3Razor.Services
         private string _UpdateString = "UPDATE Booking SET BookingId=@BookingId,BaneId=@BaneId,Dato=@Dato,StartTid=@StartTid,Bruger1=@Bruger1,Bruger2=Bruger2,Beskrivelse=@Beskrivelse WHERE BookingId=@BookingId AND Bruger1=@Bruger1";
         private string _DeleteSql = "DELETE from Booking WHERE BookingId=@BookingId";
         private string _GetBookingByDay = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking WHERE Dato=@Dato";
-        private string _GetBookingByBrugerId = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking WHERE Bruger1=@Bruger1";
+        private string _GetBookingByBrugerId = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking WHERE Bruger1=@Bruger1 OR Bruger2=@Bruger2";
         private string _GetBookingById = "Select BookingId, BaneId, Dato, StartTid, Bruger1, Bruger2, Beskrivelse from Booking WHERE BookingId=@BookingId";
 
 
@@ -211,6 +211,7 @@ namespace GadevangGruppe3Razor.Services
                     SqlCommand command = new SqlCommand(_GetBookingByBrugerId, connection);
                     await command.Connection.OpenAsync();
                     command.Parameters.AddWithValue("@Bruger1", brugerId);
+                    command.Parameters.AddWithValue("@Bruger2", brugerId);
                     SqlDataReader reader = await command.ExecuteReaderAsync();
                     while (await reader.ReadAsync())
                     {

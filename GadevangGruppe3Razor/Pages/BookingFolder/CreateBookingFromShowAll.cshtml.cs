@@ -87,12 +87,25 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
                     return RedirectToPage("/BrugerFolder/Login");
                 }
                 Bruger1 = await _brugerService.GetBrugerByEmailAsync(Email);
+                if (Bruger2ID == Bruger1.BrugerId) 
+                {
+                    MessageError = "Du kan ikke vælge dig selv som partner";
+                    return Page();
+                }
+                //if (Bruger2ID <= 0||Bruger2ID==null) 
+                //{
+                //    await _bookingService.CreateBookingAsync(new Booking(Booking.BookingId, Booking.BaneId, Booking.Dato, StartTid, Bruger1.BrugerId, Booking.Beskrivelse));
+                //}
+                //else 
+                //{                 
                 Bruger2 = await _brugerService.GetBrugerByIdAsync(Bruger2ID);
                 if (Bruger2.Medlemskab == MedlemskabsType.Passivt_Medlemskab || Bruger2.Verificeret == false)
                 {
                     GæstMessage = "Da din partner gælder som en gæst, koster det 50 kr. pr. gæste time";
                 }
                 await _bookingService.CreateBookingAsync(new Booking(Booking.BookingId, Booking.BaneId, Booking.Dato, StartTid, Bruger1.BrugerId, Bruger2.BrugerId, Booking.Beskrivelse));
+                //}
+
                 return RedirectToPage("/BookingFolder/ShowAllBookinger");
             }
             catch (Exception ex)

@@ -44,6 +44,7 @@ Foreign Key (Bruger1) References Bruger (BrugerId),
 Foreign Key (Bruger2) References Bruger (BrugerId), 
 
 ); 
+ALTER TABLE Booking ALTER COLUMN Bruger2 INT NULL;
 
 Create Table TilmeldBegivenhed ( 
     BrugerId int not null, 

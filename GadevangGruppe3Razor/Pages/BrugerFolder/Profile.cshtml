@@ -41,7 +41,7 @@
         <table>
             <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
                 <tr>
-                    <th>BId</th>
+                    <th>Oprettet af</th>
                     <th>Bane</th>
                     <th>Dato</th>
                     <th>Tid</th>
@@ -56,7 +56,7 @@
                     @foreach (Booking item in Model.BookingList)
                     {
                         <tr style="border-bottom: solid 1px; border-color: gray;">
-                            <td>@item.BookingId</td>
+                            <td>@brugerService.GetBrugerByIdAsync(item.Bruger1).Result.Brugernavn</td>
                             <td style="background-color: #C7DDF4;">@item.BaneId</td>
                             <td style="background-color: #C7DDF4;">@item.Dato</td>
                             <td style="background-color: #E2EDF9;">@item.StartTid</td>
