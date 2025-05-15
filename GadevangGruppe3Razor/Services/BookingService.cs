@@ -53,7 +53,29 @@ namespace GadevangGruppe3Razor.Services
 
         public async Task<Booking> DeleteBookingAsync(int bookingId)
         {
-            throw new NotImplementedException();
+            Booking booking = await GetBookingByIdAsync(bookingId);
+            using(SqlConnection connection  = new SqlConnection(_connectionString))
+            {
+                try 
+                {
+                    SqlCommand command = new SqlCommand(_DeleteSql, connection);
+                    command.Parameters.AddWithValue("@BookingId",booking);
+                    await connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error: " + sqlExp.Message);
+                    throw sqlExp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("General error: " + ex.Message);
+                    throw ex;
+                }
+
+                return booking;
+            }
         }
 
         public async Task<List<Booking>> GetAllAsync()
