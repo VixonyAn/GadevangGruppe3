@@ -67,7 +67,10 @@
 			<th>Position</th>
 			<th>Billed</th>
 			<th>Verificeret</th>
-			<th>Handlinger</th>
+			@if (Model.CurrentBruger.Positionen == Position.Admin)
+			{
+				<th>Handlinger</th>
+			}
 		</tr>
 	</thead>
 	<tbody style="text-align: center; margin: 3px;">

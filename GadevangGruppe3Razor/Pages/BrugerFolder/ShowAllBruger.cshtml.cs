@@ -41,10 +41,10 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                 else
                 {
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
-                    if (CurrentBruger.Positionen != Position.Admin)
-                    {
-                        return RedirectToPage("/Index");
-                    }
+                    //if (CurrentBruger.Positionen != Position.Admin)
+                    //{
+                    //    return RedirectToPage("/Index");
+                    //}
                 }
 				if (!string.IsNullOrEmpty(FilterCriteriaBrugernavn))
 				{
@@ -81,7 +81,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 
         public IActionResult OnPostVerify()
         {
-
             return RedirectToPage("ShowAllBruger");
         }
 
@@ -97,9 +96,9 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 
         private void FilterBrugerKøn()
         {
-            if (!FilterCriteriaPosition.IsNullOrEmpty() && FilterCriteriaPosition != "All")
+            if (!FilterCriteriaKøn.IsNullOrEmpty() && FilterCriteriaKøn != "All")
             {
-                Køn criteriaPosition = (Køn)Enum.Parse(typeof(Køn), FilterCriteriaPosition);
+                Køn criteriaPosition = (Køn)Enum.Parse(typeof(Køn), FilterCriteriaKøn);
                 Brugere = Brugere.FindAll(b => b.Kønnet == criteriaPosition);
             }
         }

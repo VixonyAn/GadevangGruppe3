@@ -48,7 +48,7 @@
                         var booking = Model.Bookinger.Find(booking => booking.Dato == Model.ValgtDato &&
                         booking.BaneId == bane.BaneId &&
                         booking.StartTid == tid.Key);
-                        @if ((Model.CurrentBruger.Medlemskab == MedlemskabsType.Passivt_Medlemskab || Model.CurrentBruger.Verificeret == false) || Model.Email == null)
+                        @if ((Model.CurrentBruger.MedlemskabsTypen == MedlemskabsType.Passivt_Medlemskab || Model.CurrentBruger.Verificeret == false) || Model.Email == null)
                         {
                             <td style="background-color: #C7DDF4;">
                                 <a class="btn btn-primary" style="background-color:#fa4f4f;border-color:#fa4f4f">
@@ -76,11 +76,10 @@
 @*                         <td style="background-color:#a7f981  ">
                             Ledig
                         </td> *@
-                        @if (Model.CurrentBruger.Medlemskab == MedlemskabsType.Passivt_Medlemskab || Model.CurrentBruger.Verificeret == false)
+                        @if (Model.CurrentBruger.MedlemskabsTypen == MedlemskabsType.Passivt_Medlemskab || Model.CurrentBruger.Verificeret == false)
                         {
                             <td style="background-color: #C7DDF4;">
                                 <a class="btn btn-primary" style="background-color:#a7f981;border-color:#a7f981">
-
                                     <svg style="color:green" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                                     </svg>
