@@ -13,7 +13,8 @@ namespace GadevangGruppe3Razor.Services
         private string selectSql = "Select BrugerId, Brugernavn, Adgangskode, Fødselsdato, Køn, Email, Telefon, BilledUrl, Medlemskab, Position, Verificeret from Bruger";
         private string insertSql = "Insert into Bruger (BrugerID, Brugernavn, Adgangskode, Fødselsdato, Køn, Email, Telefon, BilledUrl, Medlemskab, Position, Verificeret) values (@BrugerID, @Brugernavn, @Adgangskode, @Fødselsdato, @Køn, @Email, @Telefon, @BilledUrl, @Medlemskab, @Position, @Verificeret)";
         private string deleteSql = "Delete from Bruger where BrugerId = @BrugerId";
-        private string updateSql = "Update Bruger set Brugernavn = @Brugernavn, Adgangskode = @Adgangskode, Fødselsdato = @Fødselsdato, Køn = @Køn, Email = @Email, Telefon = @Telefon, BilledUrl = @BilledUrl, Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
+        private string adminUpdateSql = "Update Bruger set Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
+        private string brugerUpdateSql = "Update Bruger set Brugernavn = @Brugernavn, Adgangskode = @Adgangskode, Email = @Email, Telefon = @Telefon, BilledUrl = @BilledUrl, Køn = @Køn where BrugerId = @BrugerId";
         private string loginSql = "Select Email, Adgangskode from Bruger";
         private string verifySql = "Update Bruger set Verificeret = @Verificeret where BrugerId = @BrugerId";
         #endregion
@@ -99,7 +100,7 @@ namespace GadevangGruppe3Razor.Services
             }
         }
 
-		public async Task<List<Bruger>> FilterBrugerByBrugernavnAsync(string filterBrugernavnCriteria)
+		public async Task<List<Bruger>> FilterBrugerByBrugernavnAsync(string criteria)
 		{
 			List<Bruger> brugere = new List<Bruger>();
 			using (SqlConnection connection = new SqlConnection(connectionString))
@@ -107,7 +108,7 @@ namespace GadevangGruppe3Razor.Services
 				try
 				{
 					SqlCommand command = new SqlCommand(selectSql + " where Brugernavn like @Criteria", connection);
-                    command.Parameters.AddWithValue("@Criteria", "%" + filterBrugernavnCriteria + "%");
+                    command.Parameters.AddWithValue("@Criteria", "%" + criteria + "%");
 					await command.Connection.OpenAsync();
 					SqlDataReader reader = await command.ExecuteReaderAsync();
 					while (await reader.ReadAsync())
@@ -295,7 +296,46 @@ namespace GadevangGruppe3Razor.Services
             }
         }
 
-        public async Task<bool> UpdateBrugerAsync(int brugerId, Bruger bruger)
+        public async Task<bool> BrugerUpdateBrugerAsync(int brugerId, Bruger bruger)
+		{
+			bool isUpdated = false;
+			Bruger foundBruger = await GetBrugerByIdAsync(brugerId);
+			try
+			{
+				using (SqlConnection connection = new SqlConnection(connectionString))
+				{
+					SqlCommand command = new SqlCommand(brugerUpdateSql, connection);
+					command.Parameters.AddWithValue("@BrugerId", brugerId);
+					command.Parameters.AddWithValue("@Brugernavn", bruger.Brugernavn);
+					command.Parameters.AddWithValue("@Adgangskode", bruger.Adgangskode);
+					command.Parameters.AddWithValue("@Køn", bruger.Kønnet);
+					command.Parameters.AddWithValue("@Email", bruger.Email);
+					command.Parameters.AddWithValue("@Telefon", bruger.Telefon);
+					command.Parameters.AddWithValue("@BilledUrl", bruger.BilledUrl);
+					await command.Connection.OpenAsync();
+					int rowsAffected = command.ExecuteNonQuery();
+					if (rowsAffected > 0)
+					{
+						isUpdated = true;
+					}
+				}
+			}
+			catch (SqlException sqlex)
+			{
+				Console.WriteLine(sqlex.Message);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			finally
+			{
+
+			}
+			return isUpdated;
+		}
+
+		public async Task<bool> AdminUpdateBrugerAsync(int brugerId, Bruger bruger)
         {
             bool isUpdated = false;
             Bruger foundBruger = await GetBrugerByIdAsync(brugerId);
@@ -303,15 +343,8 @@ namespace GadevangGruppe3Razor.Services
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    SqlCommand command = new SqlCommand(updateSql, connection);
+                    SqlCommand command = new SqlCommand(adminUpdateSql, connection);
                     command.Parameters.AddWithValue("@BrugerId", brugerId);
-                    command.Parameters.AddWithValue("@Brugernavn", bruger.Brugernavn);
-                    command.Parameters.AddWithValue("@Adgangskode", bruger.Adgangskode);
-                    command.Parameters.AddWithValue("@Fødselsdato", bruger.Fødselsdato);
-                    command.Parameters.AddWithValue("@Køn", bruger.Kønnet);
-                    command.Parameters.AddWithValue("@Email", bruger.Email);
-                    command.Parameters.AddWithValue("@Telefon", bruger.Telefon);
-                    command.Parameters.AddWithValue("@BilledUrl", bruger.BilledUrl);
                     command.Parameters.AddWithValue("@Medlemskab", bruger.MedlemskabsTypen);
                     command.Parameters.AddWithValue("@Position", bruger.Positionen);
 					await command.Connection.OpenAsync();

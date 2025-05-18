@@ -16,11 +16,11 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         #endregion
 
         #region Properties
-        [BindProperty] public Bruger CurrentBruger { get; set; }
+        
         public List<TilmeldBegivenhed> TilmeldBList { get; set; }
         public List<Booking> BookingList { get; set; }
-        
-        [BindProperty] public string Email { get; set; }
+		[BindProperty] public Bruger CurrentBruger { get; set; }
+		[BindProperty] public string Email { get; set; }
         [BindProperty] public int EventId { get; set; }
         [BindProperty] public Begivenhed Begivenhed { get; set; }
         public string ConfirmRemoved { get; set; }
@@ -67,6 +67,11 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
             }
             return Page();
 		}
+
+        public async Task<IActionResult> OnPostBrugerUpdate(int brugerId)
+        {
+            return RedirectToPage("BrugerUpdate", new { brugerId = brugerId });
+        }
         #endregion
     }
 }

@@ -87,7 +87,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 
         public async Task<IActionResult> OnPostUpdateAsync(int brugerId)
         {
-            return RedirectToPage("Update", new { brugerId = brugerId });
+            return RedirectToPage("AdminUpdate", new { brugerId = brugerId });
         }
 
         private void FilterBrugerKøn()
