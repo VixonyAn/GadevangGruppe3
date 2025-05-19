@@ -2,8 +2,9 @@
 Insert into Bane VALUES(1,1,1,'Grusbane'); 
 Insert into Bane VALUES(2,1,1,'Grusbane til single spil'); 
 
-Insert into Bruger values (1, 'Bo Windelman', 'Ten312', 'BOWI@gtmail.dk', '11111111', 1, 'defaultImage.jpg', 0, 2);  
-Insert into Bruger values (2, 'Poul Henriksen', 'Elv123', 'POHE@gtmail.dk', '22222222', 1, 'defaultImage.jpg', 0, 0); 
+
+Insert into Bruger values (1, 'Bo Windahl', 'Ten312', '1962-01-30', 0, 'BOWI@gtmail.dk', '11111111', 'defaultImage.jpg', 0, 2, 1);    
+Insert into Bruger values (2, 'Poul Henriksen', 'Elv123', '1964-04-22', 0, 'POHE@gtmail.dk', '22222222', 'defaultImage.jpg', 0, 0, 1); 
  
 Insert into Booking values(1,1,'11-06-2025',8,1,2,'Personlig bookining'); 
 Insert into Booking values(2,2,'2025/06/21',10,2,1,'Personlig bookining'); 

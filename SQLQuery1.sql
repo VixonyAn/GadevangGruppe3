@@ -10,7 +10,27 @@
 	Position int not null  
 ); 
 
+ Drop Table TilmeldBegivenhed; 
+
+Drop Table Booking; 
+
+Drop Table Bruger; 
+
  
+
+Create Table Bruger (   
+    BrugerId int primary key,   
+    Brugernavn varchar(30) not null,   
+    Adgangskode varchar(50) not null, 
+    Fødselsdato date not null, 
+    Køn int not null, 
+    Email varchar(50) not null,   
+    Telefon varchar(8) not null,  
+    BilledUrl varchar(255),  
+    Medlemskab int not null,   
+    Position int not null,  
+    Verificeret bit not null,  
+); 
 
 Create Table Bane 
 ( 
@@ -44,7 +64,6 @@ Foreign Key (Bruger1) References Bruger (BrugerId),
 Foreign Key (Bruger2) References Bruger (BrugerId), 
 
 ); 
-ALTER TABLE Booking ALTER COLUMN Bruger2 INT NULL;
 
 Create Table TilmeldBegivenhed ( 
     BrugerId int not null, 
