@@ -11,11 +11,11 @@ namespace GadevangGruppe3Razor.Models
         public int BrugerId { get; set; }
 
         [Required(ErrorMessage = "Brugernavn kan ikke være null")]
-        [StringLength(30, MinimumLength = 2, ErrorMessage = "Brugernavn kan ikke være kortere end 2 karakterer længere end 30 karakterer")]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "Brugernavn kan ikke være kortere end 2 karakterer eller længere end 30 karakterer")]
         public string Brugernavn { get; set; }
 
         [Required(ErrorMessage = "Adgangskode kan ikke være null")]
-        [StringLength(30, MinimumLength = 4, ErrorMessage = "Adgangskode kan ikke være korterer end 4 karakterer længere end 50 karakterer")]
+        [StringLength(30, MinimumLength = 4, ErrorMessage = "Adgangskode kan ikke være korterer end 4 karakterer eller længere end 50 karakterer")]
         public string Adgangskode { get; set; }
 
         [Required(ErrorMessage = "Fødselsdato kan ikke være null")]
@@ -76,7 +76,7 @@ namespace GadevangGruppe3Razor.Models
         #region Methods
         public override string ToString()
         {
-            return $"Bruger ID: {BrugerId}, Brugernavn: {Brugernavn}, Adgangskode: {Adgangskode}, Fødselsdato: {Fødselsdato}, Køn: {Kønnet}, Email: {Email}, Telefonnummer: {Telefon}, Medlemskab: {MedlemskabsTypen}, Position: {Positionen}, Verificeret: {Verificeret}";
+            return $"Bruger ID: {BrugerId}, Brugernavn: {Brugernavn}, Fødselsdato: {Fødselsdato}, Køn: {Kønnet}, Email: {Email}, Telefonnummer: {Telefon}, Medlemskab: {MedlemskabsTypen}, Position: {Positionen}, Verificeret: {Verificeret}";
         }
         #endregion
     }
