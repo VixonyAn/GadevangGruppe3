@@ -26,6 +26,7 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
         public List<SelectListItem> BrugerSelectList { get; set; }
 
         public string MessageError { get; set; }
+        public string ErrorAntalBookinger {get;set;}
         #endregion
 
         public CreateBookingModel(IBookingService bookingService,IBaneService baneService,IBrugerService brugerService)
@@ -104,6 +105,16 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
                 }
                 Bruger1 = await _brugerService.GetBrugerByEmailAsync(Email);
                 Bruger2 = await _brugerService.GetBrugerByIdAsync(Bruger2ID);
+
+                DateOnly EndDay = Booking.Dato.AddDays(14);
+                List<Booking> EksisterendeBookinger = await _bookingService.GetBookingByBrugerId(Bruger1.BrugerId);
+
+                int antalBookingerIndenfor14Dage = EksisterendeBookinger.Where(b => b.Dato >= EndDay).Count();
+                if(antalBookingerIndenfor14Dage >= 4) 
+                {
+                    ErrorAntalBookinger = "Du kan ikke have mere end 4 bookinger indefor en 14 dags periode, fra dags dato";
+                }
+
                 await _bookingService.CreateBookingAsync(new Booking(Booking.BookingId, Booking.BaneId, Booking.Dato, StartTid, Bruger1.BrugerId, Bruger2.BrugerId, Booking.Beskrivelse));
                 return RedirectToPage("/BookingFolder/ShowAllBookinger", new { Bruger2ID = Bruger2ID });
             }
