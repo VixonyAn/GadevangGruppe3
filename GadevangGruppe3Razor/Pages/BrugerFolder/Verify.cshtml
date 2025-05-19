@@ -1,0 +1,45 @@
+﻿@page
+@model GadevangGruppe3Razor.Pages.BrugerFolder.VerifyModel
+@{
+	ViewData["Title"] = "Verificer Bruger";
+}
+
+@if (!Model.Bruger.Verificeret)
+{
+	<h3 style="text-align: center;">
+		@Model.CurrentBruger.Brugernavn du er ved at verificere medlemskabet på @Model.Bruger.Brugernavn
+		<br />
+		Ønsker du at fortsætte?
+	</h3>
+	<br />
+
+	<form method="post">
+		<span class="text-danger">@Model.MessageError</span>
+		<div class="form-group">
+			<input asp-for="@Model.Confirm" type="checkbox" id="Confirm" /> Bekræft at du ønsker at verificere brugeren
+		</div>
+		<div class="formgroup">
+			<input type="submit" value="Verificer" class="btn btn-primary" style="background-color: green; border-color: green;" />
+		</div>
+	</form>
+}
+else
+{
+	<h3 style="text-align: center;">
+		@Model.CurrentBruger.Brugernavn du er ved at nulstille verificeringen af medlemskabet på @Model.Bruger.Brugernavn
+		<br />
+		Ønsker du at fortsætte?
+	</h3>
+	<br />
+
+	<form method="post">
+		<span class="text-danger">@Model.MessageError</span>
+		<div class="form-group">
+			<input asp-for="@Model.Confirm" type="checkbox" id="Confirm" /> Bekræft at du ønsker at nulstille brugerens verificering
+		</div>
+		<div class="formgroup">
+			<input type="submit" value="Nulstil" class="btn btn-primary" style="background-color: #CF3535; border-color: #CF3535;" />
+		</div>
+	</form>
+}
+

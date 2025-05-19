@@ -56,7 +56,7 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
                 if (Bruger2ID != 0)
                 {
                     Bruger2 = await _brugerService.GetBrugerByIdAsync(Bruger2ID);
-                    if (Bruger2.Medlemskab == MedlemskabsType.Passivt_Medlemskab || Bruger2.Verificeret == false)
+                    if (Bruger2.MedlemskabsTypen == MedlemskabsType.Passivt_Medlemskab || Bruger2.Verificeret == false)
                     {
                         GæsteSpil = $"Da din partner gælder som en gæst, koster det 50 kr. pr. gæste time";
                     }

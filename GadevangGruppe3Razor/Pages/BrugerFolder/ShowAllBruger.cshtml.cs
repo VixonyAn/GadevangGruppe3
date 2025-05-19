@@ -13,7 +13,11 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         private IBrugerService _brugerService;
         
         public List<Bruger> Brugere { get; set; }
+        public Køn Køn { get; set; }
+        public MedlemskabsType MedlemskabsType { get; set; }
+        public Position Position { get; set; }
         [BindProperty(SupportsGet = true)] public string FilterCriteriaBrugernavn { get; set; }
+        [BindProperty(SupportsGet = true)] public string FilterCriteriaKøn { get; set; }
         [BindProperty(SupportsGet = true)] public string FilterCriteriaMedlemskab { get; set; }
         [BindProperty(SupportsGet = true)] public string FilterCriteriaPosition { get; set; }
         [BindProperty(SupportsGet = true)] public string SortOrder { get; set; }
@@ -37,10 +41,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                 else
                 {
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
-                    if (CurrentBruger.Positionen != Position.Admin)
-                    {
-                        return RedirectToPage("/Index");
-                    }
                 }
 				if (!string.IsNullOrEmpty(FilterCriteriaBrugernavn))
 				{
@@ -58,7 +58,8 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                 {
                     Brugere.Reverse();
                 }
-				FilterBrugerMedlemskab();
+                FilterBrugerKøn();
+                FilterBrugerMedlemskabsType();
 				FilterBrugerPosition();
 			}
             catch (Exception ex)
@@ -69,9 +70,14 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
             return Page();
 		}
 
-        public async Task OnGetFilter()
+        public async Task OnGetFilterAsync()
         {
             await OnGetAsync();
+        }
+
+        public IActionResult OnPostVerify()
+        {
+            return RedirectToPage("ShowAllBruger");
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int brugerId)
@@ -81,15 +87,24 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 
         public async Task<IActionResult> OnPostUpdateAsync(int brugerId)
         {
-            return RedirectToPage("Update", new { brugerId = brugerId });
+            return RedirectToPage("AdminUpdate", new { brugerId = brugerId });
         }
 
-        private void FilterBrugerMedlemskab()
+        private void FilterBrugerKøn()
+        {
+            if (!FilterCriteriaKøn.IsNullOrEmpty() && FilterCriteriaKøn != "All")
+            {
+                Køn criteriaPosition = (Køn)Enum.Parse(typeof(Køn), FilterCriteriaKøn);
+                Brugere = Brugere.FindAll(b => b.Kønnet == criteriaPosition);
+            }
+        }
+
+        private void FilterBrugerMedlemskabsType()
         {
             if (!FilterCriteriaMedlemskab.IsNullOrEmpty() && FilterCriteriaMedlemskab != "All")
             {
                 MedlemskabsType criteriaMedlemskab = (MedlemskabsType)Enum.Parse(typeof(MedlemskabsType), FilterCriteriaMedlemskab);
-				Brugere = Brugere.FindAll(b => b.Medlemskab == criteriaMedlemskab);
+				Brugere = Brugere.FindAll(b => b.MedlemskabsTypen == criteriaMedlemskab);
             }
         }
 
