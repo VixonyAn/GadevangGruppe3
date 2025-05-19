@@ -28,6 +28,8 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
         public string MessageError { get; set; }
 
         public string GæstMessage { get; set; }
+
+        public string ErrorAntalBookinger { get; set; }
         #endregion
 
         public CreateBookingFromShowAllModel(IBookingService bookingService, IBaneService baneService, IBrugerService brugerService)
@@ -92,19 +94,24 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
                     MessageError = "Du kan ikke vælge dig selv som partner";
                     return Page();
                 }
-                //if (Bruger2ID <= 0||Bruger2ID==null) 
-                //{
-                //    await _bookingService.CreateBookingAsync(new Booking(Booking.BookingId, Booking.BaneId, Booking.Dato, StartTid, Bruger1.BrugerId, Booking.Beskrivelse));
-                //}
-                //else 
-                //{                 
+              
                 Bruger2 = await _brugerService.GetBrugerByIdAsync(Bruger2ID);
                 if (Bruger2.MedlemskabsTypen == MedlemskabsType.Passivt_Medlemskab || Bruger2.Verificeret == false)
                 {
                     GæstMessage = "Da din partner gælder som en gæst, koster det 50 kr. pr. gæste time";
                 }
+
+                DateOnly EndDay = Booking.Dato.AddDays(14);
+                List<Booking> EksisterendeBookinger = await _bookingService.GetBookingByBrugerId(Bruger1.BrugerId);
+
+                int antalBookingerIndenfor14Dage = EksisterendeBookinger.Where(b => b.Dato >= Booking.Dato && b.Dato<= EndDay).Count();
+                if (antalBookingerIndenfor14Dage >= 4)
+                {
+                    ErrorAntalBookinger = "Du kan ikke have mere end 4 bookinger indefor en 14 dags periode, fra dags dato";
+                    return Page();
+                }
+
                 await _bookingService.CreateBookingAsync(new Booking(Booking.BookingId, Booking.BaneId, Booking.Dato, StartTid, Bruger1.BrugerId, Bruger2.BrugerId, Booking.Beskrivelse));
-                //}
 
                 return RedirectToPage("/BookingFolder/ShowAllBookinger");
             }
