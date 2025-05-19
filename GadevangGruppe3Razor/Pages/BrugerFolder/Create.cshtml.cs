@@ -65,6 +65,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 				else
                 {
                     MessageErrorInvalidAlder = "Du er for ung til at være et medlem";
+                    return Page();
                 }
                 Bruger.Positionen = Position.Medlem;
 				await _brugerService.CreateBrugerAsync(Bruger);

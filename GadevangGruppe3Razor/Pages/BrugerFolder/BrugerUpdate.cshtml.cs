@@ -17,6 +17,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 		[BindProperty(SupportsGet = true)] public string SelectKøn { get; set; }
 		public bool SelectCheck { get; set; }
 		public string MessageError { get; set; }
+		public string MessageEmptyPassword { get; set; }
 
 		public BrugerUpdateModel(IBrugerService brugerService)
 		{
@@ -47,6 +48,11 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 				if (!SelectCheck)
 				{
 					MessageError = "Du mangler at vælge en mulighed";
+					return Page();
+				}
+				if (CurrentBruger.Adgangskode.IsNullOrEmpty())
+				{
+					MessageEmptyPassword = "Du mangler at skrive en adgangskode";
 					return Page();
 				}
 				await _brugerService.BrugerUpdateBrugerAsync(brugerId, new Bruger(brugerId, CurrentBruger.Brugernavn, CurrentBruger.Adgangskode, CurrentBruger.Fødselsdato, CurrentBruger.Kønnet, CurrentBruger.Email, CurrentBruger.Telefon, BilledUrl, CurrentBruger.MedlemskabsTypen, CurrentBruger.Positionen, CurrentBruger.Verificeret));
