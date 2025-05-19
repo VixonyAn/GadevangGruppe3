@@ -13,20 +13,23 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
         #region Instance Fields
         private IBegivenhedService _begivenhedService;
         private IBrugerService _brugerService;
+        private ITilmeldBegivenhedService _tilmeldBegivenhedService;
         #endregion
 
         #region Properties
         public List<Begivenhed> Begivenheder { get; set; }
+        public List<TilmeldBegivenhed> Tilmeldinger { get; set; }
         [BindProperty] public Bruger CurrentBruger { get; set; }
         [BindProperty] public string UnverifiedWarning { get; set; }
         public string Email { get; set; }
         #endregion
 
         #region Constructor
-        public ShowAllBegivenhedModel(IBegivenhedService begivenhedService, IBrugerService brugerService)
+        public ShowAllBegivenhedModel(IBegivenhedService begivenhedService, IBrugerService brugerService, ITilmeldBegivenhedService tilmeldBegivenhedService)
         { // etablerer forbindelse til interface - dependency injection
             _begivenhedService = begivenhedService;
             _brugerService = brugerService;
+            _tilmeldBegivenhedService = tilmeldBegivenhedService;
         }
         #endregion
 
@@ -48,6 +51,7 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
                         UnverifiedWarning = $"Du kan desværre ikke tilmelde dig begivenheder lige nu, da din medlemskab er ikke verificeret.";
                     }
                     Begivenheder = await _begivenhedService.GetAllBegivenhedAsync(); // fylder listen med data
+                    Tilmeldinger = await _tilmeldBegivenhedService.GetAllTilmeldBAsync();
                 }
             }
             catch (Exception ex)
