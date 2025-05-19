@@ -17,7 +17,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         public MedlemskabsType MedlemskabsType { get; set; }
         public Position Position { get; set; }
         [BindProperty(SupportsGet = true)] public string FilterCriteriaBrugernavn { get; set; }
-        [BindProperty(SupportsGet = true)] public string FilterCriteriaKøn { get; set; }
         [BindProperty(SupportsGet = true)] public string FilterCriteriaMedlemskab { get; set; }
         [BindProperty(SupportsGet = true)] public string FilterCriteriaPosition { get; set; }
         [BindProperty(SupportsGet = true)] public string SortOrder { get; set; }
@@ -58,7 +57,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                 {
                     Brugere.Reverse();
                 }
-                FilterBrugerKøn();
                 FilterBrugerMedlemskabsType();
 				FilterBrugerPosition();
 			}
@@ -88,15 +86,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         public async Task<IActionResult> OnPostUpdateAsync(int brugerId)
         {
             return RedirectToPage("AdminUpdate", new { brugerId = brugerId });
-        }
-
-        private void FilterBrugerKøn()
-        {
-            if (!FilterCriteriaKøn.IsNullOrEmpty() && FilterCriteriaKøn != "All")
-            {
-                Køn criteriaPosition = (Køn)Enum.Parse(typeof(Køn), FilterCriteriaKøn);
-                Brugere = Brugere.FindAll(b => b.Kønnet == criteriaPosition);
-            }
         }
 
         private void FilterBrugerMedlemskabsType()
