@@ -34,6 +34,7 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
                 {
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
 				}
+                HoldListe = await _holdService.GetAllHoldAsync();
             }
             catch (Exception ex)
             {
