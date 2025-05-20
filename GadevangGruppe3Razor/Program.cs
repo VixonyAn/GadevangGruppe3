@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IBaneService, BaneService>();
 builder.Services.AddScoped<IBrugerService, BrugerService>();
+builder.Services.AddScoped<IHoldService, HoldService>();
 builder.Services.AddScoped<IBegivenhedService, BegivenhedService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<ITilmeldBegivenhedService, TilmeldBegivenhedService>();
