@@ -24,16 +24,17 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
             HoldId = holdId;
         }
 
-        public Task<IActionResult> OnPostAsync()
-        {
-            try
-            {
+        //public async Task<IActionResult> OnPostAsync()
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-            }
-        }
+        //    }
+        //    Page();
+        //}
     }
 }
