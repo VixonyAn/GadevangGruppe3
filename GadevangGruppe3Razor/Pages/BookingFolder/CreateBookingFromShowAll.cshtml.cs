@@ -74,7 +74,7 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
             BrugerSelectList.Add(new SelectListItem("Vælg din partner", "-1"));
             foreach (Bruger b in await _brugerService.GetAllBrugerAsync())
             {                
-                    SelectListItem selectListItem = new SelectListItem($"Brugernavn: {b.Brugernavn}, Email:{b.Email}", b.BrugerId.ToString());
+                    SelectListItem selectListItem = new SelectListItem($"Brugernavn: {b.Brugernavn}, Email: {b.Email}", b.BrugerId.ToString());
                     BrugerSelectList.Add(selectListItem);
             }
         }
