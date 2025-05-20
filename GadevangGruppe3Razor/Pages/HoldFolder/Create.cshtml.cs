@@ -9,8 +9,8 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
     {
         private IHoldService _holdService;
 
-        [BindProperty] Hold Hold { get; set; }
-        [BindProperty] int HoldId { get; set; }
+        [BindProperty] public Hold Hold { get; set; }
+        [BindProperty] public int HoldId { get; set; }
         public string MessageError { get; set; }
         
         public CreateModel(IHoldService holdService)
@@ -24,17 +24,18 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
             HoldId = holdId;
         }
 
-        //public async Task<IActionResult> OnPostAsync()
-        //{
-        //    try
-        //    {
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //    }
-        //    Page();
-        //}
+        public async Task<IActionResult> OnPostAsync()
+        {
+            try
+            {
+                await _holdService.CreateHoldAsync(Hold);
+                return RedirectToPage("ShowAllHold", new { HoldId = HoldId });
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+            }
+            return RedirectToPage("ShowAllHold", new { HoldId = HoldId });
+        }
     }
 }
