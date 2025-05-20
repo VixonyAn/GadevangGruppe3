@@ -7,7 +7,7 @@
 	ViewData["Title"] = "Show Profile";
 }
 
-<a asp-page="/BrugerFolder/Login" asp-page-handler="Logout" class="btn btn-primary" style="position: absolute; top: 10px; right: 10px; background-color: #BD3030; border-color: #BD3030;">Logout</a>
+<a asp-page="/BrugerFolder/Login" asp-page-handler="Logud" class="btn btn-primary" style="position: absolute; top: 10px; right: 10px; background-color: #BD3030; border-color: #BD3030;">Logout</a>
 
 <h3 style="text-align: center;">Velkommen til din profilside @Model.CurrentBruger.Brugernavn</h3>
 <br />
@@ -67,14 +67,14 @@
                     @foreach (Booking item in Model.BookingList)
                     {
                         <tr style="border-bottom: solid 1px; border-color: gray;">
-                            <td>@brugerService.GetBrugerByIdAsync(item.Bruger1).Result.Brugernavn</td>
+                            <td style="background-color: #E2EDF9;">@brugerService.GetBrugerByIdAsync(item.Bruger1).Result.Brugernavn</td>
                             <td style="background-color: #C7DDF4;">@item.BaneId</td>
-                            <td style="background-color: #C7DDF4;">@item.Dato</td>
-                            <td style="background-color: #E2EDF9;">@item.StartTid</td>
-                            <td style="background-color: #C7DDF4;">@brugerService.GetBrugerByIdAsync(@item.Bruger2).Result.Brugernavn</td>
+                            <td style="background-color: #E2EDF9;">@item.Dato</td>
+                            <td style="background-color: #C7DDF4;">@item.StartTid</td>
+                            <td style="background-color: #E2EDF9;">@brugerService.GetBrugerByIdAsync(@item.Bruger2).Result.Brugernavn</td>
                             @if (item.Bruger2 != Model.CurrentBruger.BrugerId)
                             {
-                                <td style="background-color: #C7DDF4;">
+                                <td style="background-color: #E2EDF9;">
 
                                     <a asp-page="/BookingFolder/DeleteBooking" asp-route-bookingId="@item.BookingId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">
                                         Slet
@@ -86,7 +86,7 @@
                             }
                             else
                             {
-                                <td style="background-color: #C7DDF4;">
+                                <td style="background-color: #E2EDF9;">
 
                                     <a class="btn btn primary" style="color: white; background-color:gray; border-color:gray;">
                                         Slet
@@ -122,7 +122,7 @@
                     @foreach (TilmeldBegivenhed item in Model.TilmeldBList)
                     {
                         <tr style="border-bottom: solid 1px; border-color: gray;">
-                            <td style="background-color: #C7DDF4;">@brugerService.GetBrugerByIdAsync(@item.BrugerId).Result.Brugernavn</td>
+                            <td style="background-color: #E2EDF9;">@brugerService.GetBrugerByIdAsync(@item.BrugerId).Result.Brugernavn</td>
                             <td style="background-color: #C7DDF4;">@begivenhedService.GetBegivenhedByIdAsync(@item.EventId).Result.Titel</td>
                             <td style="background-color: #E2EDF9;">@item.Kommentar</td>
                             <td style="background-color: #E2EDF9;">
