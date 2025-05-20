@@ -5,97 +5,86 @@
 	ViewData["Title"] = "Show All Bruger";
 }
 
-<h4>Antal brugerer: @Model.Brugere.Count</h4>
+@if (Model.CurrentBruger.Positionen == Position.Admin)
+{
+	<a asp-page="Create" class="btn btn primary" style="color: white; background-color: green;">Opret bruger</a>
+	<br />
 
-<a asp-page="Create" class="btn btn primary" style="color: white; background-color: green;">Opret bruger</a>
-<br />
+	<form asp-handler="Filter" method="get">
+		<p>
+			<div class="form-group">
+				<label class="control-label">Søg efter brugernavn:</label>
+				<input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.form.submit()" />
+				<br />
+				<label class="control-label">Filtrer Efter Medlemskabstype</label>
+				<select asp-for="@Model.FilterCriteriaMedlemskab" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
+					<option value="All">All</option>
+				</select>
+				<label class="control-label">Filtrer Efter Position</label>
+				<select asp-for="@Model.FilterCriteriaPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
+					<option value="All">All</option>
+				</select>
+				<br />
+				<input type="submit" value="Filter" class=btn btn-primary" style="color: white; background-color: grey; border-color: grey;" />
+			</div>
+		</p>
+	</form>
 
-<form asp-handler="Filter" method="get">
-	<p>
-		<div class="form-group">
-			<label class="control-label">Søg efter brugernavn:</label>
-			<input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.form.submit()" />
-			<br />
-			<label class="control-label">Filtrer Efter Medlemskabstype</label>
-			<select asp-for="@Model.FilterCriteriaMedlemskab" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
-				<option value="All">All</option>
-			</select>
-			<label class="control-label">Filtrer Efter Position</label>
-			<select asp-for="@Model.FilterCriteriaPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
-				<option value="All">All</option>
-			</select>
-			<br/>
-			<input type="submit" value="Filter" class=btn btn-primary" style="color: white; background-color: grey; border-color: grey;"/>
-		</div>
-	</p>
-</form>
+	<form method="get">
+		<p>
+			<div class=form-group>
+				<label class="custom-control-label">Sortér efter</label>
+				<input type="radio" asp-for="@Model.SortOrder" value="Brugernavn" onclick="this.form.submit()" />
+				<input type="radio" asp-for="@Model.SortOrder" value="BrugerId" onclick="this.form.submit()" />
+			</div>
+			<div class=form-group>
+				<label class="custom-control-label">Rækkefølge</label>
+				<select asp-for="@Model.SortOrderAscDesc" onchange="this.form.submit()">
+					<option value="Ascending">Stigende</option>
+					<option value="Descending">Faldende</option>
+				</select>
+			</div>
+		</p>
+	</form>
 
-<form method="get">
-	<p>
-		<div class=form-group>
-			<label class="custom-control-label">Sortér efter</label> 
-			<input type="radio" asp-for="@Model.SortOrder" value="Brugernavn" onclick="this.form.submit()" />Brugernavn</input>
-			<input type="radio" asp-for="@Model.SortOrder" value="BrugerId" onclick="this.form.submit()" />BrugerId</input>
-		</div>
-		<div class="form-group">
-			<label class="custom-control-label">Rækkefølge</label>
-			<select asp-for="SortOrderAscDesc" onchange="this.form.submit()">
-				<option value="Ascending">Stigende</option>
-				<option value="Descending">Faldende</option>
-			</select>
-		</div>
-	</p>
-</form>
-
-<table style="width:85" class="table">
-	<thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
-		<tr>
-			@if (Model.CurrentBruger.Positionen == Position.Admin)
-			{
+	<table style="width:85" class="table">
+		<thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
+			<tr>
 				<th>BrugerId</th>
-			}
-			<th>Brugernavn</th>
-			<th>Fødselsdato</th>
-			<th>Køn</th>
-			<th>Email</th>
-			<th>Telefon</th>
-			<th>Medlemskab</th>
-			<th>Position</th>
-			<th>Billed</th>
-			<th>Verificeret</th>
-			@if (Model.CurrentBruger.Positionen == Position.Admin)
-			{
+				<th>Brugernavn</th>
+				<th>Fødselsdato</th>
+				<th>Køn</th>
+				<th>Email</th>
+				<th>Telefon</th>
+				<th>Medlemskab</th>
+				<th>Position</th>
+				<th>Billed</th>
+				<th>Verificeret</th>
 				<th>Handlinger</th>
-			}
-		</tr>
-	</thead>
-	<tbody style="text-align: center; margin: 3px;">
-		@if (Model.Brugere.Count() != 0)
-		{
-			@foreach (Bruger items in Model.Brugere)
+			</tr>
+		</thead>
+		<tbody style="text-align: center; margin: 3px;">
+			@if (Model.Brugere.Count() != 0)
 			{
-				<tr style="border-bottom: solid 1px; border-color: gray;">
-					@if (Model.CurrentBruger.Positionen == Position.Admin)
-					{
+				@foreach (Bruger items in Model.Brugere)
+				{
+					<tr style="border-bottom: solid 1px; border-color: gray;">
 						<td style="background-color: #E2EDF9;">@items.BrugerId</td>
-					}
-					<td style="background-color: #C7DDF4;">@items.Brugernavn</td>
-					<td style="background-color: #E2EDF9;">@items.Fødselsdato</td>
-					<td style="background-color: #C7DDF4;">@items.Kønnet</td>
-					<td style="background-color: #E2EDF9;">@items.Email</td>
-					<td style="background-color: #C7DDF4;">@items.Telefon</td>
-					<td style="background-color: #E2EDF9;">@items.MedlemskabsTypen</td>
-					<td style="background-color: #C7DDF4;">@items.Positionen</td>
-					<td style="background-color: #E2EDF9;">
-						@if (items.BilledUrl != null)
-						{
-							<img src="~/images/@items.BilledUrl" width="100px"
-								height="100px" /> 
-						}
-					</td>
-					<td style="background-color: #E2EDF9;">@(items.Verificeret ? "Verificeret" : "") </td>
-					@if (Model.CurrentBruger.Positionen == Position.Admin)
-					{
+						<td style="background-color: #C7DDF4;">@items.Brugernavn</td>
+						<td style="background-color: #E2EDF9;">@items.Fødselsdato</td>
+						<td style="background-color: #C7DDF4;">@items.Kønnet</td>
+						<td style="background-color: #E2EDF9;">@items.Email</td>
+						<td style="background-color: #C7DDF4;">@items.Telefon</td>
+						<td style="background-color: #E2EDF9;">@items.MedlemskabsTypen</td>
+						<td style="background-color: #C7DDF4;">@items.Positionen</td>
+						<td style="background-color: #E2EDF9;">
+							@if (items.BilledUrl != null)
+							{
+								<img src="~/images/@items.BilledUrl" width="100px"
+									 height="100px" />
+							}
+						</td>
+						<td style="background-color: #E2EDF9;">@(items.Verificeret ? "Verificeret" : "") </td>
 						<td style="background-color: #E2EDF9;">
 							<a asp-page="AdminUpdate" asp-route-brugerId="@items.BrugerId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">
 								Opdater
@@ -131,9 +120,85 @@
 								</a>
 							}
 						</td>
-					}
-				</tr>
+					</tr>
+				}
 			}
-		}
-	</tbody>
-</table>
+		</tbody>
+	</table>
+}
+else
+{
+	<form asp-handler="Filter" method="get">
+		<p>
+			<div class="form-group">
+				<label class="control-label">Søg efter brugernavn:</label>
+				<input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.form.submit()" />
+				<br />
+				<label class="control-label">Filtrer Efter Medlemskabstype</label>
+				<select asp-for="@Model.FilterCriteriaMedlemskab" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
+					<option value="All">All</option>
+				</select>
+				<label class="control-label">Filtrer Efter Position</label>
+				<select asp-for="@Model.FilterCriteriaPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
+					<option value="All">All</option>
+				</select>
+				<br />
+				<input type="submit" value="Filter" class=btn btn-primary" style="color: white; background-color: grey; border-color: grey;" />
+			</div>
+		</p>
+	</form>
+
+	<form method="get">
+		<p>
+			<div class=form-group>
+				<label class="custom-control-label">Sortér efter</label>
+				<input type="radio" asp-for="@Model.SortOrder" value="Brugernavn" onclick="this.form.submit()" />
+			</div>
+			<div>
+				<label class="custom-control-label">Rækkefølge</label>
+				<select asp-for="SortOrderAscDesc" onchange="this.form.submit()">
+					<option value="Ascending">Stigende</option>
+					<option value="Descending">Faldende</option>
+				</select>
+			</div>
+		</p>
+	</form>
+
+	<table style="width:85" class="table">
+		<thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
+			<tr>
+				<th>Brugernavn</th>
+				<th>Køn</th>
+				<th>Email</th>
+				<th>Telefon</th>
+				<th>Medlemskab</th>
+				<th>Position</th>
+				<th>Billed</th>
+			</tr>
+		</thead>
+		<tbody style="text-align: center; margin: 3px;">
+			@if (Model.Brugere.Count() != 0)
+			{
+				@foreach (Bruger items in Model.Brugere)
+				{
+					<tr style="border-bottom: solid 1px; border-color: gray;">
+						<td style="background-color: #C7DDF4;">@items.Brugernavn</td>
+						<td style="background-color: #C7DDF4;">@items.Kønnet</td>
+						<td style="background-color: #E2EDF9;">@items.Email</td>
+						<td style="background-color: #C7DDF4;">@items.Telefon</td>
+						<td style="background-color: #E2EDF9;">@items.MedlemskabsTypen</td>
+						<td style="background-color: #C7DDF4;">@items.Positionen</td>
+						<td style="background-color: #E2EDF9;">
+							@if (items.BilledUrl != null)
+							{
+								<img src="~/images/@items.BilledUrl" width="100px"
+									 height="100px" />
+							}
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+}
+
