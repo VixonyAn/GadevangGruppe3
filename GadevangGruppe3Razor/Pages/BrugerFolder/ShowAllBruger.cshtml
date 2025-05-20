@@ -5,6 +5,8 @@
 	ViewData["Title"] = "Show All Bruger";
 }
 
+<h4>Antal brugere: @Model.Brugere.Count</h4>
+
 @if (Model.CurrentBruger.Positionen == Position.Admin)
 {
 	<a asp-page="Create" class="btn btn primary" style="color: white; background-color: green;">Opret bruger</a>
