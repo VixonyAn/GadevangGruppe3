@@ -36,6 +36,11 @@ namespace GadevangGruppe3Razor.Models
 		[Required(ErrorMessage = "Maximum medlemstal kan ikke være null")]
 		public int MaxMedlemstal { get; set; }
 
+		public Hold()
+		{
+
+		}
+
         public Hold(int holdId, string holdnavn, string instruktørnavn, DateOnly startDato, DateOnly slutDato, string tid, string sted, double pris, int maxMedlemstal)
         {
 			HoldId = holdId;

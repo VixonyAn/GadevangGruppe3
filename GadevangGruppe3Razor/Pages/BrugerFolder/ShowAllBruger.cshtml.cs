@@ -13,7 +13,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         private IBrugerService _brugerService;
         
         public List<Bruger> Brugere { get; set; }
-        public Køn Køn { get; set; }
         public MedlemskabsType MedlemskabsType { get; set; }
         public Position Position { get; set; }
         [BindProperty(SupportsGet = true)] public string FilterCriteriaBrugernavn { get; set; }

@@ -1,0 +1,64 @@
+﻿@page
+@using GadevangGruppe3Razor.Models;
+@model GadevangGruppe3Razor.Pages.HoldFolder.ShowAllHoldModel
+@{
+	ViewData["Title"] = "Show All Hold";
+}
+
+<h4>Antal hold: @Model.HoldListe.Count</h4>
+
+@if (Model.CurrentBruger.Positionen == Position.Admin)
+{
+	<a asp-page="Create" class="btn btn primary" style="color: white; background-color: green;">Opret hold</a>
+}
+<br/>
+
+@* <form method="get">
+
+</form> *@
+
+<table style="width:85" class="table">
+	<thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
+		<tr>
+			@if (Model.CurrentBruger.Positionen == Position.Admin)
+			{
+				<th>HoldId</th>
+			}
+			<th>Holdnavn</th>
+			<th>Instruktørnavn</th>
+			<th>Start Dato</th>
+			<th>Slut Dato</th>
+			<th>Tid</th>
+			<th>Sted</th>
+			<th>Pris</th>
+			<th>Max Medlemstal</th>
+			@if (Model.CurrentBruger.Positionen == Position.Admin)
+			{
+				<th>Handlinger</th>
+			}
+		</tr>
+	</thead>
+	<tbody style="text-align: center; margin: 3px;">
+		@if (Model.HoldListe.Count() != 0)
+		{
+			@foreach (Hold items in Model.HoldListe)
+			{
+				<tr style="border-bottom: solid 1px; border-color: gray;">
+					@if (Model.CurrentBruger.Positionen == Position.Admin)
+					{
+						<td style="background-color: #E2EDF9;">@items.HoldId</td>
+					}
+					<td style="background-color: #C7DDF4;">@items.Holdnavn</td>
+					<td style="background-color: #E2EDF9;">@items.Instruktørnavn</td>
+					<td style="background-color: #C7DDF4;">@items.StartDato</td>
+					<td style="background-color: #E2EDF9;">@items.SlutDato</td>
+					<td style="background-color: #C7DDF4;">@items.Tid</td>
+					<td style="background-color: #E2EDF9;">@items.Sted</td>
+					<td style="background-color: #C7DDF4;">@items.Pris</td>
+					<td style="background-color: #E2EDF9;">@items.MaxMedlemstal</td>
+					<td style="background-color: #E2EDF9;"></td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>

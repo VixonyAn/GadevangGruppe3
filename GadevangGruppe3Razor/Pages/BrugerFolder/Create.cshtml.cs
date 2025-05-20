@@ -27,6 +27,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
             _brugerService = brugerService;
             _webHostEnvironment = webHostEnvironment;
         }
+
         public void OnGet(int brugerId)
         {
             Bruger = new Bruger();

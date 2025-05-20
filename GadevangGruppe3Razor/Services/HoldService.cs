@@ -150,7 +150,7 @@ namespace GadevangGruppe3Razor.Services
 				{
 					SqlCommand command = new SqlCommand(selectSql + " WHERE HoldId = @HoldId", connection);
 					await command.Connection.OpenAsync();
-					command.Parameters.AddWithValue("@BrugerId", holdId);
+					command.Parameters.AddWithValue("@HoldId", holdId);
 					SqlDataReader reader = await command.ExecuteReaderAsync();
 					if (await reader.ReadAsync())
 					{
