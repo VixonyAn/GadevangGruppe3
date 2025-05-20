@@ -1,4 +1,6 @@
-﻿namespace GadevangGruppe3Razor.Interfaces
+﻿using GadevangGruppe3Razor.Models;
+
+namespace GadevangGruppe3Razor.Interfaces
 {
 	public interface IHold
 	{
@@ -11,5 +13,6 @@
 		string Sted { get; set; }
 		double Pris { get; set; }
 		int MaxMedlemstal { get; set; }
+		List<Bruger> TilmeldteBrugere { get; set; }
 	}
 }

@@ -23,7 +23,7 @@ namespace GadevangGruppe3Razor.Models
 		public DateOnly SlutDato { get; set; }
 
 		[Required(ErrorMessage = "Tid kan ikke være null")]
-		[StringLength(7, MinimumLength = 17, ErrorMessage = "Tid kan ikke være kortere eller længere end 17 karaktere")]
+		[StringLength(17, MinimumLength = 17, ErrorMessage = "Tid kan ikke være kortere eller længere end 17 karaktere")]
 		public string Tid { get; set; }
 
 		[Required(ErrorMessage = "Sted kan ikke være null")]
@@ -35,10 +35,13 @@ namespace GadevangGruppe3Razor.Models
 
 		[Required(ErrorMessage = "Maximum medlemstal kan ikke være null")]
 		public int MaxMedlemstal { get; set; }
+		
+		[Required(ErrorMessage = "Listen af tilmeldte brugere kan ikke være null")]
+		public List<Bruger> TilmeldteBrugere { get; set; }
 
 		public Hold()
 		{
-
+			TilmeldteBrugere = new List<Bruger>();
 		}
 
         public Hold(int holdId, string holdnavn, string instruktørnavn, DateOnly startDato, DateOnly slutDato, string tid, string sted, double pris, int maxMedlemstal)
@@ -52,6 +55,7 @@ namespace GadevangGruppe3Razor.Models
 			Sted = sted;
 			Pris = pris;
 			MaxMedlemstal = maxMedlemstal;
+			TilmeldteBrugere = new List<Bruger>();
         }
 
 		public override string ToString()

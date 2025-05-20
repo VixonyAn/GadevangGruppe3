@@ -9,7 +9,7 @@ namespace GadevangGruppe3Razor.Services
 	{
 		private String connectionString = Secret.ConnectionString;
 		private string selectSql = "Select HoldId, Holdnavn, Instruktørnavn, StartDato, SlutDato, Tid, Sted, Pris, MaxMedlemstal from Hold";
-		private string insertSql = "Insert into Hold (HoldId, Holdnavn, Instruktørnavn, StartDato, SlutDato, Tid, Sted, Pris, MaxMedlemskab) values (@HoldId, @Holdnavn, @Instruktørnavn, @StartDato, @SlutDato, @Tid, @Sted, @Pris, @MaxMedlemskab)";
+		private string insertSql = "Insert into Hold (HoldId, Holdnavn, Instruktørnavn, StartDato, SlutDato, Tid, Sted, Pris, MaxMedlemstal) values (@HoldId, @Holdnavn, @Instruktørnavn, @StartDato, @SlutDato, @Tid, @Sted, @Pris, @MaxMedlemstal)";
 		private string deleteSql = "Delete from Hold where HoldId = @HoldId";
 
 		public async Task<bool> CreateHoldAsync(Hold hold)

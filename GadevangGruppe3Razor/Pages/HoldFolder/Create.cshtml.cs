@@ -8,12 +8,13 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
     public class CreateModel : PageModel
     {
         private IHoldService _holdService;
+        private IBrugerService _brugerService;
 
         [BindProperty] public Hold Hold { get; set; }
         [BindProperty] public int HoldId { get; set; }
         public string MessageError { get; set; }
-        
-        public CreateModel(IHoldService holdService)
+
+        public CreateModel(IHoldService holdService, IBrugerService brugerService)
         {
             _holdService = holdService;
         }
@@ -28,8 +29,23 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
         {
             try
             {
-                await _holdService.CreateHoldAsync(Hold);
-                return RedirectToPage("ShowAllHold", new { HoldId = HoldId });
+				await _holdService.CreateHoldAsync(Hold);
+				List<Bruger> brugerListe = await _brugerService.GetAllBrugerAsync();
+				Bruger? instruktør = brugerListe.Find(b => b.Brugernavn == Hold.Instruktørnavn);
+                if (instruktør != null)
+                {
+					if (!Hold.TilmeldteBrugere.Contains(instruktør))
+					{
+						MessageError = "Den angivede holdinstruktør er ikke tilmeldt holdet";
+						return Page();
+					}
+					return RedirectToPage("ShowAllHold", new { HoldId = HoldId });
+				}
+                else
+                {
+                    MessageError = "Den angivede holdinstruktør blev ikke fundet i systemet";
+                    return Page();
+                }
             }
             catch (Exception ex)
             {

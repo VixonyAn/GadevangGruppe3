@@ -13,7 +13,6 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
 
         [BindProperty] public List<Hold> HoldListe { get; set; }
         [BindProperty] public Bruger CurrentBruger { get; set; }
-        [BindProperty] public List<Bruger> TilmeldteBrugere { get; set; }
         public string Email { get; set; }
 
         public ShowAllHoldModel(IHoldService holdService, IBrugerService brugerService)
@@ -42,6 +41,16 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
                 ViewData["ErrorMessage"] = ex.Message;
             }
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostTilmeldAsync(int holdId)
+        {
+            return RedirectToPage("Tilmeld", new { holdId = holdId });
+        }
+
+        public async Task<IActionResult> OnPostAfmeldAsync(int holdId)
+        {
+            return RedirectToPage("Afmeld", new { holdId = holdId });
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int holdId)
