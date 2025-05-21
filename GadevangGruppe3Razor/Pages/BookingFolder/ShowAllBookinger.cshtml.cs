@@ -28,6 +28,7 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
         public Bruger CurrentBruger { get; set; }
         [BindProperty] public Bruger Bruger2 { get; set; }
         public string GæsteSpil {get; set;}
+        public string UnverifiedWarning { get; set; }
         #endregion
 
         public ShowAllBookingerModel(IBookingService bookingService, IBaneService baneservice, IBrugerService brugerService)
@@ -52,6 +53,10 @@ namespace GadevangGruppe3Razor.Pages.BookingFolder
                 else
                 {
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
+                    if (!CurrentBruger.Verificeret)
+                    {
+                        UnverifiedWarning = $"Du kan desværre ikke booke en bane, da dit medlemskab ikke er verificeret.";
+                    }
                 }
                 if (Bruger2ID != 0)
                 {

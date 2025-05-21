@@ -7,13 +7,9 @@
 }
 
 <h4> BookingOversigt: @Model.ValgtDato</h4>
-@* @if (Model.Bookinger.Count() != 0)
-{
-    @foreach (Booking item in Model.Bookinger)
-    {
-        @item.ToString()
-    }
-} *@
+<span class="text-danger">@Model.UnverifiedWarning</span>
+
+
 <span style="text-size-adjust:15 px" class="text-danger">@Model.GæsteSpil</span>
 <br />
 
