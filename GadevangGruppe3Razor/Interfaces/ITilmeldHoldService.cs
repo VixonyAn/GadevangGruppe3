@@ -30,7 +30,7 @@ namespace GadevangGruppe3Razor.Interfaces
         /// <param name="brugerId">BrugerId man søger efter</param>
         /// <param name="holdId">HoldId man søger efter</param>
         /// <returns>Tilmeld objekt</returns>
-        Task<TilmeldHold?> GetTilmeldBByIdAsync(int brugerId, int holdId);
+        Task<TilmeldHold?> GetTilmeldHByIdAsync(int brugerId, int holdId);
 
         /// <summary>
         /// Indsætter en ny Tilmelding (Hold) i databasen
