@@ -11,6 +11,7 @@ builder.Services.AddScoped<IBrugerService, BrugerService>();
 builder.Services.AddScoped<IHoldService, HoldService>();
 builder.Services.AddScoped<IBegivenhedService, BegivenhedService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<ITilmeldHoldService, TilmeldHoldService>();
 builder.Services.AddScoped<ITilmeldBegivenhedService, TilmeldBegivenhedService>();
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();

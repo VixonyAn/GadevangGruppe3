@@ -1,5 +1,6 @@
 ﻿@page
 @using GadevangGruppe3Razor.Models;
+@inject GadevangGruppe3Razor.Interfaces.IHoldService holdService;
 @inject GadevangGruppe3Razor.Interfaces.IBrugerService brugerService;
 @inject GadevangGruppe3Razor.Interfaces.IBegivenhedService begivenhedService;
 @model GadevangGruppe3Razor.Pages.BrugerFolder.ProfileModel
@@ -46,7 +47,7 @@
     </div>
 
     <div class="tables" style="">
-        <!-- #region Booking Tabeller -->
+        <!-- #region Booking Tabel -->
         <h4>Dine Bookinger</h4>
         <table>
             <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
@@ -102,7 +103,39 @@
         </table>
         <!-- #endregion -->
         <br />
-        <!-- #region Tilmeld Tabeller -->
+        <!-- #region Tilmeld Hold Tabel -->
+        <h4>Dine Tilmeldte Hold</h4>
+        <table style="width: 100%">
+            <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
+                <tr>
+                    <th>Hold Navn</th>
+                    <th>Instruktør</th>
+                    <th>Start Dato</th>
+                    <th>Slut Dato</th>
+                    <th>Tidsrum</th>
+                    <th>Sted</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center; margin: 3px;">
+                @if (Model.TilmeldHList.Count() != 0)
+                {
+                    @foreach (TilmeldHold item in Model.TilmeldHList)
+                    {
+                        <tr style="border-bottom: solid 1px; border-color: gray;">
+                            <td style="background-color: #E2EDF9;">@holdService.GetHoldByIdAsync(@item.HoldId).Result.Holdnavn</td>
+                            <td style="background-color: #C7DDF4;">@holdService.GetHoldByIdAsync(@item.HoldId).Result.Instruktørnavn</td>
+                            <td style="background-color: #E2EDF9;">@holdService.GetHoldByIdAsync(@item.HoldId).Result.StartDato</td>
+                            <td style="background-color: #C7DDF4;">@holdService.GetHoldByIdAsync(@item.HoldId).Result.SlutDato</td>
+                            <td style="background-color: #E2EDF9;">@holdService.GetHoldByIdAsync(@item.HoldId).Result.Tid</td>
+                            <td style="background-color: #C7DDF4;">@holdService.GetHoldByIdAsync(@item.HoldId).Result.Sted</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <!-- #endregion -->
+        <br />
+        <!-- #region Tilmeld Begivenhed Tabel -->
         <h4>Dine Tilmeldinger</h4>
         <table>
             <thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">

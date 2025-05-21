@@ -9,30 +9,35 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
     public class ProfileModel : PageModel
     {
         #region Instance Fields
+        private IHoldService _holdService;
         private IBrugerService _brugerService;
         private IBookingService _bookingService;
         private IBegivenhedService _begivenhedService;
+        private ITilmeldHoldService _tilmeldHoldService;
         private ITilmeldBegivenhedService _tilmeldBegivenhedService;
         #endregion
 
         #region Properties
         
         public List<TilmeldBegivenhed> TilmeldBList { get; set; }
+        public List<TilmeldHold> TilmeldHList { get; set; }
         public List<Booking> BookingList { get; set; }
 		[BindProperty] public Bruger CurrentBruger { get; set; }
 		[BindProperty] public string Email { get; set; }
-        [BindProperty] public int EventId { get; set; }
         [BindProperty] public Begivenhed Begivenhed { get; set; }
+        [BindProperty] public Hold Hold { get; set; }
         public string ConfirmRemoved { get; set; }
         #endregion
 
         #region Constructor
-        public ProfileModel(IBrugerService brugerService, IBookingService bookingService, IBegivenhedService begivenhedService, ITilmeldBegivenhedService tilmeldBegivenhedService)
+        public ProfileModel(IHoldService holdService, IBrugerService brugerService, IBookingService bookingService, IBegivenhedService begivenhedService, ITilmeldHoldService tilmeldHoldService, ITilmeldBegivenhedService tilmeldBegivenhedService)
         {
-            _tilmeldBegivenhedService = tilmeldBegivenhedService;
-            _begivenhedService = begivenhedService;
-            _bookingService = bookingService;
+            _holdService = holdService;
             _brugerService = brugerService;
+            _bookingService = bookingService;
+            _begivenhedService = begivenhedService;
+            _tilmeldHoldService = tilmeldHoldService;
+            _tilmeldBegivenhedService = tilmeldBegivenhedService;
         }
         #endregion
 
@@ -54,15 +59,17 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                         ConfirmRemoved = $"Du har nu meldt adbud til {Begivenhed.Titel}";
                     }
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
-                    TilmeldBList = await _tilmeldBegivenhedService.GetTilmeldBByBrugerIdAsync(CurrentBruger.BrugerId);
                     BookingList = await _bookingService.GetBookingByBrugerId(CurrentBruger.BrugerId);
+                    TilmeldHList = await _tilmeldHoldService.GetTilmeldHByBrugerIdAsync(CurrentBruger.BrugerId);
+                    TilmeldBList = await _tilmeldBegivenhedService.GetTilmeldBByBrugerIdAsync(CurrentBruger.BrugerId);
                 }
             }
             catch (Exception ex)
             {
                 CurrentBruger = new Bruger();
-                TilmeldBList = new List<TilmeldBegivenhed>();
                 BookingList = new List<Booking>();
+                TilmeldHList = new List<TilmeldHold>();
+                TilmeldBList = new List<TilmeldBegivenhed>();
                 ViewData["Title"] = ex.Message;
             }
             return Page();

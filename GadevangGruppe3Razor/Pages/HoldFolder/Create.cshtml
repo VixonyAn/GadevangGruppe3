@@ -4,7 +4,7 @@
 	ViewData["Title"] = "Create Hold";
 }
 
-<h3>Opret Bruger</h3>
+<h3>Opret Hold</h3>
 
 <form method="post" enctype="multipart/form-data">
 	<div class="form-group">
@@ -43,6 +43,7 @@
 		<label asp-for="@Model.Hold.MaxMedlemstal" class="control-label"></label>
 		<input asp-for="@Model.Hold.MaxMedlemstal" style="display: br; width: 20%;" class="form-control" />
 	</div>
+	<br />
 	<span class="text-danger">@Model.MessageError</span>
 	<div class="formgroup">
 		<input type="submit" value="Opret" class="btn btn-primary" style="background-color: green; border-color: green;" />
