@@ -23,6 +23,8 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
         {
             Hold = new Hold();
             HoldId = holdId;
+            Hold.StartDato= DateOnly.FromDateTime(DateTime.Now);
+            Hold.SlutDato= DateOnly.FromDateTime(DateTime.Now);
         }
 
         public async Task<IActionResult> OnPostAsync()
