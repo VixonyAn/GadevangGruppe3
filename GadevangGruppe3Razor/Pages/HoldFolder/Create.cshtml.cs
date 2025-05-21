@@ -2,6 +2,7 @@ using GadevangGruppe3Razor.Models;
 using GadevangGruppe3Razor.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Linq.Expressions;
 
 namespace GadevangGruppe3Razor.Pages.HoldFolder
 {
@@ -14,6 +15,7 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
         [BindProperty] public int HoldId { get; set; }
         [BindProperty] public List<Bruger> Brugere { get; set; }
         public string MessageError { get; set; }
+        public string MessageInvalidMaxMedlemstal { get; set; }
 
         public CreateModel(IHoldService holdService, IBrugerService brugerService)
         {
@@ -36,15 +38,23 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
 				await _holdService.CreateHoldAsync(Hold);
 				Brugere = await _brugerService.GetAllBrugerAsync();
 				Bruger? instruktør = Brugere.Find(b => b.Brugernavn == Hold.Instruktørnavn);
-                if (instruktør != null)
+				if (Hold.MaxMedlemstal >= 5 && Hold.MaxMedlemstal <= 9)
                 {
-                    return RedirectToPage("ShowAllHold", new { HoldId = HoldId });
+					if (instruktør != null)
+					{
+						return RedirectToPage("ShowAllHold", new { HoldId = HoldId });
+					}
+					else
+					{
+						MessageError = "Den angivede holdinstruktør blev ikke fundet i systemet";
+						return Page();
+					}
 				}
-                else
+				else
                 {
-                    MessageError = "Den angivede holdinstruktør blev ikke fundet i systemet";
+                    MessageInvalidMaxMedlemstal = "Det angivede maximale medlemstal er uden for det lovlige interval";
                     return Page();
-                }
+				}
             }
             catch (Exception ex)
             {

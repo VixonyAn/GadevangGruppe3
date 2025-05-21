@@ -29,7 +29,14 @@ namespace GadevangGruppe3Razor.Services
 					command.Parameters.AddWithValue("@Tid", hold.Tid);
 					command.Parameters.AddWithValue("@Sted", hold.Sted);
 					command.Parameters.AddWithValue("@Pris", hold.Pris);
-					command.Parameters.AddWithValue("@MaxMedlemstal", hold.MaxMedlemstal);
+					if (hold.MaxMedlemstal >= 5 && hold.MaxMedlemstal <= 9)
+					{
+						command.Parameters.AddWithValue("@MaxMedlemstal", hold.MaxMedlemstal);
+					}
+					else
+					{
+						throw new Exception("Det maximale medlemstal er udenfor det lovlige interval");
+					}
 					int rowsAffected = command.ExecuteNonQuery();
 					if (rowsAffected > 0)
 					{
