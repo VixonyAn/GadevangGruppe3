@@ -23,7 +23,7 @@ namespace GadevangGruppe3Razor.Services
 					await command.Connection.OpenAsync();
 					command.Parameters.AddWithValue("@HoldId", hold.HoldId);
 					command.Parameters.AddWithValue("@Holdnavn", hold.Holdnavn);
-					command.Parameters.AddWithValue("@Instruktørnavn", hold.Holdnavn);
+					command.Parameters.AddWithValue("@Instruktørnavn", hold.Instruktørnavn);
 					command.Parameters.AddWithValue("@StartDato", hold.StartDato);
 					command.Parameters.AddWithValue("@SlutDato", hold.SlutDato);
 					command.Parameters.AddWithValue("@Tid", hold.Tid);

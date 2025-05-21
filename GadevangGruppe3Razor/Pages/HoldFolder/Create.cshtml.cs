@@ -12,18 +12,20 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
 
         [BindProperty] public Hold Hold { get; set; }
         [BindProperty] public int HoldId { get; set; }
+        [BindProperty] public List<Bruger> Brugere { get; set; }
         public string MessageError { get; set; }
 
         public CreateModel(IHoldService holdService, IBrugerService brugerService)
         {
             _holdService = holdService;
+            _brugerService = brugerService;
         }
 
-        public void OnGet(int holdId)
+        public async Task OnGetAsync(int holdId)
         {
             Hold = new Hold();
             HoldId = holdId;
-            Hold.StartDato= DateOnly.FromDateTime(DateTime.Now);
+			Hold.StartDato= DateOnly.FromDateTime(DateTime.Now);
             Hold.SlutDato= DateOnly.FromDateTime(DateTime.Now);
         }
 
@@ -32,14 +34,10 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
             try
             {
 				await _holdService.CreateHoldAsync(Hold);
-				List<Bruger> brugerListe = await _brugerService.GetAllBrugerAsync();
-				Bruger? instruktør = brugerListe.Find(b => b.Brugernavn == Hold.Instruktørnavn);
+				Brugere = await _brugerService.GetAllBrugerAsync();
+				Bruger? instruktør = Brugere.Find(b => b.Brugernavn == Hold.Instruktørnavn);
                 if (instruktør != null)
                 {
-                    //if (!Hold.TilmeldteBrugere.Contains(instruktør))
-                    //               {
-                    //                   Hold.TilmeldteBrugere.Add(instruktør);
-                    //               }
                     return RedirectToPage("ShowAllHold", new { HoldId = HoldId });
 				}
                 else

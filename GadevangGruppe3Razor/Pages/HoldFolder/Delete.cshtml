@@ -4,3 +4,57 @@
 	ViewData["Title"] = "Delete";
 }
 
+<head>
+	<style>
+		div {width:50}
+	</style>
+</head>
+
+<h3>Slet Hold</h3>
+
+<form method="post">
+	<br />
+	<div class="form-group">
+		<label asp-for="@Model.Hold.HoldId" class="control-label"></label>
+		<input asp-for="@Model.Hold.HoldId" readonly class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.Holdnavn" class="control-label"></label>
+		<input asp-for="@Model.Hold.Holdnavn" readonly class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.Instruktørnavn" class="control-label"></label>
+		<input asp-for="@Model.Hold.Instruktørnavn" readonly class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.StartDato" class="control-label"></label>
+		<input asp-for="@Model.Hold.StartDato" readonly class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.SlutDato" class="control-label"></label>
+		<input asp-for="@Model.Hold.SlutDato" readonly class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.Tid" class="control-label"></label>
+		<input asp-for="@Model.Hold.Tid" readonly class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.Sted" class="control-label"></label>
+		<input asp-for="@Model.Hold.Sted" readonly class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.Pris" class="control-label"></label>
+		<input asp-for="@Model.Hold.Pris" readonly class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.MaxMedlemstal" class="control-label"></label>
+		<input asp-for="@Model.Hold.MaxMedlemstal" readonly class="form-control" />
+	</div>
+	<span class="text-danger">@Model.MessageError</span>
+	<div class="form-group">
+		<input asp-for="@Model.Confirm" type="checkbox" id="Confirm" /> Bekræft at du ønsker at slette brugeren
+	</div>
+	<div class="formgroup">
+		<input type="submit" value="Slet" class="btn btn-primary" style="background-color: #CF3535; border-color: #CF3535" />
+	</div>
+</form>
