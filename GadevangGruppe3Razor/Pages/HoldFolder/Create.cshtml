@@ -1,0 +1,50 @@
+﻿@page
+@model GadevangGruppe3Razor.Pages.HoldFolder.CreateModel
+@{
+	ViewData["Title"] = "Create Hold";
+}
+
+<h3>Opret Bruger</h3>
+
+<form method="post" enctype="multipart/form-data">
+	<div class="form-group">
+		<label asp-for="@Model.Hold.HoldId" class="control-label"></label>
+		<input asp-for="@Model.Hold.HoldId" style="display: br; width: 20%;" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.Holdnavn" class="control-label"></label>
+		<input asp-for="@Model.Hold.Holdnavn" style="display: br; width: 20%;" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.Instruktørnavn" class="control-label"></label>
+		<input asp-for="@Model.Hold.Instruktørnavn" style="display: br; width: 20%;" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.StartDato" class="control-label"></label>
+		<input asp-for="@Model.Hold.StartDato" style="display: br; width: 20%;" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.SlutDato" class="control-label"></label>
+		<input asp-for="@Model.Hold.SlutDato" style="display: br; width: 20%;" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.Tid" class="control-label"></label>
+		<input asp-for="@Model.Hold.Tid" style="display: br; width: 20%;" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.Sted" class="control-label"></label>
+		<input asp-for="@Model.Hold.Sted" style="display: br; width: 20%;" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.Pris" class="control-label"></label>
+		<input asp-for="@Model.Hold.Pris" style="display: br; width: 20%;" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="@Model.Hold.MaxMedlemstal" class="control-label"></label>
+		<input asp-for="@Model.Hold.MaxMedlemstal" style="display: br; width: 20%;" class="form-control" />
+	</div>
+	<span class="text-danger">@Model.MessageError</span>
+	<div class="formgroup">
+		<input type="submit" value="Opret" class="btn btn-primary" style="background-color: green; border-color: green;" />
+	</div>
+</form>

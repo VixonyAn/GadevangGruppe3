@@ -2,105 +2,107 @@
 @using GadevangGruppe3Razor.Models;
 @model GadevangGruppe3Razor.Pages.BrugerFolder.ShowAllBrugerModel
 @{
-	ViewData["Title"] = "ShowAllBruger";
+	ViewData["Title"] = "Show All Bruger";
 }
 
-<h4>Antal brugerer: @Model.Brugere.Count</h4>
+<h4>Antal brugere: @Model.Brugere.Count</h4>
 
-<a asp-page="Create" class="btn btn primary" style="color: white; background-color: green;">Opret bruger</a>
-<br />
+@if (Model.CurrentBruger.Positionen == Position.Admin)
+{
+	<a asp-page="Create" class="btn btn primary" style="color: white; background-color: green;">Opret bruger</a>
+	<br />
 
-<form asp-handler="Filter" method="get">
-	<p>
-		<div class="form-group">
-			<label class="control-label">Søg efter brugernavn:</label>
-			<input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.form.submit()" />
-			<br />
-			<label class="control-label">Filtrer Efter Køn</label>
-			<select asp-for="@Model.FilterCriteriaKøn" asp-items="Html.GetEnumSelectList<Køn>()" class="form-control">
-				<option value="All">All</option>
-			</select>
-			<label class="control-label">Filtrer Efter Medlemskabstype</label>
-			<select asp-for="@Model.FilterCriteriaMedlemskab" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
-				<option value="All">All</option>
-			</select>
-			<label class="control-label">Filtrer Efter Position</label>
-			<select asp-for="@Model.FilterCriteriaPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
-				<option value="All">All</option>
-			</select>
-			<br/>
-			<input type="submit" value="Filter" class=btn btn-primary" style="color: white; background-color: grey; border-color: grey;"/>
-		</div>
-	</p>
-</form>
+	<form asp-handler="Filter" method="get">
+		<p>
+			<div class="form-group">
+				<label class="control-label">Søg efter brugernavn:</label>
+				<input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.form.submit()" />
+				<br />
+				<label class="control-label">Filtrer Efter Medlemskabstype</label>
+				<select asp-for="@Model.FilterCriteriaMedlemskab" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
+					<option value="All">All</option>
+				</select>
+				<label class="control-label">Filtrer Efter Position</label>
+				<select asp-for="@Model.FilterCriteriaPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
+					<option value="All">All</option>
+				</select>
+				<br />
+				<input type="submit" value="Filter" class=btn btn-primary" style="color: white; background-color: grey; border-color: grey;" />
+			</div>
+		</p>
+	</form>
 
-<form method="get">
-	<p>
-		<div class=form-group>
-			<label class="custom-control-label">Sortér efter</label> 
-			<input type="radio" asp-for="@Model.SortOrder" value="Brugernavn" onclick="this.form.submit()" />Brugernavn</input>
-			<input type="radio" asp-for="@Model.SortOrder" value="BrugerId" onclick="this.form.submit()" />BrugerId</input>
-		</div>
-		<div class="form-group">
-			<label class="custom-control-label">Rækkefølge</label>
-			<select asp-for="SortOrderAscDesc" onchange="this.form.submit()">
-				<option value="Ascending">Stigende</option>
-				<option value="Descending">Faldende</option>
-			</select>
-		</div>
-	</p>
-</form>
+	<form method="get">
+		<p>
+			<div class=form-group>
+				<label class="custom-control-label">Sortér efter</label>
+				<input type="radio" asp-for="@Model.SortOrder" value="Brugernavn" onclick="this.form.submit()" />
+				Brugernavn
+				<input type="radio" asp-for="@Model.SortOrder" value="BrugerId" onclick="this.form.submit()" />
+				BrugerId
+			</div>
+			<div class=form-group>
+				<label class="custom-control-label">Rækkefølge</label>
+				<select asp-for="@Model.SortOrderAscDesc" onchange="this.form.submit()">
+					<option value="Ascending">Stigende</option>
+					<option value="Descending">Faldende</option>
+				</select>
+			</div>
+		</p>
+	</form>
 
-<table style="width:85" class="table">
-	<thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
-		<tr>
-			@if (Model.CurrentBruger.Positionen == Position.Admin)
-			{
+	<table style="width:85" class="table">
+		<thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
+			<tr>
 				<th>BrugerId</th>
-			}
-			<th>Brugernavn</th>
-			<th>Fødselsdato</th>
-			<th>Køn</th>
-			<th>Email</th>
-			<th>Telefon</th>
-			<th>Medlemskab</th>
-			<th>Position</th>
-			<th>Billed</th>
-			<th>Verificeret</th>
-			@if (Model.CurrentBruger.Positionen == Position.Admin)
-			{
+				<th>Brugernavn</th>
+				<th>Fødselsdato</th>
+				<th>Køn</th>
+				<th>Email</th>
+				<th>Telefon</th>
+				<th>Medlemskab</th>
+				<th>Position</th>
+				<th>Billed</th>
+				<th>Verificeret</th>
 				<th>Handlinger</th>
-			}
-		</tr>
-	</thead>
-	<tbody style="text-align: center; margin: 3px;">
-		@if (Model.Brugere.Count() != 0)
-		{
-			@foreach (Bruger items in Model.Brugere)
+			</tr>
+		</thead>
+		<tbody style="text-align: center; margin: 3px;">
+			@if (Model.Brugere.Count() != 0)
 			{
-				<tr style="border-bottom: solid 1px; border-color: gray;">
-					@if (Model.CurrentBruger.Positionen == Position.Admin)
-					{
+				@foreach (Bruger items in Model.Brugere)
+				{
+					<tr style="border-bottom: solid 1px; border-color: gray;">
 						<td style="background-color: #E2EDF9;">@items.BrugerId</td>
-					}
-					<td style="background-color: #C7DDF4;">@items.Brugernavn</td>
-					<td style="background-color: #E2EDF9;">@items.Fødselsdato</td>
-					<td style="background-color: #C7DDF4;">@items.Kønnet</td>
-					<td style="background-color: #E2EDF9;">@items.Email</td>
-					<td style="background-color: #C7DDF4;">@items.Telefon</td>
-					<td style="background-color: #E2EDF9;">@items.MedlemskabsTypen</td>
-					<td style="background-color: #C7DDF4;">@items.Positionen</td>
-					<td style="background-color: #E2EDF9;">
-						@if (items.BilledUrl != null)
-						{
-							<img src="~/images/@items.BilledUrl" width="100px"
-								height="100px" /> 
-						}
-					</td>
-					<td style="background-color: #E2EDF9;">@(items.Verificeret ? "Verificeret" : "") </td>
-					@if (Model.CurrentBruger.Positionen == Position.Admin)
-					{
+						<td style="background-color: #C7DDF4;">@items.Brugernavn</td>
+						<td style="background-color: #E2EDF9;">@items.Fødselsdato</td>
+						<td style="background-color: #C7DDF4;">@items.Kønnet</td>
+						<td style="background-color: #E2EDF9;">@items.Email</td>
+						<td style="background-color: #C7DDF4;">@items.Telefon</td>
+						<td style="background-color: #E2EDF9;">@items.MedlemskabsTypen</td>
+						<td style="background-color: #C7DDF4;">@items.Positionen</td>
 						<td style="background-color: #E2EDF9;">
+							@if (items.BilledUrl != null)
+							{
+								<img src="~/images/@items.BilledUrl" width="100px"
+									 height="100px" />
+							}
+						</td>
+						<td style="background-color: #E2EDF9;">@(items.Verificeret ? "Verificeret" : "") </td>
+						<td style="background-color: #E2EDF9;">
+							<a asp-page="AdminUpdate" asp-route-brugerId="@items.BrugerId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">
+								Opdater
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+									<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+							</a>
+							<a asp-page="Delete" asp-route-brugerId="@items.BrugerId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">
+								Slet
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+									<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+									<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+								</svg>
+							</a>
 							@if (!items.Verificeret)
 							{
 								<a asp-page="Verify" asp-route-brugerId="@items.BrugerId" class="btn btn primary" style="color: white; background-color: green; border-color: green;">
@@ -121,23 +123,87 @@
 									</svg>
 								</a>
 							}
-							<a asp-page="AdminUpdate" asp-route-brugerId="@items.BrugerId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">
-								Opdater
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-									<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-							</a>
-							<a asp-page="Delete" asp-route-brugerId="@items.BrugerId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">
-								Slet
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-									<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-									<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-								</svg>
-							</a>
 						</td>
-					}
-				</tr>
+					</tr>
+				}
 			}
-		}
-	</tbody>
-</table>
+		</tbody>
+	</table>
+}
+else
+{
+	<form asp-handler="Filter" method="get">
+		<p>
+			<div class="form-group">
+				<label class="control-label">Søg efter brugernavn:</label>
+				<input type="text" asp-for="@Model.FilterCriteriaBrugernavn" onchange="this.form.submit()" />
+				<br />
+				<label class="control-label">Filtrer Efter Medlemskabstype</label>
+				<select asp-for="@Model.FilterCriteriaMedlemskab" asp-items="Html.GetEnumSelectList<MedlemskabsType>()" class="form-control">
+					<option value="All">All</option>
+				</select>
+				<label class="control-label">Filtrer Efter Position</label>
+				<select asp-for="@Model.FilterCriteriaPosition" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
+					<option value="All">All</option>
+				</select>
+				<br />
+				<input type="submit" value="Filter" class=btn btn-primary" style="color: white; background-color: grey; border-color: grey;" />
+			</div>
+		</p>
+	</form>
+
+	<form method="get">
+		<p>
+			<div class=form-group>
+				<label class="custom-control-label">Sortér efter</label>
+				<input type="radio" asp-for="@Model.SortOrder" value="Brugernavn" onclick="this.form.submit()" />
+				Brugernavn
+			</div>
+			<div>
+				<label class="custom-control-label">Rækkefølge</label>
+				<select asp-for="SortOrderAscDesc" onchange="this.form.submit()">
+					<option value="Ascending">Stigende</option>
+					<option value="Descending">Faldende</option>
+				</select>
+			</div>
+		</p>
+	</form>
+
+	<table style="width:85" class="table">
+		<thead style="text-align: center; background-color: #7AC5F4; border-bottom: solid 2px; border-color: black;">
+			<tr>
+				<th>Brugernavn</th>
+				<th>Køn</th>
+				<th>Email</th>
+				<th>Telefon</th>
+				<th>Medlemskab</th>
+				<th>Position</th>
+				<th>Billed</th>
+			</tr>
+		</thead>
+		<tbody style="text-align: center; margin: 3px;">
+			@if (Model.Brugere.Count() != 0)
+			{
+				@foreach (Bruger items in Model.Brugere)
+				{
+					<tr style="border-bottom: solid 1px; border-color: gray;">
+						<td style="background-color: #C7DDF4;">@items.Brugernavn</td>
+						<td style="background-color: #C7DDF4;">@items.Kønnet</td>
+						<td style="background-color: #E2EDF9;">@items.Email</td>
+						<td style="background-color: #C7DDF4;">@items.Telefon</td>
+						<td style="background-color: #E2EDF9;">@items.MedlemskabsTypen</td>
+						<td style="background-color: #C7DDF4;">@items.Positionen</td>
+						<td style="background-color: #E2EDF9;">
+							@if (items.BilledUrl != null)
+							{
+								<img src="~/images/@items.BilledUrl" width="100px"
+									 height="100px" />
+							}
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+}
+
