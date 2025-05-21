@@ -50,7 +50,7 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
                 MessageError = "Husk at klikke bekræft";
                 return Page();
             }
-            Hold.TilmeldteBrugere.Remove(CurrentBruger);
+            //Hold.TilmeldteBrugere.Remove(CurrentBruger);
             return RedirectToPage("ShowAllHold", new { holdId = holdId });
         }
     }

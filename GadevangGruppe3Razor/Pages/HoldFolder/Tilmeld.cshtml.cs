@@ -50,12 +50,12 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
                 MessageError = "Husk at klikke bekræft";
                 return Page();
             }
-            if (Hold.TilmeldteBrugere.Count > Hold.MaxMedlemstal)
-            {
-				MessageMaxTeamExceeded = "Holdet kan ikke have flere medlemmer";
-                return Page();
-            }
-            Hold.TilmeldteBrugere.Add(CurrentBruger);
+    //        if (Hold.TilmeldteBrugere.Count > Hold.MaxMedlemstal)
+    //        {
+				//MessageMaxTeamExceeded = "Holdet kan ikke have flere medlemmer";
+    //            return Page();
+    //        }
+            //Hold.TilmeldteBrugere.Add(CurrentBruger);
 			return RedirectToPage("ShowAllHold", new { holdId = holdId });
         }
     }

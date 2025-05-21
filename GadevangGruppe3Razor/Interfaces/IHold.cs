@@ -13,6 +13,5 @@ namespace GadevangGruppe3Razor.Interfaces
 		string Sted { get; set; }
 		double Pris { get; set; }
 		int MaxMedlemstal { get; set; }
-		List<Bruger> TilmeldteBrugere { get; set; }
 	}
 }

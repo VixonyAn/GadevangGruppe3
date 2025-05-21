@@ -48,15 +48,10 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
         public async Task<IActionResult> OnPostTilmeldAfmeldAsync(int holdId)
         {
             Hold = HoldListe.Find(h => h.HoldId == holdId);
-            if (!Hold.TilmeldteBrugere.Contains(CurrentBruger))
-            {
-				return RedirectToPage("Tilmeld", new { holdId = holdId });
-			}
-            else
-            {
-				return RedirectToPage("Afmeld", new { holdId = holdId });
-			}
-        }
+			return RedirectToPage("Tilmeld", new { holdId = holdId });
+
+			//return RedirectToPage("Afmeld", new { holdId = holdId });
+		}
         public async Task<IActionResult> OnPostDeleteAsync(int holdId)
         {
             return RedirectToPage("Delete", new { holdId = holdId });

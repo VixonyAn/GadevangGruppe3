@@ -35,13 +35,10 @@ namespace GadevangGruppe3Razor.Models
 
 		[Required(ErrorMessage = "Maximum medlemstal kan ikke være null")]
 		public int MaxMedlemstal { get; set; }
-		
-		[Required(ErrorMessage = "Listen af tilmeldte brugere kan ikke være null")]
-		public List<Bruger> TilmeldteBrugere { get; set; }
 
 		public Hold()
 		{
-			TilmeldteBrugere = new List<Bruger>();
+
 		}
 
         public Hold(int holdId, string holdnavn, string instruktørnavn, DateOnly startDato, DateOnly slutDato, string tid, string sted, double pris, int maxMedlemstal)
@@ -55,7 +52,6 @@ namespace GadevangGruppe3Razor.Models
 			Sted = sted;
 			Pris = pris;
 			MaxMedlemstal = maxMedlemstal;
-			TilmeldteBrugere = new List<Bruger>();
         }
 
 		public override string ToString()

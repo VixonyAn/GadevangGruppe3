@@ -34,11 +34,11 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
 				Bruger? instruktør = brugerListe.Find(b => b.Brugernavn == Hold.Instruktørnavn);
                 if (instruktør != null)
                 {
-					if (!Hold.TilmeldteBrugere.Contains(instruktør))
-                    {
-                        Hold.TilmeldteBrugere.Add(instruktør);
-                    }
-					return RedirectToPage("ShowAllHold", new { HoldId = HoldId });
+                    //if (!Hold.TilmeldteBrugere.Contains(instruktør))
+                    //               {
+                    //                   Hold.TilmeldteBrugere.Add(instruktør);
+                    //               }
+                    return RedirectToPage("ShowAllHold", new { HoldId = HoldId });
 				}
                 else
                 {
