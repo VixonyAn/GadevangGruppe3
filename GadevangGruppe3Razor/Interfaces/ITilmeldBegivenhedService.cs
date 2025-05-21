@@ -33,9 +33,9 @@ namespace GadevangGruppe3Razor.Interfaces
         Task<TilmeldBegivenhed?> GetTilmeldBByIdAsync(int brugerId, int eventId);
 
         /// <summary>
-        /// Indsætter en ny Tilmelding i databasen
+        /// Indsætter en ny Tilmelding (Begivenhed) i databasen
         /// </summary>
-        /// <param name="TilmeldBegivenhed">TilmeldBegivenhed objekt</param>
+        /// <param name="tilmeldB">TilmeldBegivenhed objekt</param>
         /// <returns>True hvis Tilmeldingen var oprettet</returns>
         Task<bool> CreateTilmeldBAsync(TilmeldBegivenhed tilmeldB);
 
