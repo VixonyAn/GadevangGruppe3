@@ -4,4 +4,18 @@
 	ViewData["Title"] = "Tilmeld Hold";
 }
 
+<h3 style="text-align: center">@Model.CurrentBruger.Brugernavn Du er ved at tilmelde dig til holdet: @Model.Hold.Holdnavn</h3>
+<br/>
+<br/>
+<h3 style="text-align: center">Ønsker du at fortsætte?</h3>
 
+<form method="post">
+	<span class="text-danger">@Model.MessageError</span>
+	<span class="text-danger">@Model.MessageMaxTeamExceeded</span>
+	<div class="form-group">
+		<input asp-for="@Model.Confirm" type="checkbox" id="Confirm" /> Bekræft at du ønsker at tilmelde dig til holdet
+	</div>
+	<div class="formgroup">
+		<input type="submit" value="Verificer" class="btn btn-primary" style="background-color: green; border-color: green;" />
+	</div>
+</form>

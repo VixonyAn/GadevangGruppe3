@@ -8,6 +8,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
     public class VerifyModel : PageModel
     {
         private IBrugerService _brugerService;
+
         [BindProperty] public Bruger Bruger { get; set; }
         [BindProperty] public Bruger CurrentBruger { get; set; }
         [BindProperty] public bool Confirm { get; set; }

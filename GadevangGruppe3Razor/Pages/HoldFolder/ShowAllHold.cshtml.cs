@@ -12,6 +12,7 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
         private IBrugerService _brugerService;
 
         [BindProperty] public List<Hold> HoldListe { get; set; }
+        [BindProperty] public Hold Hold { get; set; }
         [BindProperty] public Bruger CurrentBruger { get; set; }
         public string Email { get; set; }
 
@@ -33,6 +34,7 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
                 {
                     CurrentBruger = await _brugerService.GetBrugerByEmailAsync(Email);
 				}
+                Hold = new Hold();
                 HoldListe = await _holdService.GetAllHoldAsync();
             }
             catch (Exception ex)
@@ -43,16 +45,18 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
             return Page();
         }
 
-        public async Task<IActionResult> OnPostTilmeldAsync(int holdId)
+        public async Task<IActionResult> OnPostTilmeldAfmeldAsync(int holdId)
         {
-            return RedirectToPage("Tilmeld", new { holdId = holdId });
+            Hold = HoldListe.Find(h => h.HoldId == holdId);
+            if (!Hold.TilmeldteBrugere.Contains(CurrentBruger))
+            {
+				return RedirectToPage("Tilmeld", new { holdId = holdId });
+			}
+            else
+            {
+				return RedirectToPage("Afmeld", new { holdId = holdId });
+			}
         }
-
-        public async Task<IActionResult> OnPostAfmeldAsync(int holdId)
-        {
-            return RedirectToPage("Afmeld", new { holdId = holdId });
-        }
-
         public async Task<IActionResult> OnPostDeleteAsync(int holdId)
         {
             return RedirectToPage("Delete", new { holdId = holdId });

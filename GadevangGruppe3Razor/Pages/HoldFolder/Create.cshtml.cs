@@ -35,10 +35,9 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
                 if (instruktør != null)
                 {
 					if (!Hold.TilmeldteBrugere.Contains(instruktør))
-					{
-						MessageError = "Den angivede holdinstruktør er ikke tilmeldt holdet";
-						return Page();
-					}
+                    {
+                        Hold.TilmeldteBrugere.Add(instruktør);
+                    }
 					return RedirectToPage("ShowAllHold", new { HoldId = HoldId });
 				}
                 else
