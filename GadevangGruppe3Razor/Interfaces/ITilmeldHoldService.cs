@@ -8,7 +8,7 @@ namespace GadevangGruppe3Razor.Interfaces
         /// Henter alle Tilmeldinger fra databasen og returnerer som liste
         /// </summary>
         /// <returns>Liste af Tilmeldinger</returns>
-        Task<List<TilmeldHold>> GetAllTilmeldBAsync();
+        Task<List<TilmeldHold>> GetAllTilmeldHAsync();
 
         /// <summary>
         /// Henter alle Tilmeldinger til en specifik Hold fra databasen og returnerer som liste

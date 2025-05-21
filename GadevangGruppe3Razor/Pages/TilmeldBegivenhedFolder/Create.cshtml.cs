@@ -34,7 +34,7 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
         /// Funktion når Create siden bliver indlæst
         /// </summary>
         /// <param name="eventId">Id på Begivenheden man ønsker at tilmelde sig</param>
-        /// <returns>Begivenhedens Id, og brugerens Id</returns>
+        /// <returns>Begivenhedens Id, og Brugerens Id</returns>
         public async Task<IActionResult> OnGetAsync(int eventId)
         {
             try
@@ -62,7 +62,7 @@ namespace GadevangGruppe3Razor.Pages.TilmeldBegivenhedFolder
         /// Funktion når "Opret" klikkes på Create siden
         /// </summary>
         /// <returns>
-        /// True: Begivenhed bliver oprettet og brugeren sendt tilbage til oversigten
+        /// True: Tilmelding bliver oprettet og brugeren sendt tilbage til oversigten
         /// <br></br>
         /// False: ErrorMessage bliver aktiveret og siden genindlæses
         /// </returns>

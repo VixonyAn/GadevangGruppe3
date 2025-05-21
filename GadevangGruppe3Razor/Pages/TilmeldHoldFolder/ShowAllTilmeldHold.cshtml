@@ -1,4 +1,4 @@
-﻿@* @page
+﻿@page
 @using GadevangGruppe3Razor.Models
 @inject GadevangGruppe3Razor.Interfaces.IHoldService holdService;
 @inject GadevangGruppe3Razor.Interfaces.IBrugerService brugerService;
@@ -7,9 +7,7 @@
     ViewData["Title"] = "Se Alle Tilmeldinger Til Hold";
 }
 
-<h4>Der er @Model.HoldList.Count hold og @Model.TilmeldHList.Count tilmeldinger</h4>
-
-<br />
+<h4>Der er @Model.HoldSelectList.Count hold og @Model.TilmeldHList.Count tilmeldinger</h4>
 
 <form method="get">
     <p>
@@ -20,7 +18,6 @@
     </p>
 </form>
 
-<br />
 <br />
 
 <table>
@@ -34,6 +31,7 @@
         </tr>
     </thead>
     <tbody style="text-align: center; margin: 3px;">
+        <span class="text-danger">@Model.ConfirmRemoved</span>
         @if (Model.TilmeldHList.Count() != 0)
         {
             @foreach (TilmeldHold item in Model.TilmeldHList)
@@ -55,4 +53,4 @@
             }
         }
     </tbody>
-</table> *@
+</table>

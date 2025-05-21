@@ -35,28 +35,29 @@
 	<tbody style="text-align: center; margin: 3px;">
 		@if (Model.HoldListe.Count() != 0)
 		{
-			@foreach (Hold items in Model.HoldListe)
+			@foreach (Hold item in Model.HoldListe)
 			{
+				bool isTilmeldt = Model.Tilmeldinger.Any(tilmelding => tilmelding.HoldId == item.HoldId && tilmelding.BrugerId == Model.CurrentBruger.BrugerId);
 				<tr style="border-bottom: solid 1px; border-color: gray;">
 					@if (Model.CurrentBruger.Positionen == Position.Admin)
 					{
-						<td style="background-color: #C7DDF4;">@items.HoldId</td>
+						<td style="background-color: #C7DDF4;">@item.HoldId</td>
 					}
-					<td style="background-color: #E2EDF9;">@items.Holdnavn</td>
-					<td style="background-color: #C7DDF4;">@items.Instruktørnavn</td>
-					<td style="background-color: #E2EDF9;">@items.StartDato</td>
-					<td style="background-color: #C7DDF4;">@items.SlutDato</td>
-					<td style="background-color: #E2EDF9;">@items.Tid</td>
-					<td style="background-color: #C7DDF4;">@items.Sted</td>
-					<td style="background-color: #E2EDF9;">@items.Pris</td>
-					<td style="background-color: #C7DDF4;">@items.MaxMedlemstal</td>
+					<td style="background-color: #E2EDF9;">@item.Holdnavn</td>
+					<td style="background-color: #C7DDF4;">@item.Instruktørnavn</td>
+					<td style="background-color: #E2EDF9;">@item.StartDato</td>
+					<td style="background-color: #C7DDF4;">@item.SlutDato</td>
+					<td style="background-color: #E2EDF9;">@item.Tid</td>
+					<td style="background-color: #C7DDF4;">@item.Sted</td>
+					<td style="background-color: #E2EDF9;">@item.Pris</td>
+					<td style="background-color: #C7DDF4;">@item.MaxMedlemstal</td>
 					<td style="background-color: #C7DDF4;">
 						@if (Model.CurrentBruger.Positionen == Position.Admin)
 						{
-							<a asp-page="ShowAllTilmeldHold" asp-route-holdId="@items.HoldId" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">
+							<a asp-page="/TilmeldHoldFolder/ShowAllTilmeldHold" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">
 								Tilmeldinger
 							</a>
-							<a asp-page="Delete" asp-route-holdId="@items.HoldId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">
+							<a asp-page="Delete" asp-route-holdId="@item.HoldId" class="btn btn primary" style="color: white; background-color: #C94646; border-color: #C94646;">
 								Slet
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
 									<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
@@ -64,9 +65,13 @@
 								</svg>
 							</a>
 						}
+						else if (isTilmeldt == true)
+						{
+							<input type="submit" value="Tilmeld" class="btn btn primary" style="color: white; background-color: grey; border-color: grey;" />
+						}
 						else
 						{
-							<a asp-page="Tilmeld" asp-route-holdId="@items.HoldId" class="btn btn primary" style="color: white; background-color: green; border-color: green;">
+							<a asp-page="/TilmeldHoldFolder/Create" asp-route-holdId="@item.HoldId" class="btn btn primary" style="color: white; background-color: green; border-color: green;">
 								Tilmeld
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
 									<path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />

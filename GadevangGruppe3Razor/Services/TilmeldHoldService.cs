@@ -14,7 +14,7 @@ namespace GadevangGruppe3Razor.Services
         private string deleteSql = "Delete from TilmeldHold where BrugerId = @BrugerId and HoldId = @HoldId";
 
 
-        public async Task<List<TilmeldHold>> GetAllTilmeldBAsync()
+        public async Task<List<TilmeldHold>> GetAllTilmeldHAsync()
         {
             List<TilmeldHold> tilmeldHList = new List<TilmeldHold>();
             using (SqlConnection connection = new SqlConnection(connectionString))

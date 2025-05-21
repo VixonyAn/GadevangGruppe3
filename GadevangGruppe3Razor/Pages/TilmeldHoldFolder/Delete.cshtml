@@ -1,4 +1,30 @@
 ﻿@page
+@using GadevangGruppe3Razor.Models
 @model GadevangGruppe3Razor.Pages.TilmeldHoldFolder.DeleteModel
 @{
+    ViewData["Title"] = "Slet Tilmelding Til Hold";
 }
+
+<h3>Slet Tilmelding Til Hold</h3>
+
+<a asp-page="/TilmeldHoldFolder/ShowAllTilmeldHold" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Tilbage til oversigt</a>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.TilmeldH.BrugerId" class="control-label"></label>
+        <input asp-for="@Model.TilmeldH.BrugerId" style="display: br; width: 30%;" readonly class="form-control" />
+        <span asp-validation-for="@Model.TilmeldH.BrugerId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.TilmeldH.HoldId" class="control-label"></label>
+        <input asp-for="@Model.TilmeldH.HoldId" style="display: br; width: 30%;" readonly class="form-control" />
+        <span asp-validation-for="@Model.TilmeldH.HoldId" class="text-danger"></span>
+    </div>
+    <span class="text-danger">@Model.MessageError</span>
+    <div class="form-group">
+        <input asp-for="@Model.Confirm" type="checkbox" id="Bekræft" /> Bekræft at du ønsker at slette tilmeldingen
+    </div>
+    <div class="formgroup">
+        <input type="submit" value="Slet" class="btn btn-primary" style="background-color: #C94646; border-color: #C94646;" />
+    </div>
+</form>

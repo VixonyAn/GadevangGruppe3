@@ -8,22 +8,29 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
 {
     public class CreateModel : PageModel
     {
+        #region Instance Fields
         private IHoldService _holdService;
         private IBrugerService _brugerService;
+        #endregion
 
+        #region Properties
         [BindProperty] public Hold Hold { get; set; }
         [BindProperty] public int HoldId { get; set; }
         [BindProperty] public List<Bruger> Brugere { get; set; }
         public string MessageError { get; set; }
         public string MessageInvalidMaxMedlemstal { get; set; }
+        #endregion
 
+        #region Constructor
         public CreateModel(IHoldService holdService, IBrugerService brugerService)
         {
             _holdService = holdService;
             _brugerService = brugerService;
         }
+        #endregion
 
-        public async Task OnGetAsync(int holdId)
+        #region Methods
+        public void OnGet(int holdId)
         {
             Hold = new Hold();
             HoldId = holdId;
@@ -62,5 +69,6 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
             }
             return RedirectToPage("ShowAllHold", new { HoldId = HoldId });
         }
+        #endregion
     }
 }
