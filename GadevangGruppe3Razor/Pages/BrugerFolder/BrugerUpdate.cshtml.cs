@@ -8,8 +8,11 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 {
     public class BrugerUpdateModel : PageModel
     {
+		#region Instance field
 		private IBrugerService _brugerService;
+		#endregion
 
+		#region Properties
 		[BindProperty] public Bruger CurrentBruger { get; set; }
 		[BindProperty] public int BrugerId { get; set; }
 		[BindProperty] public string BilledUrl { get; set; }
@@ -18,12 +21,16 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 		public bool SelectCheck { get; set; }
 		public string MessageError { get; set; }
 		public string MessageEmptyPassword { get; set; }
+		#endregion
 
+		#region Constructor
 		public BrugerUpdateModel(IBrugerService brugerService)
 		{
 			_brugerService = brugerService;
 		}
+		#endregion
 
+		#region Methods
 		public async Task<IActionResult> OnGetAsync(int brugerId)
 		{
 			Email = HttpContext.Session.GetString("Email");
@@ -78,5 +85,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 				SelectCheck = false;
 			}
 		}
+		#endregion
 	}
 }

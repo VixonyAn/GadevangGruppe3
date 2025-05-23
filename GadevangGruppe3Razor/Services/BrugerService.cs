@@ -15,8 +15,8 @@ namespace GadevangGruppe3Razor.Services
         private string deleteSql = "Delete from Bruger where BrugerId = @BrugerId";
         private string adminUpdateSql = "Update Bruger set Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
         private string brugerUpdateSql = "Update Bruger set Brugernavn = @Brugernavn, Adgangskode = @Adgangskode, Email = @Email, Telefon = @Telefon, BilledUrl = @BilledUrl, Køn = @Køn where BrugerId = @BrugerId";
-        private string loginSql = "Select Email, Adgangskode from Bruger";
-        private string verifySql = "Update Bruger set Verificeret = @Verificeret where BrugerId = @BrugerId";
+        private string loginSql = "Select Email, Adgangskode from Bruger where Email = @Email and Adgangskode = @Adgangskode";
+        private string verifySql = "Update Bruger set Verificeret = @Verificeret w here BrugerId = @BrugerId";
         #endregion
 
         #region Methods
@@ -377,7 +377,7 @@ namespace GadevangGruppe3Razor.Services
 				Bruger bruger = null;
 				try
 				{
-					SqlCommand command = new SqlCommand(loginSql + " where Email = @Email and Adgangskode = @Adgangskode", connection);
+					SqlCommand command = new SqlCommand(loginSql, connection);
 					command.Parameters.AddWithValue("@Email", email);
 					command.Parameters.AddWithValue("@Adgangskode", adgangskode);
 					await command.Connection.OpenAsync();
@@ -392,12 +392,12 @@ namespace GadevangGruppe3Razor.Services
 				}
 				catch (SqlException sqlExp)
 				{
-					Console.WriteLine("Database error" + sqlExp.Message);
+					Console.WriteLine("Database error: " + sqlExp.Message);
 					throw sqlExp;
 				}
 				catch (Exception ex)
 				{
-					Console.WriteLine("Generel fejl: " + ex.Message);
+					Console.WriteLine("General error: " + ex.Message);
 					throw ex;
 				}
 				finally 

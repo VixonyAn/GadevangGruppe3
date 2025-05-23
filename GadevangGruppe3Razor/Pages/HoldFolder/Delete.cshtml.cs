@@ -19,6 +19,11 @@ namespace GadevangGruppe3Razor.Pages.HoldFolder
             _holdService = holdService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="holdId"></param>
+        /// <returns></returns>
         public async Task<IActionResult> OnGetAsync(int holdId)
         {
             HoldId = holdId;

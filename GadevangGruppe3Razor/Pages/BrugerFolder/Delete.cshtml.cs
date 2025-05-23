@@ -8,24 +8,41 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 {
     public class DeleteModel : PageModel
     {
-        private IBrugerService _brugerService;
+		#region Instance Field
+		private IBrugerService _brugerService;
+		#endregion
 
-        [BindProperty] public Bruger Bruger { get; set; }
+		#region Properties
+		[BindProperty] public Bruger Bruger { get; set; }
         [BindProperty] public int BrugerId { get; set; }
         [BindProperty] public bool Confirm { get; set; }
         public string MessageError { get; set; }
+		#endregion
 
-        public DeleteModel(IBrugerService brugerService)
+		#region Constructor
+		public DeleteModel(IBrugerService brugerService)
         {
             _brugerService = brugerService;
         }
-        public async Task<IActionResult> OnGetAsync(int brugerId)
+		#endregion
+
+		#region Methods
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="brugerId"></param>
+		/// <returns></returns>
+		public async Task<IActionResult> OnGetAsync(int brugerId)
         {
             BrugerId = brugerId;
             Bruger = await _brugerService.GetBrugerByIdAsync(BrugerId);
             return Page();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostAsync()
         {
             if (Confirm == false)
@@ -44,5 +61,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
             }
             return Page();
         }
-    }
+		#endregion
+	}
 }

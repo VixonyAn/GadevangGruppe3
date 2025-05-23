@@ -10,9 +10,12 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 {
     public class ShowAllBrugerModel : PageModel
     {
-        private IBrugerService _brugerService;
-        
-        public List<Bruger> Brugere { get; set; }
+		#region Instance Field
+		private IBrugerService _brugerService;
+		#endregion
+
+		#region Properties
+		public List<Bruger> Brugere { get; set; }
         public MedlemskabsType MedlemskabsType { get; set; }
         public Position Position { get; set; }
         [BindProperty(SupportsGet = true)] public string FilterCriteriaBrugernavn { get; set; }
@@ -22,12 +25,21 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         [BindProperty(SupportsGet = true)] public string SortOrderAscDesc { get; set; }
         [BindProperty] public Bruger CurrentBruger { get; set; }
         public string Email { get; set; }
+		#endregion
 
-        public ShowAllBrugerModel(IBrugerService brugerService)
+		#region Constructor
+		public ShowAllBrugerModel(IBrugerService brugerService)
         {
             _brugerService = brugerService;
         }
-        public async Task<IActionResult> OnGetAsync()
+		#endregion
+
+		#region Methods
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public async Task<IActionResult> OnGetAsync()
         {
             try
             {
@@ -77,11 +89,21 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
             return RedirectToPage("ShowAllBruger");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="brugerId"></param>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostDeleteAsync(int brugerId)
         {
             return RedirectToPage("Delete", new { brugerId = brugerId });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="brugerId"></param>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostUpdateAsync(int brugerId)
         {
             return RedirectToPage("AdminUpdate", new { brugerId = brugerId });
@@ -96,6 +118,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
             }
         }
 
+        
         private void FilterBrugerPosition()
         {
             if (!FilterCriteriaPosition.IsNullOrEmpty() && FilterCriteriaPosition != "All")
@@ -104,5 +127,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                 Brugere = Brugere.FindAll(b => b.Positionen == criteriaPosition);
             }
         }
-    }
+		#endregion
+	}
 }

@@ -7,19 +7,32 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 {
     public class VerifyModel : PageModel
     {
-        private IBrugerService _brugerService;
+		#region Instance Field
+		private IBrugerService _brugerService;
+		#endregion
 
-        [BindProperty] public Bruger Bruger { get; set; }
+		#region Properties
+		[BindProperty] public Bruger Bruger { get; set; }
         [BindProperty] public Bruger CurrentBruger { get; set; }
         [BindProperty] public bool Confirm { get; set; }
 		public string Email { get; set; }
         public string MessageError { get; set; }
-        
-        public VerifyModel(IBrugerService brugerService)
+		#endregion
+
+		#region Constructor
+		public VerifyModel(IBrugerService brugerService)
         {
             _brugerService = brugerService;
         }
-        public async Task<IActionResult> OnGetAsync(int brugerId)
+		#endregion
+
+		#region Methods
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="brugerId"></param>
+		/// <returns></returns>
+		public async Task<IActionResult> OnGetAsync(int brugerId)
         {
             try
             {
@@ -40,6 +53,12 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 			}
             return Page();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="brugerId"></param>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostAsync(int brugerId)
         {
 			Bruger = await _brugerService.GetBrugerByIdAsync(brugerId);
@@ -61,5 +80,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
                 return RedirectToPage("ShowAllBruger", new { brugerId = brugerId });
             }
 		}
-    }
+		#endregion
+	}
 }

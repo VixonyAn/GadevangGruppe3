@@ -11,6 +11,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 {
     public class CreateModel : PageModel
     {
+		#region Instance Fields
 		private IBrugerService _brugerService;
         private IWebHostEnvironment _webHostEnvironment;
 
@@ -21,19 +22,27 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         public string MessageError { get; set; }
         public string MessageErrorInvalidAlder { get; set; }
         public bool SelectCheck { get; set; }
+		#endregion
 
-        public CreateModel(IBrugerService brugerService, IWebHostEnvironment webHostEnvironment)
+		#region Constructor
+		public CreateModel(IBrugerService brugerService, IWebHostEnvironment webHostEnvironment)
         {
             _brugerService = brugerService;
             _webHostEnvironment = webHostEnvironment;
         }
+		#endregion
 
-        public void OnGet(int brugerId)
+		#region Methods
+		public void OnGet(int brugerId)
         {
             Bruger = new Bruger();
             BrugerId = brugerId;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostAsync()
         {
             if (Billed == null)
@@ -108,5 +117,6 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
 				SelectCheck = false;
 			}
 		}
-    }
+		#endregion
+	}
 }
