@@ -25,7 +25,10 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
         #endregion
 
         #region Methods
-        public void OnGet() { }
+        public void OnGet()
+        {
+            Begivenhed.Dato = DateTime.Now;
+        }
 
         /// <summary>
         /// Funktion når "Opret" klikkes på Create siden

@@ -7,56 +7,58 @@
 
 <h3>Opdater Begivenhed</h3>
 <br />
-<div class="container"
-     style="display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 15px;">
+<form method="post">
+    <div class="container"
+         style="display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 15px;">
 
-    <div class="long">
-        <div class="form-group">
-            <label asp-for="@Model.Begivenhed.Titel" class="control-label"></label>
-            <input asp-for="@Model.Begivenhed.Titel" style="display: br; width: 50%;" class="form-control" />
-            <span asp-validation-for="@Model.Begivenhed.Titel" class="text-danger"></span>
+        <div class="long">
+            <div class="form-group">
+                <label asp-for="@Model.Begivenhed.Titel" class="control-label"></label>
+                <input asp-for="@Model.Begivenhed.Titel" style="display: br; width: 50%;" class="form-control" />
+                <span asp-validation-for="@Model.Begivenhed.Titel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Begivenhed.Sted" class="control-label"></label>
+                <input asp-for="@Model.Begivenhed.Sted" style="display: br; width: 50%;" class="form-control" />
+                <span asp-validation-for="@Model.Begivenhed.Sted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Begivenhed.Dato" class="control-label"></label>
+                <input asp-for="@Model.Begivenhed.Dato" style="display: br; width: 50%;" class="form-control" />
+                <span asp-validation-for="@Model.Begivenhed.Dato" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Begivenhed.Beskrivelse" class="control-label"></label>
+                <input asp-for="@Model.Begivenhed.Beskrivelse" style="display: br; width: 90%;" class="form-control" />
+                <span asp-validation-for="@Model.Begivenhed.Beskrivelse" class="text-danger"></span>
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="@Model.Begivenhed.Sted" class="control-label"></label>
-            <input asp-for="@Model.Begivenhed.Sted" style="display: br; width: 50%;" class="form-control" />
-            <span asp-validation-for="@Model.Begivenhed.Sted" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.Begivenhed.Dato" class="control-label"></label>
-            <input asp-for="@Model.Begivenhed.Dato" style="display: br; width: 50%;" class="form-control" />
-            <span asp-validation-for="@Model.Begivenhed.Dato" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.Begivenhed.Beskrivelse" class="control-label"></label>
-            <input asp-for="@Model.Begivenhed.Beskrivelse" style="display: br; width: 90%;" class="form-control" />
-            <span asp-validation-for="@Model.Begivenhed.Beskrivelse" class="text-danger"></span>
+
+        <div class="short">
+            <div class="form-group">
+                <label asp-for="@Model.Begivenhed.EventId" class="control-label"></label>
+                <input asp-for="@Model.Begivenhed.EventId" style="display: br; width: 30%;" readonly class="form-control" />
+                <span asp-validation-for="@Model.Begivenhed.EventId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Begivenhed.MedlemMax" class="control-label"></label>
+                <input asp-for="@Model.Begivenhed.MedlemMax" style="display: br; width: 30%;" class="form-control" />
+                <span asp-validation-for="@Model.Begivenhed.MedlemMax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Begivenhed.Pris" class="control-label"></label>
+                <input asp-for="@Model.Begivenhed.Pris" style="display: br; width: 30%;" class="form-control" />
+                <span asp-validation-for="@Model.Begivenhed.Pris" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="formgroup">
+                <input type="submit" value="Opdater" class="btn btn-primary" style="background-color: green; border-color: green;" />
+            </div>
         </div>
     </div>
-
-    <div class="short">
-        <div class="form-group">
-            <label asp-for="@Model.Begivenhed.EventId" class="control-label"></label>
-            <input asp-for="@Model.Begivenhed.EventId" style="display: br; width: 30%;" readonly class="form-control" />
-            <span asp-validation-for="@Model.Begivenhed.EventId" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.Begivenhed.MedlemMax" class="control-label"></label>
-            <input asp-for="@Model.Begivenhed.MedlemMax" style="display: br; width: 30%;" class="form-control" />
-            <span asp-validation-for="@Model.Begivenhed.MedlemMax" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.Begivenhed.Pris" class="control-label"></label>
-            <input asp-for="@Model.Begivenhed.Pris" style="display: br; width: 30%;" class="form-control" />
-            <span asp-validation-for="@Model.Begivenhed.Pris" class="text-danger"></span>
-        </div>
-        <br />
-        <div class="formgroup">
-            <input type="submit" value="Opdater" class="btn btn-primary" style="background-color: green; border-color: green;" />
-        </div>
-    </div>
-</div>
+</form>
 <br />
 <a asp-page="ShowAllBegivenhed" class="btn btn primary" style="color: white; background-color: gray; border-color: gray;">Tilbage til oversigt</a>
 

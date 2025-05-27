@@ -37,6 +37,7 @@ namespace GadevangGruppe3Razor.Pages.BrugerFolder
         {
             Bruger = new Bruger();
             BrugerId = brugerId;
+            Bruger.Fødselsdato = DateOnly.FromDateTime(DateTime.Now);
         }
 
         /// <summary>

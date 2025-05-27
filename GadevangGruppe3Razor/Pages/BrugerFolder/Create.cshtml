@@ -22,11 +22,11 @@
 	</div>
 	<div class="form-group">
 		<label asp-for="@Model.Bruger.Fødselsdato" class="control-label"></label>
-		<input asp-for="@Model.Bruger.Fødselsdato" style="display: br; width: 20%;" class="form-control" />
+		<input type="date" asp-for="@Model.Bruger.Fødselsdato" style="display: br; width: 20%;" class="form-control" />
 	</div>
 	<div class="form-group">
 		<label class="control-label">Køn</label>
-		<select asp-for="@Model.SelectKøn" asp-items="Html.GetEnumSelectList<Køn>()" class="form-control">
+		<select asp-for="@Model.SelectKøn" asp-items="Html.GetEnumSelectList<Køn>()" style="display: br; width: 20%;" class="form-control">
 			<option value="Select">Vælg et køn</option>
 		</select>
 	</div>
