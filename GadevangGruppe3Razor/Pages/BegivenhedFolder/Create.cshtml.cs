@@ -27,6 +27,7 @@ namespace GadevangGruppe3Razor.Pages.BegivenhedFolder
         #region Methods
         public void OnGet()
         {
+            Begivenhed = new Begivenhed();
             Begivenhed.Dato = DateTime.Now;
         }
 
