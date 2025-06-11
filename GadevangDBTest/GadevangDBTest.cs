@@ -8,68 +8,68 @@ namespace GadevangDBTest
     [TestClass]
     public class GadevangServiceTest
     {
-        //#region Bruger Test
-        //[TestMethod]
-        //public void TestReadBruger()
-        //{
-        //    //Arrange
-        //    IBrugerService brugerService = new BrugerService();
-        //    List<Bruger> bruger = brugerService.GetAllBrugerAsync().Result;
+        #region Bruger Test
+        [TestMethod]
+        public void TestReadBruger()
+        {
+            //Arrange
+            IBrugerService brugerService = new BrugerService();
+            List<Bruger> bruger = brugerService.GetAllBrugerAsync().Result;
 
-        //    //Act
-        //    int numOfBruger = bruger.Count;
+            //Act
+            int numOfBruger = bruger.Count;
 
-        //    //Assert
-        //    Assert.IsNotNull(numOfBruger);
-        //}
+            //Assert
+            Assert.IsNotNull(numOfBruger);
+        }
 
-        //[TestMethod]
-        //public void TestCreateBruger()
-        //{
-        //    //Arrange
-        //    IBrugerService brugerService = new BrugerService();
-        //    List<Bruger> brugere = brugerService.GetAllBrugerAsync().Result;
+        [TestMethod]
+        public void TestCreateBruger()
+        {
+            //Arrange
+            IBrugerService brugerService = new BrugerService();
+            List<Bruger> brugere = brugerService.GetAllBrugerAsync().Result;
 
-        //    //Act
-        //    int numOfBrugerBefore = brugere.Count;
-        //    Bruger testBruger = new Bruger(999, "Vibeke Sandau", "JKL82", "VISA@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
-        //    bool ok = brugerService.CreateBrugerAsync(testBruger).Result;
-        //    brugere = brugerService.GetAllBrugerAsync().Result;
-        //    int numOfBrugerAfter = brugere.Count;
-        //    Bruger? removedBruger = brugerService.DeleteBrugerAsync(testBruger.BrugerId).Result;
+            //Act
+            int numOfBrugerBefore = brugere.Count;
+            Bruger testBruger = new Bruger(999, "Vibeke Sandau", "JKL82", DateOnly.Parse("1960-06-01"), Køn.Kvinde, "VISA@gtmail.dk", "33333333", "defaultImage.jpg", MedlemskabsType.Seniorer, Position.Medlem, true);
+            bool ok = brugerService.CreateBrugerAsync(testBruger).Result;
+            brugere = brugerService.GetAllBrugerAsync().Result;
+            int numOfBrugerAfter = brugere.Count;
+            Bruger? removedBruger = brugerService.DeleteBrugerAsync(testBruger.BrugerId).Result;
 
-        //    //Assert
-        //    Assert.AreEqual(numOfBrugerBefore + 1, numOfBrugerAfter);
-        //    Assert.IsTrue(ok);
-        //    Assert.AreEqual(removedBruger.BrugerId, testBruger.BrugerId);
+            //Assert
+            Assert.AreEqual(numOfBrugerBefore + 1, numOfBrugerAfter);
+            Assert.IsTrue(ok);
+            Assert.AreEqual(removedBruger.BrugerId, testBruger.BrugerId);
 
-        //}
-        
-        //[TestMethod]
-        //public void TestUpdateBruger()
-        //{
-        //    //Arrange
-        //    IBrugerService brugerService = new BrugerService();
-        //    List<Bruger> brugere = brugerService.GetAllBrugerAsync().Result;
+        }
 
-        //    //Act
-        //    int numOfBrugerBefore = brugere.Count;
-        //    Bruger testBruger = new Bruger(999, "Vibeke Sandau", "JKL82", "VISA@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
-        //    bool ok = brugerService.CreateBrugerAsync(testBruger).Result;
-        //    Bruger updateBruger = new Bruger(999, "Jytte Hermsgervørdenbrøtbørda", "JKL82", "JYHE@gtmail.dk", "33333333", MedlemskabsType.Seniorer, Position.Medlem, true);
-        //    bool updateOk = brugerService.UpdateBrugerAsync(testBruger.BrugerId, updateBruger).Result;
-        //    brugere = brugerService.GetAllBrugerAsync().Result;
-        //    int numOfBrugerAfter = brugere.Count;
-        //    Bruger? removedBruger = brugerService.DeleteBrugerAsync(testBruger.BrugerId).Result;
+        [TestMethod]
+        public void TestUpdateBruger()
+        {
+            //Arrange
+            IBrugerService brugerService = new BrugerService();
+            List<Bruger> brugere = brugerService.GetAllBrugerAsync().Result;
 
-        //    //Assert
-        //    Assert.AreEqual(numOfBrugerBefore + 1, numOfBrugerAfter);
-        //    Assert.IsTrue(ok);
-        //    Assert.IsTrue(updateOk);
-        //    Assert.AreEqual(removedBruger.Brugernavn, updateBruger.Brugernavn);
+            //Act
+            int numOfBrugerBefore = brugere.Count;
+            Bruger testBruger = new Bruger(999, "Vibeke Sandau", "JKL82", DateOnly.Parse("1960-06-01"), Køn.Kvinde, "VISA@gtmail.dk", "33333333", "defaultImage.jpg", MedlemskabsType.Seniorer, Position.Medlem, true);
+            bool ok = brugerService.CreateBrugerAsync(testBruger).Result;
+            Bruger updateBruger = new Bruger(999, "Jytte Hermsgervørdenbrøtbørda", "JKL82", DateOnly.Parse("1960-06-01"), Køn.Kvinde, "JYHE@gtmail.dk", "33333333", "defaultImage.jpg", MedlemskabsType.Seniorer, Position.Medlem, true);
+            bool updateOk = brugerService.BrugerUpdateBrugerAsync(testBruger.BrugerId, updateBruger).Result;
+            brugere = brugerService.GetAllBrugerAsync().Result;
+            int numOfBrugerAfter = brugere.Count;
+            Bruger? removedBruger = brugerService.DeleteBrugerAsync(testBruger.BrugerId).Result;
 
-        //}
-        //#endregion
+            //Assert
+            Assert.AreEqual(numOfBrugerBefore + 1, numOfBrugerAfter);
+            Assert.IsTrue(ok);
+            Assert.IsTrue(updateOk);
+            Assert.AreEqual(removedBruger.Brugernavn, updateBruger.Brugernavn);
+
+        }
+        #endregion
 
         #region Bane Test
         [TestMethod]

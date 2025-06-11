@@ -16,7 +16,7 @@ namespace GadevangGruppe3Razor.Services
         private string adminUpdateSql = "Update Bruger set Medlemskab = @Medlemskab, Position = @Position where BrugerId = @BrugerId";
         private string brugerUpdateSql = "Update Bruger set Brugernavn = @Brugernavn, Adgangskode = @Adgangskode, Email = @Email, Telefon = @Telefon, BilledUrl = @BilledUrl, Køn = @Køn where BrugerId = @BrugerId";
         private string loginSql = "Select Email, Adgangskode from Bruger where Email = @Email and Adgangskode = @Adgangskode";
-        private string verifySql = "Update Bruger set Verificeret = @Verificeret w here BrugerId = @BrugerId";
+        private string verifySql = "Update Bruger set Verificeret = @Verificeret where BrugerId = @BrugerId";
         #endregion
 
         #region Methods
